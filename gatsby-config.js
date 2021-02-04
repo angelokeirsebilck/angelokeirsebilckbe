@@ -5,6 +5,7 @@ require('dotenv').config({
 module.exports = {
     siteMetadata: {
         title: 'Angelo Keirsebilck',
+        siteUrl: 'https://angelokeirsebilckbe.netlify.app',
     },
     plugins: [
         'gatsby-plugin-styled-components',
