@@ -20,7 +20,7 @@ const Heading1 = styled.h1`
 const index = ({ data }) => {
     const {
         strapiHomebanner: {
-            Titel,
+            titel,
             image: {
                 childImageSharp: { fluid },
             },
@@ -46,7 +46,7 @@ export const query = graphql`
                     }
                 }
             }
-            Titel
+            titel
         }
     }
 `;
