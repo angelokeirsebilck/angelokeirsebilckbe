@@ -28,7 +28,7 @@ const index = ({ data }) => {
     } = data;
     return (
         <Main>
-            <Heading1>{Titel}</Heading1>
+            <Heading1>{titel}</Heading1>
             <ImageWrapper>
                 <Image fluid={fluid} />
             </ImageWrapper>
