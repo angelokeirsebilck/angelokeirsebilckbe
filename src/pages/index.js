@@ -4,10 +4,8 @@ import Image from 'gatsby-image';
 import styled from 'styled-components';
 import { Grid, Box } from 'react-raster';
 
-const Main = styled.main`
-    max-width: 1380px;
-    margin: 0 auto;
-`;
+// Components
+import Layout from '../components/layout/Layout';
 
 const ImageWrapper = styled.div`
     max-width: 500px;
@@ -29,13 +27,14 @@ const index = ({ data }) => {
             },
         },
     } = data;
+
     return (
-        <Main>
+        <Layout>
             <Heading1>{titel}</Heading1>
             <ImageWrapper>
                 <Image fluid={fluid} />
             </ImageWrapper>
-        </Main>
+        </Layout>
     );
 };
 

@@ -32,6 +32,7 @@
     "react-dom": "^16.13.1",
     "react-helmet": "^6.1.0",
     "react-raster": "^7.0.6",
-    "styled-components": "^5.2.1"
+    "styled-components": "^5.2.1",
+    "styled-reset": "^4.3.4"
   }
 }
