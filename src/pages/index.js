@@ -2,6 +2,7 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import Image from 'gatsby-image';
 import styled from 'styled-components';
+import { Grid, Box } from 'react-raster';
 
 const Main = styled.main`
     max-width: 1380px;
