@@ -15,6 +15,7 @@ const ImageWrapper = styled.div`
 
 const Heading1 = styled.h1`
     text-align: center;
+    color: red;
 `;
 
 const index = ({ data }) => {
