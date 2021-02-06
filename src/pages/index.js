@@ -2,10 +2,11 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import Image from 'gatsby-image';
 import styled from 'styled-components';
-import { Grid, Box } from 'react-raster';
+// import { Grid, Box } from 'react-raster';
 
 // Components
 import Layout from '../components/layout/Layout';
+import Nav from '../components/layout/Nav';
 
 const ImageWrapper = styled.div`
     max-width: 500px;
@@ -14,7 +15,7 @@ const ImageWrapper = styled.div`
 
 const Heading1 = styled.h1`
     text-align: center;
-    color: lightblue;
+    color: ${(props) => props.theme.textColor};
     font-size: 50px;
 `;
 
@@ -30,6 +31,7 @@ const index = ({ data }) => {
 
     return (
         <Layout>
+            <Nav />
             <Heading1>{titel}</Heading1>
             <ImageWrapper>
                 <Image fluid={fluid} />

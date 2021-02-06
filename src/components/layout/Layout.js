@@ -1,6 +1,7 @@
-import React from 'react';
-import styled, { createGlobalStyle } from 'styled-components';
+import React, { useState } from 'react';
+import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 import reset from 'styled-reset';
+import { connect } from 'react-redux';
 
 const GlobalStyle = createGlobalStyle`
     ${reset}
@@ -13,18 +14,46 @@ const GlobalStyle = createGlobalStyle`
     }
 `;
 
+const DarkTheme = {
+    pageBackground: '#1E2030',
+    textColor: '#FFF',
+};
+
+const LightTheme = {
+    pageBackground: '#FFF',
+    textColor: '#1E2030',
+};
+
+const themes = {
+    dark: DarkTheme,
+    light: LightTheme,
+};
+
+const Body = styled.div``;
+
 const Wrapper = styled.div`
     max-width: 1400px;
     margin: 0 auto;
 `;
 
-const Layout = ({ children }) => {
+const Layout = ({ children, global }) => {
     return (
-        <Wrapper>
-            <GlobalStyle />
-            {children}
-        </Wrapper>
+        <ThemeProvider theme={themes[global.colorMode]}>
+            <Body
+                style={
+                    global.colorMode == 'dark' ? { background: '#1E2030' } : { background: '#FFF' }
+                }>
+                <Wrapper>
+                    <GlobalStyle />
+                    {children}
+                </Wrapper>
+            </Body>
+        </ThemeProvider>
     );
 };
 
-export default Layout;
+const mapStateToProps = (state) => ({
+    global: state.global,
+});
+
+export default connect(mapStateToProps, null)(Layout);
