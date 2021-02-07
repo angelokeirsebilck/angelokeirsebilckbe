@@ -22,7 +22,7 @@ const Heading1 = styled.h1`
 const index = ({ data }) => {
     const {
         strapiHomebanner: {
-            titel,
+            tekst,
             image: {
                 childImageSharp: { fluid },
             },
@@ -32,7 +32,6 @@ const index = ({ data }) => {
     return (
         <Layout>
             <Nav />
-            <Heading1>{titel}</Heading1>
             <ImageWrapper>
                 <Image fluid={fluid} />
             </ImageWrapper>
@@ -43,14 +42,18 @@ const index = ({ data }) => {
 export const query = graphql`
     {
         strapiHomebanner {
+            Tekst {
+                Kleur
+                Tekst
+                id
+            }
             image {
                 childImageSharp {
                     fluid {
-                        ...GatsbyImageSharpFluid_withWebp
+                        ...GatsbyImageSharpFluid
                     }
                 }
             }
-            titel
         }
     }
 `;

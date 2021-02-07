@@ -29,11 +29,14 @@ const themes = {
     light: LightTheme,
 };
 
-const Body = styled.div``;
+const Body = styled.div`
+    min-height: 200vh;
+`;
 
 const Wrapper = styled.div`
-    max-width: 1400px;
+    max-width: 1140px;
     margin: 0 auto;
+    position: relative;
 `;
 
 const Layout = ({ children, global }) => {
