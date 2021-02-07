@@ -23,6 +23,7 @@ const NavFixedWrapper = styled.div`
     left: 0;
     right: 0;
     top: 30px;
+    z-index: 20;
 `;
 
 const HamburgerContainer = styled.div`

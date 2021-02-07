@@ -47,5 +47,15 @@ module.exports = {
                 singleTypes: ['homebanner'],
             },
         },
+        {
+            resolve: `gatsby-plugin-google-fonts`,
+            options: {
+                fonts: [
+                    `space mono\:400,700`,
+                    `montserrat \:300,300i,400i,500i,400,500,600,700`, // you can also specify font weights and styles
+                ],
+                display: 'swap',
+            },
+        },
     ],
 };
