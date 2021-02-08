@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { changeColorMode } from '../../../actions/globalActions';
+import { changeColorMode, toggleMenu } from '../../../actions/globalActions';
 import Switch from 'react-switch';
 import { HiSun, HiMoon } from 'react-icons/hi';
 import styled from 'styled-components';
@@ -39,7 +39,7 @@ const NavMain = styled.div`
     align-items: center;
 `;
 
-const Nav = ({ global, changeColorMode }) => {
+const Nav = ({ global, changeColorMode, toggleMenu }) => {
     const [checked, setChecked] = useState(false);
     const [isOpen, setOpen] = useState(false);
 
@@ -81,7 +81,7 @@ const Nav = ({ global, changeColorMode }) => {
                     aria-label='super secret label that is not visible'
                 />
                 <HamburgerContainer>
-                    <Hamburger color='#4FD1C5' />
+                    <Hamburger color='#4FD1C5' toggled={global.isMenuOpen} toggle={toggleMenu} />
                 </HamburgerContainer>
             </NavMain>
         </NavFixedWrapper>
@@ -92,4 +92,4 @@ const mapStateToProps = (state) => ({
     global: state.global,
 });
 
-export default connect(mapStateToProps, { changeColorMode })(Nav);
+export default connect(mapStateToProps, { changeColorMode, toggleMenu })(Nav);

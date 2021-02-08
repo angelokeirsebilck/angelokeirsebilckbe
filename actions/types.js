@@ -1,1 +1,2 @@
 export const CHANGE_COLOR_MODE = 'CHANGE_COLOR_MODE';
+export const TOGGLE_MENU = 'TOGGLE_MENU';

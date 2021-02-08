@@ -27,7 +27,7 @@ const ChevronArrow = styled.div`
     transform: scale3d(0.5, 0.5, 0.5);
     animation: ${move} 3s ease-out infinite;
 
-    &::first-child {
+    &:first-child {
         animation: ${move} 3s ease-out 1s infinite;
     }
 
