@@ -21,9 +21,9 @@ const PurpleCircelContainer = styled.div`
     overflow: hidden;
 `;
 
-const index = ({ global }) => {
+const index = ({ global, location }) => {
     return (
-        <Layout>
+        <Layout pathName={location.pathname}>
             <PurpleCircelContainer>
                 {global.colorMode == 'light' ? (
                     <svg

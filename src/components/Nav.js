@@ -6,6 +6,7 @@ import { Grid, Box } from 'react-raster';
 import { Link as GatsbyLink } from 'gatsby';
 import NavLinks from '../constants/main-nav';
 import Sizes from '../constants/breakpoints';
+import { toggleMenu } from '../../actions/globalActions';
 
 const NavContainer = styled.div`
     background: ${(props) => props.theme.pageBackground};
@@ -96,7 +97,7 @@ const NavButtonLineInner = styled.div`
 
 let boxHeight = (window.innerHeight / 6) * 2;
 
-const Nav = ({ global }) => {
+const Nav = ({ global, toggleMenu }) => {
     const [navTimeline, setNavTimeLine] = useState(gsap.timeline());
     const [lineTimelines, setBtnTimelines] = useState([]);
 
@@ -231,6 +232,10 @@ const Nav = ({ global }) => {
                                 }}
                                 cols={1}>
                                 <NavButton
+                                    exit={{
+                                        trigger: ({ exit, node }) =>
+                                            navTimeline.timeScale(4).reverse(),
+                                    }}
                                     onMouseEnter={() => {
                                         lineTimelines[index].play();
                                     }}
@@ -241,6 +246,10 @@ const Nav = ({ global }) => {
                                             lineTimelines[index].play();
                                         }
                                     }}
+                                    // onClick={async () => {
+                                    //     await navTimeline.timeScale(4).reverse();
+                                    //     toggleMenu();
+                                    // }}
                                     ref={addToBtnRefs}
                                     to={link.url}
                                     activeClassName='is-active'
@@ -268,4 +277,4 @@ const mapStateToProps = (state) => ({
     global: state.global,
 });
 
-export default connect(mapStateToProps, null)(Nav);
+export default connect(mapStateToProps, { toggleMenu })(Nav);

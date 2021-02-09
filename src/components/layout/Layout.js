@@ -40,6 +40,7 @@ const themes = {
 const Body = styled.div`
     min-height: 200vh;
     position: relative;
+    overflow-x: hidden;
 `;
 
 const Wrapper = styled.div`
@@ -71,7 +72,7 @@ const LineAnimations = styled.div`
     overflow: hidden;
 `;
 
-const Layout = ({ children, global }) => {
+const Layout = ({ children, global, pathName }) => {
     const lineRef = useRef([]);
     const lineAnimationsRef = useRef();
 
@@ -125,62 +126,102 @@ const Layout = ({ children, global }) => {
         lineRef.current = lineRef.current.slice(0, lineArray.length);
         const lines = [];
         // const lines2 = [];
+        const linesContainerTimeline = gsap.timeline({
+            scrollTrigger: {
+                trigger: lineAnimationsRef.current,
+                start: 'top top',
+                end: 'bottom center',
+                scrub: true,
+                markers: true,
+            },
+        });
+
+        linesContainerTimeline.fromTo(
+            lineAnimationsRef.current,
+            {
+                rotate: 0,
+            },
+            {
+                duration: 10,
+                rotate: 90,
+                y: -150,
+            }
+        );
+
+        const linesTimeline = gsap.timeline();
+        linesTimeline.addLabel('start', 0);
 
         lineArray.forEach((line, index) => {
-            lines.push(gsap.timeline());
-            // lines2.push(
-            //     gsap.timeline({
-            //         scrollTrigger: {
-            //             trigger: lineAnimationsRef.current,
-            //             start: 'top top',
-            //             end: 'bottom center',
-            //             scrub: true,
-            //             markers: true,
-            //         },
-            //     })
-            // );
-
-            lines[index]
+            linesTimeline
                 .fromTo(
                     lineRef.current[index],
                     {
-                        ease: 'Power4.easeOut',
+                        ease: 'power4',
                         opacity: 0,
-                        delay: line.delay,
                     },
                     {
                         y: 250,
                         x: 250,
                         opacity: 1,
-                        duration: line.duration / 2,
-                    }
+                        delay: line.delay,
+                        duration: line.duration,
+                        repeat: -1,
+                    },
+                    `start`
                 )
                 .to(
                     lineRef.current[index],
                     {
-                        ease: 'Power4.easeOut',
                         opacity: 0,
-                        y: 500,
-                        x: 500,
                         duration: line.duration / 2,
+                        repeat: -1,
                     },
-                    '-=2'
-                )
-                .repeat(-1);
-
-            // lines2[index].fromTo(
-            //     lineRef.current[index],
-            //     {
-            //         rotate: 45,
-            //         x: 0,
-            //     },
-            //     {
-            //         duration: 10,
-            //         y: -250,
-            //         rotate: 135,
-            //     }
-            // );
+                    `-=${line.delay + line.duration / 2}`
+                );
         });
+
+        // lineArray.forEach((line, index) => {
+        //     lines.push(gsap.timeline());
+        //     lines2.push(
+        //         gsap.timeline({
+        //             scrollTrigger: {
+        //                 trigger: lineAnimationsRef.current,
+        //                 start: 'top top',
+        //                 end: 'bottom center',
+        //                 scrub: true,
+        //                 markers: true,
+        //             },
+        //         })
+        //     );
+
+        //     lines[index]
+        //         .fromTo(
+        //             lineRef.current[index],
+        //             {
+        //                 ease: 'Power4.easeOut',
+        //                 opacity: 0,
+        //                 delay: line.delay,
+        //             },
+        //             {
+        //                 y: 250,
+        //                 x: 250,
+        //                 opacity: 1,
+        //                 duration: line.duration / 2,
+        //             }
+        //         )
+        //         .to(
+        //             lineRef.current[index],
+        //             {
+        //                 ease: 'Power4.easeOut',
+        //                 opacity: 0,
+        //                 y: 500,
+        //                 x: 500,
+        //                 duration: line.duration / 2,
+        //             },
+        //             '-=2'
+        //         )
+        //         .repeat(-1);
+        // });
     }, []);
 
     return (
@@ -191,21 +232,24 @@ const Layout = ({ children, global }) => {
                         ? { background: '#1E2030' }
                         : { background: '#f7f5f2' }
                 }>
-                <LineAnimations ref={lineAnimationsRef}>
-                    {lineArray.map((line, index) => {
-                        return (
-                            <Line
-                                key={index}
-                                ref={(el) => (lineRef.current[index] = el)}
-                                style={{
-                                    width: `${line.width}px`,
-                                    left: `${line.leftStart}px`,
-                                    top: `${line.topStart}px`,
-                                }}
-                            />
-                        );
-                    })}
-                </LineAnimations>
+                {pathName && (
+                    <LineAnimations ref={lineAnimationsRef}>
+                        {lineArray.map((line, index) => {
+                            return (
+                                <Line
+                                    key={index}
+                                    ref={(el) => (lineRef.current[index] = el)}
+                                    style={{
+                                        width: `${line.width}px`,
+                                        left: `${line.leftStart}px`,
+                                        top: `${line.topStart}px`,
+                                    }}
+                                />
+                            );
+                        })}
+                    </LineAnimations>
+                )}
+
                 <Wrapper>
                     <GlobalStyle />
                     {children}
