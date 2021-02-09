@@ -7,6 +7,7 @@ import { gsap } from 'gsap';
 
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Nav from '../Nav';
+import Sizes from '../../constants/breakpoints';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -44,6 +45,13 @@ const Body = styled.div`
 const Wrapper = styled.div`
     max-width: 1140px;
     margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    @media ${Sizes.sm} {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
 `;
 
 const Line = styled.div`

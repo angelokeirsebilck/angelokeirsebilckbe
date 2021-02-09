@@ -6,6 +6,8 @@ import { HiSun, HiMoon } from 'react-icons/hi';
 import styled from 'styled-components';
 import { Divide as Hamburger } from 'hamburger-react';
 
+import Sizes from '../../constants/breakpoints';
+
 const IconContainer = styled.div`
     padding-left: 5px;
     padding-top: 2px;
@@ -37,6 +39,13 @@ const NavMain = styled.div`
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    @media ${Sizes.sm} {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
 `;
 
 const Nav = ({ global, changeColorMode, toggleMenu }) => {

@@ -4,6 +4,8 @@ import { gsap } from 'gsap';
 import { connect } from 'react-redux';
 import { Grid, Box } from 'react-raster';
 import { Link as GatsbyLink } from 'gatsby';
+import NavLinks from '../constants/main-nav';
+import Sizes from '../constants/breakpoints';
 
 const NavContainer = styled.div`
     background: ${(props) => props.theme.pageBackground};
@@ -25,11 +27,12 @@ const LineOne = styled.div`
 `;
 
 const LineTwo = styled.div`
-    width: 0px;
+    width: 0;
     height: 1px;
     background: linear-gradient(to right, rgba(30, 174, 152, 1), rgba(207, 181, 250, 1));
     position: absolute;
     top: calc(100vh / 2);
+    right: -100%;
 `;
 
 const LineThree = styled.div`
@@ -58,13 +61,18 @@ const GridContainer = styled.div`
 
 const NavButton = styled(GatsbyLink)`
     font-family: 'Space Mono', monospace;
-    font-size: 36px;
+    font-size: 26px;
     color: rgba(30, 174, 152, 1);
     text-transform: lowercase;
     position: relative;
     text-decoration: none;
 
-    &:hover {
+    @media ${Sizes.sm} {
+        font-size: 36px;
+    }
+
+    &.is-active .Line {
+        background: linear-gradient(to left, rgba(207, 181, 250, 1), rgba(30, 174, 152, 1));
     }
 `;
 
@@ -73,7 +81,7 @@ const NavButtonLine = styled.div`
     width: 100%;
     height: 2px;
     overflow: hidden;
-    bottom: -5px;
+    bottom: -8px;
 `;
 
 const NavButtonLineInner = styled.div`
@@ -86,15 +94,11 @@ const NavButtonLineInner = styled.div`
     background-color: rgba(30, 174, 152, 1);
 `;
 
-const boxHeight = (window.innerHeight / 6) * 2;
+let boxHeight = (window.innerHeight / 6) * 2;
 
 const Nav = ({ global }) => {
     const [navTimeline, setNavTimeLine] = useState(gsap.timeline());
-
-    const [btnHomeTimeline, setbtnTimeline] = useState(gsap.timeline());
-    const [btnAboutTimeline, setbtnAboutTimeline] = useState(gsap.timeline());
-    const [btnProjectsTimeline, setbtnProjectsTimeline] = useState(gsap.timeline());
-    const [btnContactTimeline, setbtnContactTimeline] = useState(gsap.timeline());
+    const [lineTimelines, setBtnTimelines] = useState([]);
 
     const navRef = useRef();
 
@@ -103,10 +107,26 @@ const Nav = ({ global }) => {
     const lineThreeRef = useRef();
     const lineFourRef = useRef();
 
-    const lineHomeRef = useRef();
-    const lineAboutRef = useRef();
-    const lineProjectsRef = useRef();
-    const lineContactRef = useRef();
+    const lineRefs = useRef([]);
+    const btnRefs = useRef([]);
+
+    const addToLineRefs = (el) => {
+        if (el && !lineRefs.current.includes(el)) {
+            lineRefs.current.push(el);
+        }
+    };
+
+    const addToBtnRefs = (el) => {
+        if (el && !btnRefs.current.includes(el)) {
+            btnRefs.current.push(el);
+        }
+    };
+
+    const resizeBoxHeight = () => {
+        boxHeight = (window.innerHeight / 6) * 2;
+    };
+
+    window.addEventListener('resize', resizeBoxHeight);
 
     useEffect(() => {
         navTimeline.paused(true);
@@ -122,59 +142,48 @@ const Nav = ({ global }) => {
                 'background'
             )
             .to(lineOneRef.current, { width: '100%' }, 'background -=.5')
-            .to(lineTwoRef.current, { width: '100%' })
+            .fromTo(lineTwoRef.current, { right: 0 }, { x: 0, width: '100%' })
             .to(lineThreeRef.current, { width: '100%' })
-            .to(lineFourRef.current, { height: '100vh' }, 'background +=.5');
-
-        btnHomeTimeline.paused(true);
-        btnHomeTimeline
-            .to(lineHomeRef.current, {
-                x: '115%',
-                width: '100%',
-                duration: 0.4,
-            })
-            .to(lineHomeRef.current, {
-                x: '100%',
-                width: '100%',
-                duration: 0.6,
-                onComplete: addPause,
-                onCompleteParams: [btnHomeTimeline],
-            })
-            .to(
-                lineHomeRef.current,
+            .to(lineFourRef.current, { height: '100vh' }, 'background +=.5')
+            .from(
+                btnRefs.current,
                 {
-                    x: '200%',
-                    duration: 0.2,
-                    onComplete: reset,
-                    onCompleteParams: [btnHomeTimeline],
+                    opacity: 0,
+                    duration: 0.5,
+                    stagger: 0.2,
                 },
-                'endPos'
+                'background +=.5'
             );
 
-        btnAboutTimeline.paused(true);
-        btnAboutTimeline
-            .to(lineAboutRef.current, {
-                x: '115%',
-                width: '100%',
-                duration: 0.4,
-            })
-            .to(lineAboutRef.current, {
-                x: '100%',
-                width: '100%',
-                duration: 0.6,
-                onComplete: addPause,
-                onCompleteParams: [btnAboutTimeline],
-            })
-            .to(
-                lineAboutRef.current,
-                {
-                    x: '200%',
-                    duration: 0.2,
-                    onComplete: reset,
-                    onCompleteParams: [btnAboutTimeline],
-                },
-                'endPos'
-            );
+        NavLinks.forEach((link, index) => {
+            const timeline = gsap.timeline();
+            lineTimelines.push(timeline);
+
+            lineTimelines[index].paused(true);
+            lineTimelines[index]
+                .to(lineRefs.current[index], {
+                    x: '115%',
+                    width: '100%',
+                    duration: 0.4,
+                })
+                .to(lineRefs.current[index], {
+                    x: '100%',
+                    width: '100%',
+                    duration: 0.6,
+                    onComplete: addPause,
+                    onCompleteParams: [lineTimelines[index]],
+                })
+                .to(
+                    lineRefs.current[index],
+                    {
+                        x: '200%',
+                        duration: 0.2,
+                        onComplete: reset,
+                        onCompleteParams: [lineTimelines[index]],
+                    },
+                    'endPos'
+                );
+        });
     }, []);
 
     const addPause = (timeline) => {
@@ -209,108 +218,47 @@ const Nav = ({ global }) => {
                         width: '100%',
                     }}
                     control>
-                    <Box
-                        css={{
-                            height: boxHeight,
-                            width: '100%',
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                        }}
-                        cols={1}>
-                        <NavButton
-                            onMouseEnter={() => {
-                                btnHomeTimeline.play();
-                            }}
-                            onMouseLeave={() => {
-                                if (btnHomeTimeline.progress() < 0.8334) {
-                                    btnHomeTimeline.play('endPos');
-                                } else {
-                                    btnHomeTimeline.play();
-                                }
-                            }}
-                            to='/projects'>
-                            Home
-                            <NavButtonLine>
-                                <NavButtonLineInner ref={lineHomeRef} />
-                            </NavButtonLine>
-                        </NavButton>
-                    </Box>
-                    <Box
-                        css={{
-                            height: boxHeight,
-                            width: '100%',
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                        }}
-                        cols={1}>
-                        <NavButton
-                            onMouseEnter={() => {
-                                btnAboutTimeline.play();
-                            }}
-                            onMouseLeave={() => {
-                                if (btnAboutTimeline.progress() < 0.8334) {
-                                    btnAboutTimeline.play('endPos');
-                                } else {
-                                    btnAboutTimeline.play();
-                                }
-                            }}
-                            to='/projects'>
-                            Home
-                            <NavButtonLine>
-                                <NavButtonLineInner ref={lineAboutRef} />
-                            </NavButtonLine>
-                        </NavButton>
-                    </Box>
-                    <Box
-                        css={{
-                            height: boxHeight,
-                        }}
-                        cols={1}>
-                        {/* <NavButton
-                            onMouseEnter={() => {
-                                btnTimeline.play();
-                            }}
-                            onMouseLeave={() => {
-                                if (btnTimeline.progress() < 0.8334) {
-                                    btnTimeline.play('endPos');
-                                } else {
-                                    btnTimeline.play();
-                                }
-                            }}
-                            ref={homeButtonRef}
-                            to='/projects'>
-                            Home
-                            <NavButtonLine>
-                                <NavButtonLineInner ref={lineHomeRef} />
-                            </NavButtonLine>
-                        </NavButton> */}
-                    </Box>
-                    <Box
-                        css={{
-                            height: boxHeight,
-                        }}
-                        cols={1}>
-                        {/* <NavButton
-                            onMouseEnter={() => {
-                                btnTimeline.play();
-                            }}
-                            onMouseLeave={() => {
-                                if (btnTimeline.progress() < 0.8334) {
-                                    btnTimeline.play('endPos');
-                                } else {
-                                    btnTimeline.play();
-                                }
-                            }}
-                            ref={homeButtonRef}
-                            to='/projects'>
-                            Home
-                            <NavButtonLine>
-                                <NavButtonLineInner ref={lineHomeRef} />
-                            </NavButtonLine>
-                        </NavButton> */}
-                    </Box>
+                    {NavLinks.map((link, index) => {
+                        return (
+                            <Box
+                                key={index}
+                                css={{
+                                    height: boxHeight,
+                                    width: '100%',
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                }}
+                                cols={1}>
+                                <NavButton
+                                    onMouseEnter={() => {
+                                        lineTimelines[index].play();
+                                    }}
+                                    onMouseLeave={() => {
+                                        if (lineTimelines[index].progress() < 0.8334) {
+                                            lineTimelines[index].play('endPos');
+                                        } else {
+                                            lineTimelines[index].play();
+                                        }
+                                    }}
+                                    ref={addToBtnRefs}
+                                    to={link.url}
+                                    activeClassName='is-active'
+                                    activeStyle={{
+                                        background:
+                                            'linear-gradient(to right, rgba(207, 181, 250, 1), rgba(30, 174, 152, 1))',
+                                        WebkitBackgroundClip: 'text',
+                                        backgroundClip: 'text',
+                                        color: 'transparent',
+                                    }}>
+                                    {link.name}
+                                    <NavButtonLine>
+                                        <NavButtonLineInner className='Line' ref={addToLineRefs} />
+                                    </NavButtonLine>
+                                </NavButton>
+                            </Box>
+                        );
+                    })}
                 </Grid>
             </GridContainer>
         </NavContainer>

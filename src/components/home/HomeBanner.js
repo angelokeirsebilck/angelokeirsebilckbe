@@ -4,6 +4,9 @@ import Image from 'gatsby-image';
 import styled from 'styled-components';
 import { Grid, Box } from 'react-raster';
 import { gsap } from 'gsap';
+import { connect } from 'react-redux';
+
+import Sizes from '../../constants/breakpoints';
 
 // Components
 import Chevron from './Chevron';
@@ -38,29 +41,43 @@ const Container = styled.div`
 `;
 
 const Heading1 = styled.h1`
-    font-size: 36px;
+    font-size: 30px;
     margin-bottom: 10px;
     font-weight: bold;
+    line-height: 1.1;
 
     background: linear-gradient(to right, rgba(207, 181, 250, 1), rgba(30, 174, 152, 1));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+
+    @media ${Sizes.md} {
+        font-size: 36px;
+    }
 `;
 
 const ParagraphLine = styled.p`
-    font-size: 36px;
+    font-size: 30px;
     margin-bottom: 10px;
     position: absolute;
+    line-height: 1.1;
     &:last-of-type {
         margin-bottom: 0;
+    }
+
+    @media ${Sizes.md} {
+        font-size: 36px;
     }
 `;
 
 const AnimateContainer = styled.div`
     position: relative;
     overflow: hidden;
-    height: 36px;
+    height: 30px;
     margin-bottom: 10px;
+
+    @media ${Sizes.md} {
+        height: 31px;
+    }
 `;
 
 const ChevronContainer = styled.div`
@@ -77,7 +94,7 @@ const Line = styled.div`
     transform: rotate(45deg);
 `;
 
-const HomeBanner = () => {
+const HomeBanner = ({ addParagraphLine }) => {
     const data = useStaticQuery(query);
     const {
         strapiHomebanner: {
@@ -91,7 +108,6 @@ const HomeBanner = () => {
     // Gsap Refs
     const headingRef = useRef();
     // const lineRef = useRef([]);
-    const paragraphRef = useRef([]);
 
     // let randomYNumber = Math.floor(Math.random() * 200) + 100;
     // let randomXNumber = Math.floor(Math.random() * 200) + 100;
@@ -140,8 +156,23 @@ const HomeBanner = () => {
     //     });
     // }
 
+    const containerParagaphRefs = useRef([]);
+    const paragraphRef = useRef([]);
+
+    const addContainerParagrapgRefs = (el) => {
+        if (el && !containerParagaphRefs.current.includes(el)) {
+            containerParagaphRefs.current.push(el);
+        }
+    };
+
+    const addParagrapgRefs = (el) => {
+        if (el && !paragraphRef.current.includes(el)) {
+            paragraphRef.current.push(el);
+        }
+    };
+
     useEffect(() => {
-        paragraphRef.current = paragraphRef.current.slice(0, Tekst.length);
+        // paragraphRef.current = paragraphRef.current.slice(0, Tekst.length);
         // lineRef.current = lineRef.current.slice(0, lineArray.length);
 
         const text = gsap.timeline();
@@ -149,7 +180,7 @@ const HomeBanner = () => {
         text.from(paragraphRef.current[0], { y: '100%', duration: 0.4 });
         text.from(paragraphRef.current[1], { y: '100%', duration: 0.4 });
         text.from(paragraphRef.current[3], { y: '100%', duration: 0.4 });
-        text.from(headingRef.current, { y: '100%', duration: 0.5 });
+        text.from(paragraphRef.current[2], { y: '100%', duration: 0.5 });
 
         // lineArray.forEach((line, index) => {
         //     gsap.to(lineRef.current[index], {
@@ -160,7 +191,28 @@ const HomeBanner = () => {
         //         duration: line.duration,
         //     }).repeat(-1);
         // });
+        Tekst.forEach((container, index) => {
+            containerParagaphRefs.current[
+                index
+            ].style.height = `${paragraphRef.current[index].offsetHeight}px`;
+        });
     }, []);
+
+    const checkContainerParagrapghsHeight = () => {
+        Tekst.forEach((container, index) => {
+            containerParagaphRefs.current[
+                index
+            ].style.height = `${paragraphRef.current[index].offsetHeight}px`;
+        });
+    };
+    window.addEventListener('resize', checkContainerParagrapghsHeight);
+
+    // if (containerParagaphRefs.length > 1) {
+    //     Tekst.forEach((container, index) => {
+    //         containerParagaphRefs.current[index].style.height =
+    //             paragraphRef.current[index].offsetHeight;
+    //     });
+    // }
 
     return (
         <Container>
@@ -178,7 +230,12 @@ const HomeBanner = () => {
                 );
             })} */}
             {/* <Line ref={lineRef} width='100px' leftStart='30px' topStart='50px' /> */}
-            <Grid breakpoints={[0, 767]} colspan={2} gutterX={'20px'} css={{ width: '100%' }}>
+            <Grid
+                breakpoints={[0, 767]}
+                colspan={2}
+                gutterX={'20px'}
+                gutterY={['40px', 0]}
+                css={{ width: '100%' }}>
                 <Box
                     cols={[2, 1]}
                     css={{
@@ -189,17 +246,18 @@ const HomeBanner = () => {
                     {Tekst.map((p, index) => {
                         if (p.Kleur) {
                             return (
-                                <AnimateContainer key={p.id}>
-                                    <Heading1 ref={headingRef}>{p.Tekst}</Heading1>
+                                <AnimateContainer ref={addContainerParagrapgRefs} key={p.id}>
+                                    <Heading1 ref={addParagrapgRefs}>{p.Tekst}</Heading1>
                                 </AnimateContainer>
                             );
                         }
 
                         return (
-                            <AnimateContainer key={p.id}>
-                                <ParagraphLine ref={(el) => (paragraphRef.current[index] = el)}>
+                            <AnimateContainer key={p.id} ref={addContainerParagrapgRefs}>
+                                {/* <ParagraphLine ref={(el) => (paragraphRef.current[index] = el)}>
                                     {p.Tekst}
-                                </ParagraphLine>
+                                </ParagraphLine> */}
+                                <ParagraphLine ref={addParagrapgRefs}>{p.Tekst}</ParagraphLine>
                             </AnimateContainer>
                         );
                     })}
@@ -215,4 +273,6 @@ const HomeBanner = () => {
     );
 };
 
-export default HomeBanner;
+const mapStateToProps = (state) => ({});
+
+export default connect(mapStateToProps, {})(HomeBanner);

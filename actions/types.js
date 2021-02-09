@@ -1,2 +1,4 @@
 export const CHANGE_COLOR_MODE = 'CHANGE_COLOR_MODE';
 export const TOGGLE_MENU = 'TOGGLE_MENU';
+
+export const ADD_PARAGRAPH_LINE = 'ADD_PARAGRAPH_LINE';
