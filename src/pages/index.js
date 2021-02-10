@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { graphql } from 'gatsby';
 import Image from 'gatsby-image';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 
+import { gsap } from 'gsap';
 // import { Grid, Box } from 'react-raster';
 
 // Components
@@ -11,6 +12,7 @@ import Layout from '../components/layout/Layout';
 import HomeBanner from '../components/home/HomeBanner';
 import NavBar from '../components/layout/NavBar';
 import Nav from '../components/Nav';
+import CircleAnimation from '../components/home/CircleAnimation';
 
 const PurpleCircelContainer = styled.div`
     position: absolute;
@@ -22,9 +24,11 @@ const PurpleCircelContainer = styled.div`
 `;
 
 const index = ({ global, location }) => {
+    console.log('index page loaded');
+
     return (
         <Layout pathName={location.pathname}>
-            <PurpleCircelContainer>
+            {/* <PurpleCircelContainer>
                 {global.colorMode == 'light' ? (
                     <svg
                         width='694'
@@ -80,7 +84,8 @@ const index = ({ global, location }) => {
                         </defs>
                     </svg>
                 )}
-            </PurpleCircelContainer>
+            </PurpleCircelContainer> */}
+            <CircleAnimation />
             <NavBar />
             <HomeBanner />
         </Layout>

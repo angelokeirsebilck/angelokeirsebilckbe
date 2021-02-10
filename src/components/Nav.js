@@ -17,7 +17,7 @@ const NavContainer = styled.div`
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
+    transform: translateX(-100%);
     z-index: 19;
 `;
 
@@ -137,15 +137,7 @@ const Nav = ({ global, toggleMenu }) => {
         navTimeline.paused(true);
 
         navTimeline
-            .fromTo(
-                navRef.current,
-                { x: '-100%' },
-                {
-                    x: 0,
-                    duration: 1,
-                },
-                'background'
-            )
+            .to(navRef.current, { x: 0, duration: 1 }, 'background')
             .to(lineOneRef.current, { width: '100%' }, 'background -=.5')
             .fromTo(lineTwoRef.current, { right: 0 }, { x: 0, width: '100%' })
             .to(lineThreeRef.current, { width: '100%' })

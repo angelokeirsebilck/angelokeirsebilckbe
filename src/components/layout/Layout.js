@@ -150,64 +150,66 @@ const Layout = ({ children, global, pathName }) => {
     }
 
     useEffect(() => {
-        if (pathName == '/') {
-            lineRef.current = lineRef.current.slice(0, lineArray.length);
-            const lines = [];
-            // const lines2 = [];
-            const linesContainerTimeline = gsap.timeline({
-                scrollTrigger: {
-                    trigger: lineAnimationsRef.current,
-                    start: 'top top',
-                    end: 'bottom center',
-                    scrub: true,
-                    markers: true,
-                },
-            });
-
-            linesContainerTimeline.fromTo(
-                lineAnimationsRef.current,
-                {
-                    rotate: 0,
-                },
-                {
-                    duration: 10,
-                    rotate: 90,
-                    y: -150,
-                }
-            );
-
-            const linesTimeline = gsap.timeline();
-            linesTimeline.addLabel('start', 0);
-
-            lineArray.forEach((line, index) => {
-                linesTimeline
-                    .fromTo(
-                        lineRef.current[index],
-                        {
-                            ease: 'power4',
-                            opacity: 0,
-                        },
-                        {
-                            y: 250,
-                            x: 250,
-                            opacity: 1,
-                            delay: line.delay,
-                            duration: line.duration,
-                            repeat: -1,
-                        },
-                        `start`
-                    )
-                    .to(
-                        lineRef.current[index],
-                        {
-                            opacity: 0,
-                            duration: line.duration / 2,
-                            repeat: -1,
-                        },
-                        `-=${line.delay + line.duration / 2}`
-                    );
-            });
-        }
+        // if (pathName == '/') {
+        //     lineRef.current = lineRef.current.slice(0, lineArray.length);
+        //     const lines = [];
+        //     // const lines2 = [];
+        //     const linesContainerTimeline = gsap.timeline({
+        //         scrollTrigger: {
+        //             trigger: lineAnimationsRef.current,
+        //             start: 'top top',
+        //             end: 'bottom center',
+        //             scrub: true,
+        //             markers: true,
+        //         },
+        //     });
+        //     linesContainerTimeline.fromTo(
+        //         lineAnimationsRef.current,
+        //         {
+        //             rotate: 0,
+        //         },
+        //         {
+        //             duration: 10,
+        //             rotate: 90,
+        //             y: -150,
+        //         }
+        //     );
+        //     // const linesTimeline = gsap.timeline();
+        //     // linesTimeline.addLabel('start', 0);
+        //     lineArray.forEach((line, index) => {
+        //         console.log(
+        //             `line delay:   ${line.delay}   line duration: ${
+        //                 line.duration
+        //             }   line delay line duration /2:   ${line.delay + line.duration / 2}`
+        //         );
+        //         lines.push(gsap.timeline());
+        //         lines[index].addLabel('start', 0);
+        //         lines[index]
+        //             .fromTo(
+        //                 lineRef.current[index],
+        //                 {
+        //                     opacity: 0,
+        //                 },
+        //                 {
+        //                     y: 500,
+        //                     x: 500,
+        //                     opacity: 1,
+        //                     delay: line.delay,
+        //                     duration: line.duration / 2,
+        //                 },
+        //                 `start`
+        //             )
+        //             .to(
+        //                 lineRef.current[index],
+        //                 {
+        //                     opacity: 0,
+        //                     duration: line.duration / 2,
+        //                 },
+        //                 `-=${(line.delay + line.duration / 2) / 2}`
+        //             )
+        //             .repeat(-1);
+        //     });
+        // }
     }, []);
 
     return (
@@ -218,7 +220,7 @@ const Layout = ({ children, global, pathName }) => {
                         ? { background: '#1E2030' }
                         : { background: '#f7f5f2' }
                 }>
-                {pathName && (
+                {/* {pathName == '/' && (
                     <LineAnimations ref={lineAnimationsRef}>
                         {lineArray.map((line, index) => {
                             return (
@@ -234,7 +236,7 @@ const Layout = ({ children, global, pathName }) => {
                             );
                         })}
                     </LineAnimations>
-                )}
+                )} */}
 
                 <Wrapper>
                     <GlobalStyle />
@@ -246,7 +248,7 @@ const Layout = ({ children, global, pathName }) => {
                                 display: 'flex',
                                 flexDirection: 'column',
                                 position: 'fixed',
-                                height: '101vh',
+                                height: '100vh',
                                 width: '100%',
                                 top: 0,
                                 left: 0,
