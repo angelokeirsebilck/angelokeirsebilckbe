@@ -13,6 +13,7 @@ import HomeBanner from '../components/home/HomeBanner';
 import NavBar from '../components/layout/NavBar';
 import Nav from '../components/Nav';
 import CircleAnimation from '../components/home/CircleAnimation';
+import Projects from '../components/Projects';
 
 const PurpleCircelContainer = styled.div`
     position: absolute;
@@ -88,6 +89,7 @@ const index = ({ global, location }) => {
             <CircleAnimation />
             <NavBar />
             <HomeBanner />
+            <Projects />
         </Layout>
     );
 };

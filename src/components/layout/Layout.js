@@ -43,6 +43,7 @@ const Body = styled.div`
     min-height: 200vh;
     position: relative;
     overflow-x: hidden;
+    font-family: 'Space Mono', monospace;
 `;
 
 const Wrapper = styled.div`

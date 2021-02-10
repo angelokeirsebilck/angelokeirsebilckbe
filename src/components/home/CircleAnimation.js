@@ -106,9 +106,8 @@ const CircleAnimation = () => {
             scrollTrigger: {
                 trigger: '.Animation-circleContainer',
                 start: 'top top',
-                end: 'bottom 70%',
+                end: 'bottom 80%',
                 scrub: true,
-                markers: true,
             },
         });
         circleAnimationContainer.fromTo(
