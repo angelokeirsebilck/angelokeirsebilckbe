@@ -235,12 +235,7 @@ const HomeBanner = ({ addParagraphLine }) => {
                 );
             })} */}
             {/* <Line ref={lineRef} width='100px' leftStart='30px' topStart='50px' /> */}
-            <Grid
-                breakpoints={[0, 767]}
-                colspan={2}
-                gutterX={'20px'}
-                gutterY={['40px', 0]}
-                css={{ width: '100%' }}>
+            <Grid breakpoints={[0, 767]} colspan={2} gutterY={['40px', 0]} css={{ width: '100%' }}>
                 <Box
                     cols={[2, 1]}
                     css={{

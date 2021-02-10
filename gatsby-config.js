@@ -43,7 +43,7 @@ module.exports = {
             options: {
                 apiURL: process.env.STRAPI_URL,
                 queryLimit: 1000, // Default to 100
-                contentTypes: [],
+                contentTypes: ['project'],
                 //If using single types place them in this array.
                 singleTypes: ['homebanner'],
             },

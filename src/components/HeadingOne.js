@@ -7,7 +7,7 @@ import styled from 'styled-components';
 
 const Heading = styled.div`
     font-size: 24px;
-    margin-bottom: 10px;
+
     font-weight: bold;
     line-height: 1.1;
     position: relative;
@@ -26,6 +26,11 @@ const Heading = styled.div`
 const HeadingContainer = styled.div`
     display: flex;
     justify-content: center;
+    padding-bottom: 20px;
+
+    @media ${Sizes.md} {
+        padding-bottom: 40px;
+    }
 `;
 
 const TopLine = styled.div`

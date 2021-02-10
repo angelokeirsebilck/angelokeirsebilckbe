@@ -44,6 +44,8 @@ const Body = styled.div`
     position: relative;
     overflow-x: hidden;
     font-family: 'Space Mono', monospace;
+    line-height: 1.2;
+    letter-spacing: 1px;
 `;
 
 const Wrapper = styled.div`
