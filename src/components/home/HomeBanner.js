@@ -181,6 +181,11 @@ const HomeBanner = ({ addParagraphLine }) => {
         text.from(paragraphRef.current[1], { y: '100%', duration: 0.4 });
         text.from(paragraphRef.current[3], { y: '100%', duration: 0.4 });
         text.from(paragraphRef.current[2], { y: '100%', duration: 0.5 });
+        gsap.from('.HomeBanner-image', {
+            opacity: 0,
+            delay: 1.5,
+            duration: 1,
+        });
 
         // lineArray.forEach((line, index) => {
         //     gsap.to(lineRef.current[index], {
@@ -246,20 +251,14 @@ const HomeBanner = ({ addParagraphLine }) => {
                     {Tekst.map((p, index) => {
                         if (p.Kleur) {
                             return (
-                                <AnimateContainer
-                                    className='HomeBanner-animateText'
-                                    ref={addContainerParagrapgRefs}
-                                    key={p.id}>
+                                <AnimateContainer ref={addContainerParagrapgRefs} key={p.id}>
                                     <Heading1 ref={addParagrapgRefs}>{p.Tekst}</Heading1>
                                 </AnimateContainer>
                             );
                         }
 
                         return (
-                            <AnimateContainer
-                                className='HomeBanner-animateText'
-                                key={p.id}
-                                ref={addContainerParagrapgRefs}>
+                            <AnimateContainer key={p.id} ref={addContainerParagrapgRefs}>
                                 {/* <ParagraphLine ref={(el) => (paragraphRef.current[index] = el)}>
                                     {p.Tekst}
                                 </ParagraphLine> */}
@@ -268,7 +267,7 @@ const HomeBanner = ({ addParagraphLine }) => {
                         );
                     })}
                 </Box>
-                <Box cols={[2, 1]}>
+                <Box className='HomeBanner-image' cols={[2, 1]}>
                     <Image fluid={fluid} />
                 </Box>
             </Grid>

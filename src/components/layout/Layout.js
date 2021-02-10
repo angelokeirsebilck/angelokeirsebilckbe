@@ -314,11 +314,13 @@ export const ListTLink = (props) => {
 
 export const onEntryAnimation = (name, node) => {
     console.log(name);
-    return gsap.from(node.querySelectorAll('.HomeBanner-animateText'), {
-        opacity: 0,
-        delay: 1,
-        duration: 1,
-    });
+    // if (name == 'home') {
+    //     return gsap.from(node.querySelectorAll('.HomeBanner-image'), {
+    //         opacity: 0,
+    //         delay: 1.5,
+    //         duration: 1,
+    //     });
+    // }
 };
 
 // hidden object animation
