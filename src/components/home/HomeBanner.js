@@ -246,14 +246,20 @@ const HomeBanner = ({ addParagraphLine }) => {
                     {Tekst.map((p, index) => {
                         if (p.Kleur) {
                             return (
-                                <AnimateContainer ref={addContainerParagrapgRefs} key={p.id}>
+                                <AnimateContainer
+                                    className='HomeBanner-animateText'
+                                    ref={addContainerParagrapgRefs}
+                                    key={p.id}>
                                     <Heading1 ref={addParagrapgRefs}>{p.Tekst}</Heading1>
                                 </AnimateContainer>
                             );
                         }
 
                         return (
-                            <AnimateContainer key={p.id} ref={addContainerParagrapgRefs}>
+                            <AnimateContainer
+                                className='HomeBanner-animateText'
+                                key={p.id}
+                                ref={addContainerParagrapgRefs}>
                                 {/* <ParagraphLine ref={(el) => (paragraphRef.current[index] = el)}>
                                     {p.Tekst}
                                 </ParagraphLine> */}

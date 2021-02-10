@@ -3,10 +3,12 @@ import styled from 'styled-components';
 import { gsap } from 'gsap';
 import { connect } from 'react-redux';
 import { Grid, Box } from 'react-raster';
-import { Link as GatsbyLink } from 'gatsby';
+// import { Link as GatsbyLink } from 'gatsby';
 import NavLinks from '../constants/main-nav';
 import Sizes from '../constants/breakpoints';
 import { toggleMenu } from '../../actions/globalActions';
+
+import { ListTLink, animatePageTransition, onEntryAnimation } from '../components/layout/Layout';
 
 const NavContainer = styled.div`
     background: ${(props) => props.theme.pageBackground};
@@ -60,29 +62,29 @@ const GridContainer = styled.div`
     align-items: center;
 `;
 
-const NavButton = styled(GatsbyLink)`
-    font-family: 'Space Mono', monospace;
-    font-size: 26px;
-    color: rgba(30, 174, 152, 1);
-    text-transform: lowercase;
-    position: relative;
-    text-decoration: none;
+// const NavButton = styled(GatsbyLink)`
+//     font-family: 'Space Mono', monospace;
+//     font-size: 26px;
+//     color: rgba(30, 174, 152, 1);
+//     text-transform: lowercase;
+//     position: relative;
+//     text-decoration: none;
 
-    @media ${Sizes.sm} {
-        font-size: 36px;
-    }
+//     @media ${Sizes.sm} {
+//         font-size: 36px;
+//     }
 
-    &.is-active .Line {
-        background: linear-gradient(to left, rgba(207, 181, 250, 1), rgba(30, 174, 152, 1));
-    }
-`;
+//     &.is-active .Line {
+//         background: linear-gradient(to left, rgba(207, 181, 250, 1), rgba(30, 174, 152, 1));
+//     }
+// `;
 
 const NavButtonLine = styled.div`
     position: absolute;
     width: 100%;
     height: 2px;
     overflow: hidden;
-    bottom: -8px;
+    bottom: 10px;
 `;
 
 const NavButtonLineInner = styled.div`
@@ -94,6 +96,8 @@ const NavButtonLineInner = styled.div`
     opacity: 1;
     background-color: rgba(30, 174, 152, 1);
 `;
+
+const LinkWrapper = styled.div``;
 
 let boxHeight = (window.innerHeight / 6) * 2;
 
@@ -231,11 +235,7 @@ const Nav = ({ global, toggleMenu }) => {
                                     alignItems: 'center',
                                 }}
                                 cols={1}>
-                                <NavButton
-                                    exit={{
-                                        trigger: ({ exit, node }) =>
-                                            navTimeline.timeScale(4).reverse(),
-                                    }}
+                                <LinkWrapper
                                     onMouseEnter={() => {
                                         lineTimelines[index].play();
                                     }}
@@ -246,25 +246,28 @@ const Nav = ({ global, toggleMenu }) => {
                                             lineTimelines[index].play();
                                         }
                                     }}
-                                    // onClick={async () => {
-                                    //     await navTimeline.timeScale(4).reverse();
-                                    //     toggleMenu();
-                                    // }}
-                                    ref={addToBtnRefs}
-                                    to={link.url}
-                                    activeClassName='is-active'
-                                    activeStyle={{
-                                        background:
-                                            'linear-gradient(to right, rgba(207, 181, 250, 1), rgba(30, 174, 152, 1))',
-                                        WebkitBackgroundClip: 'text',
-                                        backgroundClip: 'text',
-                                        color: 'transparent',
-                                    }}>
-                                    {link.name}
-                                    <NavButtonLine>
-                                        <NavButtonLineInner className='Line' ref={addToLineRefs} />
-                                    </NavButtonLine>
-                                </NavButton>
+                                    onClick={() => {
+                                        toggleMenu();
+                                    }}
+                                    ref={addToBtnRefs}>
+                                    <ListTLink
+                                        exit={{
+                                            length: 5.5,
+                                            trigger: ({ exit, e, node }) =>
+                                                animatePageTransition(exit, node),
+                                        }}
+                                        entry={{
+                                            delay: 2,
+                                            trigger: ({ entry, node }) =>
+                                                onEntryAnimation(link.name, node),
+                                        }}
+                                        to={link.url}>
+                                        {link.name}
+                                        <NavButtonLine>
+                                            <NavButtonLineInner ref={addToLineRefs} />
+                                        </NavButtonLine>
+                                    </ListTLink>
+                                </LinkWrapper>
                             </Box>
                         );
                     })}
