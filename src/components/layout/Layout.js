@@ -53,6 +53,7 @@ const Wrapper = styled.div`
     margin: 0 auto;
     padding-left: 20px;
     padding-right: 20px;
+    position: relative;
 
     @media ${Sizes.sm} {
         padding-left: 40px;

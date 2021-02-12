@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 import styled from 'styled-components';
 import HeadingOne from './HeadingOne';
 import Sizes from '../constants/breakpoints';
 import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Grid, Box } from 'react-raster';
 import Image from 'gatsby-image';
 
@@ -31,19 +32,21 @@ const AnimationBackground = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 90%;
+    height: 90%;
 `;
 
 const Project = styled.div`
-    margin-top: 30px;
-    margin-bottom: 30px;
-
+    /* margin-top: 30px;
+    margin-bottom: 30px; */
+    /* padding-bottom: 400px; */
     /* & > *:first-of-type {
         margin-top: 110px;
     } */
 
     @media ${Sizes.md} {
-        margin-top: 60px;
-        margin-bottom: 60px;
+        /* margin-top: 60px;
+        margin-bottom: 60px; */
     }
 `;
 const ProjectTitle = styled.h2`
@@ -90,6 +93,19 @@ const ImageContainer = styled.div`
     }
 `;
 
+const CustomGrid = styled(Grid)`
+    width: 100%;
+    position: absolute;
+
+    &:before {
+        content: '';
+        width: 0;
+        padding-bottom: 100%;
+        grid-row: 1 / 1;
+        grid-column: 2;
+    }
+`;
+
 const GatsbyImageContainer = styled.div``;
 const query = graphql`
     {
@@ -118,77 +134,133 @@ const Projects = () => {
         allStrapiProject: { projects },
     } = useStaticQuery(query);
 
-    console.log(projects);
+    let projectTimeline = [];
+
+    const [animationBackgroundX, setAnimationBackgroundX] = useState();
+    const [loading, setLoading] = useState(true);
+
     const projectImagesRef = useRef([]);
+    const ghostContainerRefs = useRef([]);
+    const projectsContainer = useRef();
+    const headingOneRef = useRef();
+
     const addProjectImagesRefs = (el) => {
         if (el && !projectImagesRef.current.includes(el)) {
             projectImagesRef.current.push(el);
         }
     };
 
+    const addGhostContainerRefsRefs = (el) => {
+        if (el && !ghostContainerRefs.current.includes(el)) {
+            ghostContainerRefs.current.push(el);
+        }
+    };
+
     let animationProjectsContainer = document.querySelector('.Animation-projectsContainer');
+    // if (animationProjectsContainer != null) {
+    //     animationBackgroundX = animationProjectsContainer.offsetWidth / 2;
+    // }
 
-    let animationBackgroundWidth;
-    let animationBackgroundX;
-    if (animationProjectsContainer != null) {
-        animationBackgroundWidth = animationProjectsContainer.offsetWidth / 2 - 50;
-        animationBackgroundX = animationProjectsContainer.offsetWidth / 2;
-    }
+    const calculateAnimationBackgroundX = () => {
+        headingOneRef.current.style.paddingBottom = `${
+            projectsContainer.current.offsetWidth / 8
+        }px`;
+        // projectTimeline.length = 0;
+        if (animationProjectsContainer != null) {
+            setAnimationBackgroundX(projectsContainer.current.offsetWidth / 2);
+        }
 
-    useEffect(() => {
-        const projectList = gsap.utils.toArray('.Animation-project');
-        let projectTimeline = [];
-        let animationBackground = document.querySelector('.Animation-project');
+        // loadAnimations();
+    };
+
+    window.addEventListener('resize', calculateAnimationBackgroundX);
+
+    // if (loading) {
+    //     console.log('loading true');
+    //     setLoading(false);
+    //     setAnimationBackgroundX(projectsContainer.current.offsetWidth / 2);
+    // }
+    const goRight = (index) => {
+        console.log(animationBackgroundX);
+        projectImagesRef.current.forEach((projectImage, index2) => {
+            if (index != index2) {
+                projectImagesRef.current[index2].style.opacity = 0;
+                projectImagesRef.current[index2].style.height = 0;
+                // console.log(projectImagesRef.current[index]);
+            } else {
+                projectImagesRef.current[index].style.opacity = 1;
+                projectImagesRef.current[index2].style.opacity = 'initial';
+            }
+        });
+
+        gsap.to('.Animation-background', {
+            x: animationBackgroundX,
+            rotate: '3deg',
+            ease: 'elastic.out(1.1, 1.3)',
+        });
+    };
+
+    const goLeft = (index) => {
+        projectImagesRef.current.forEach((projectImage, index2) => {
+            if (index != index2) {
+                projectImagesRef.current[index2].style.opacity = 0;
+                projectImagesRef.current[index2].style.height = 0;
+                // console.log(projectImagesRef.current[index]);
+            } else {
+                projectImagesRef.current[index].style.opacity = 1;
+                projectImagesRef.current[index2].style.opacity = 'initial';
+            }
+        });
+        gsap.to('.Animation-background', {
+            x: 0,
+            rotate: '-3deg',
+            ease: 'elastic.out(1.1, 1.3)',
+        });
+    };
+
+    const calculateEndPont = (project, index) => {
+        let projectHeight = project.offsetHeight;
+        let bottom = projectHeight + 400;
+        console.log(`${project} ${index} bottom= ${bottom}`);
+        return `${bottom}px`;
+    };
+
+    const loadAnimations = () => {
+        // const projectList = gsap.utils.toArray('.Animation-project');
+        // let projectTimeline = [];
+        // let animationBackground = document.querySelector('.Animation-project');
         projectImagesRef.current[0].style.opacity = 1;
         projectImagesRef.current[0].style.opacity = 'initial';
-        const goRight = (index) => {
-            projectImagesRef.current.forEach((projectImage, index2) => {
-                if (index != index2) {
-                    projectImagesRef.current[index2].style.opacity = 0;
-                    projectImagesRef.current[index2].style.height = 0;
-                    // console.log(projectImagesRef.current[index]);
-                } else {
-                    projectImagesRef.current[index].style.opacity = 1;
-                    projectImagesRef.current[index2].style.opacity = 'initial';
-                }
-            });
+        if (!loading) {
+            setScrollTriggers();
+            setLoading(true);
+        }
+    };
 
-            gsap.to('.Animation-background', {
-                x: animationBackgroundX + 50,
-                rotate: '3deg',
-                ease: 'elastic.out(1.1, 1.3)',
-            });
-        };
+    const setScrollTriggers = () => {
+        // console.log('loadAnimation: ', animationBackgroundX);
+        let yValue = ghostContainerRefs.current[0].offsetHeight / 2 + 100;
+        console.log(yValue);
+        const projectList = gsap.utils.toArray('.Animation-project');
+        projectTimeline = [];
+        // console.log(projectTimeline);
 
-        const goLeft = (index) => {
-            projectImagesRef.current.forEach((projectImage, index2) => {
-                if (index != index2) {
-                    projectImagesRef.current[index2].style.opacity = 0;
-                    projectImagesRef.current[index2].style.height = 0;
-                    // console.log(projectImagesRef.current[index]);
-                } else {
-                    projectImagesRef.current[index].style.opacity = 1;
-                    projectImagesRef.current[index2].style.opacity = 'initial';
-                }
-            });
-            gsap.to('.Animation-background', {
-                x: 0,
-                rotate: '-3deg',
-                ease: 'elastic.out(1.1, 1.3)',
-            });
-        };
-        let yValue = 300;
-        projectList.forEach((project, index) => {
+        projectList.forEach((project, index, array) => {
             let projectHeight = project.offsetHeight;
-            let bottom = projectHeight + 400;
+            let bottom = projectHeight + ghostContainerRefs.current[index].offsetHeight;
 
-            if (index % 2 === 0) {
+            if (index == 0) {
+                console.log('first ', index);
+                // console.log('ghost first: ', ghostContainerRefs.current[index]);
                 projectTimeline.push(
                     gsap.timeline({
                         scrollTrigger: {
+                            invalidateOnRefresh: true,
                             trigger: project,
                             start: 'bottom center',
-                            end: `${bottom} center`,
+                            endTrigger: ghostContainerRefs.current[index],
+                            end: `bottom center`,
+                            // end: `bottom+=400 center`,
                             scrub: true,
                             markers: true,
                             toggleActions: 'play none none reverse',
@@ -203,112 +275,347 @@ const Projects = () => {
                     onComplete: goRight,
                     onCompleteParams: [index + 1],
                 });
-            } else {
-                let newY = animationBackground.style.top;
+
+                if (index == array.length - 2) {
+                    yValue = yValue + bottom / 2;
+                } else {
+                    yValue = yValue + bottom;
+                }
+
+                return;
+            }
+            if (index == array.length - 1) {
+                console.log('last');
                 projectTimeline.push(
                     gsap.timeline({
                         scrollTrigger: {
+                            invalidateOnRefresh: true,
                             trigger: project,
                             start: 'top center',
-                            end: `${bottom} center`,
+                            // end: `${project.offsetHeight + 400} center`,
+                            // endTrigger: ghostContainerRefs.current[index],
+                            end: `bottom center`,
                             scrub: true,
                             markers: true,
                             toggleActions: 'play none none reverse',
-                            onEnterBack: () => goLeft(),
+                            // onEnterBack: () => goRight(index),
                         },
                     })
                 );
 
                 projectTimeline[index].to('.Animation-background', {
                     y: yValue,
-                    onComplete: goRight,
-                    onCompleteParams: [index],
+                    // onComplete: goLeft,
+                    // onCompleteParams: [index + 1],
                 });
+
+                return;
             }
 
-            yValue = yValue + bottom;
+            if (index % 2 === 0) {
+                console.log('even niet first ', index);
+                // console.log('ghost even: ', ghostContainerRefs.current[index]);
+                projectTimeline.push(
+                    gsap.timeline({
+                        scrollTrigger: {
+                            invalidateOnRefresh: true,
+                            trigger: project,
+                            start: 'top center',
+                            endTrigger: ghostContainerRefs.current[index],
+                            end: `bottom center`,
+                            // end: `bottom+=400 center`,
+                            scrub: true,
+                            markers: true,
+                            toggleActions: 'play none none reverse',
+                            onEnterBack: () => goLeft(index),
+                        },
+                    })
+                );
+
+                projectTimeline[index].to('.Animation-background', {
+                    y: yValue,
+
+                    onComplete: goRight,
+                    onCompleteParams: [index + 1],
+                });
+                if (index == array.length - 2) {
+                    yValue = yValue + bottom / 2;
+                } else {
+                    yValue = yValue + bottom;
+                }
+            } else {
+                console.log('oneven ', index);
+                // console.log('ghost number oneven: ', ghostContainerRefs.current[index]);
+
+                projectTimeline.push(
+                    gsap.timeline({
+                        scrollTrigger: {
+                            invalidateOnRefresh: true,
+                            trigger: project,
+                            start: 'top center',
+                            // end: `${project.offsetHeight + 400} center`,
+                            endTrigger: ghostContainerRefs.current[index],
+                            end: `bottom center`,
+                            scrub: true,
+                            markers: true,
+                            toggleActions: 'play none none reverse',
+                            onEnterBack: () => goRight(index),
+                        },
+                    })
+                );
+
+                projectTimeline[index].to('.Animation-background', {
+                    y: yValue,
+                    onComplete: goLeft,
+                    onCompleteParams: [index + 1],
+                });
+                if (index == array.length - 2) {
+                    yValue = yValue + bottom / 2;
+                } else {
+                    yValue = yValue + bottom;
+                }
+            }
+
+            // if (index == 0) {
+            //     // console.log('first ', index);
+            //     // console.log('ghost first: ', ghostContainerRefs.current[index]);
+            //     projectTimeline.push(
+            //         gsap.timeline({
+            //             scrollTrigger: {
+            //                 // invalidateOnRefresh: true,
+            //                 trigger: project,
+            //                 start: 'bottom center',
+            //                 endTrigger: ghostContainerRefs.current[index],
+            //                 end: `bottom center`,
+            //                 // end: `bottom+=400 center`,
+            //                 scrub: true,
+            //                 markers: true,
+            //                 toggleActions: 'play none none reverse',
+            //                 onEnterBack: () => goLeft(index),
+            //             },
+            //         })
+            //     );
+
+            //     projectTimeline[index].to('.Animation-background', {
+            //         y: yValue,
+
+            //         onComplete: goRight,
+            //         onCompleteParams: [index + 1],
+            //     });
+
+            // } else if (index % 2 === 0) {
+            //     // console.log('even niet first ', index);
+            //     // console.log('ghost even: ', ghostContainerRefs.current[index]);
+            //     projectTimeline.push(
+            //         gsap.timeline({
+            //             scrollTrigger: {
+            //                 invalidateOnRefresh: true,
+            //                 trigger: project,
+            //                 start: 'top center',
+            //                 endTrigger: ghostContainerRefs.current[index],
+            //                 end: `bottom center`,
+            //                 // end: `bottom+=400 center`,
+            //                 scrub: true,
+            //                 markers: true,
+            //                 toggleActions: 'play none none reverse',
+            //                 onEnterBack: () => goLeft(index),
+            //             },
+            //         })
+            //     );
+
+            //     projectTimeline[index].to('.Animation-background', {
+            //         y: yValue,
+
+            //         onComplete: goRight,
+            //         onCompleteParams: [index + 1],
+            //     });
+            // } else if (index == array.length - 1) {
+
+            //     projectTimeline.push(
+            //         gsap.timeline({
+            //             scrollTrigger: {
+            //                 invalidateOnRefresh: true,
+            //                 trigger: project,
+            //                 start: 'top center',
+            //                 // end: `${project.offsetHeight + 400} center`,
+            //                 endTrigger: ghostContainerRefs.current[index],
+            //                 end: `bottom center`,
+            //                 scrub: true,
+            //                 markers: true,
+            //                 toggleActions: 'play none none reverse',
+            //                 onEnterBack: () => goRight(index),
+            //             },
+            //         })
+            //     );
+
+            //     projectTimeline[index].to('.Animation-background', {
+            //         y: yValue,
+            //         onComplete: goLeft,
+            //         onCompleteParams: [index + 1],
+            //     });
+            // } else {
+            //     console.log('oneven ', index);
+            //     // console.log('ghost number oneven: ', ghostContainerRefs.current[index]);
+
+            //     projectTimeline.push(
+            //         gsap.timeline({
+            //             scrollTrigger: {
+            //                 invalidateOnRefresh: true,
+            //                 trigger: project,
+            //                 start: 'top center',
+            //                 // end: `${project.offsetHeight + 400} center`,
+            //                 endTrigger: ghostContainerRefs.current[index],
+            //                 end: `bottom center`,
+            //                 scrub: true,
+            //                 markers: true,
+            //                 toggleActions: 'play none none reverse',
+            //                 onEnterBack: () => goRight(index),
+            //             },
+            //         })
+            //     );
+
+            //     projectTimeline[index].to('.Animation-background', {
+            //         y: yValue,
+            //         onComplete: goLeft,
+            //         onCompleteParams: [index + 1],
+            //     });
+            // }
+            // console.log(yValue);
         });
+    };
+
+    useEffect(() => {
+        // setAnimationBackgroundX(projectsContainer.current.offsetWidth / 2);
+        // console.log(projectsContainer.current.offsetWidth / 2);
+        // setAnimationBackgroundX(projectsContainer.current.offsetWidth / 2);
+        if (loading) {
+            console.log('loading true');
+            setLoading(false);
+            setAnimationBackgroundX(projectsContainer.current.offsetWidth / 2);
+            ghostContainerRefs.current.forEach((ref) => {
+                ref.style.height = `${projectsContainer.current.offsetWidth / 2}px`;
+            });
+            // console.log(headingOneRef);
+            headingOneRef.current.style.paddingBottom = `${
+                projectsContainer.current.offsetWidth / 8
+            }px`;
+        }
+        loadAnimations();
     }, [animationBackgroundX]);
 
     return (
-        <ProjectsContainer className='Animation-projectsContainer'>
-            <AnimationBackground
-                css={{
-                    width: `${animationBackgroundWidth}px`,
-                    height: `${animationBackgroundWidth}px`,
-                }}
-                className='Animation-background'>
-                <ImageContainer>
-                    {projects.map((project, index) => {
-                        return (
-                            <GatsbyImageContainer
-                                key={index}
-                                className='Animation-projectImage'
-                                ref={addProjectImagesRefs}>
-                                <Image fluid={project.Image.childImageSharp.fluid} />
-                            </GatsbyImageContainer>
-                        );
-                    })}
-                </ImageContainer>
-                {/* <ImageContainer>
+        <ProjectsContainer ref={projectsContainer} className='Animation-projectsContainer'>
+            <CustomGrid colspan={2}>
+                <Box cols={1}>
+                    <AnimationBackground
+                        // css={{
+                        //     width: `${animationBackgroundWidth}px`,
+                        //     height: `${animationBackgroundWidth}px`,
+                        // }}
+                        className='Animation-background'>
+                        <ImageContainer>
+                            {projects.map((project, index) => {
+                                return (
+                                    <GatsbyImageContainer
+                                        key={index}
+                                        className='Animation-projectImage'
+                                        ref={addProjectImagesRefs}>
+                                        <Image fluid={project.Image.childImageSharp.fluid} />
+                                    </GatsbyImageContainer>
+                                );
+                            })}
+                        </ImageContainer>
+                        {/* <ImageContainer>
                     <Image
                         ref={projectImageRef}
                         className='Animation-projectImage'
                         fluid={projects[0].Image.childImageSharp.fluid}
                     />
                 </ImageContainer> */}
-            </AnimationBackground>
-            <HeadingOne title='Projects' />
-            <Project className='Animation-project'>
-                <Grid
-                    breakpoints={[0, 767]}
-                    colspan={2}
-                    gutterX={'40px'}
-                    gutterY={['40px', 0]}
-                    css={{ width: '100%' }}>
-                    <Box className='HomeBanner-image' cols={[2, 1]}></Box>
-                    <Box
-                        cols={[2, 1]}
-                        css={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                        }}>
-                        <ProjectTitle>{projects[0].Title}</ProjectTitle>
-                        <ProjectText>{projects[0].Text}</ProjectText>
-                        <StackContainer>
-                            {projects[0].StackList.map((stack) => {
-                                return <StackItem key={stack.id}> {stack.Stack}</StackItem>;
-                            })}
-                        </StackContainer>
-                    </Box>
-                </Grid>
-            </Project>
-            <GhostContainer className='Animation-ghostContainer' />
-            <Project className='Animation-project'>
-                <Grid
-                    breakpoints={[0, 767]}
-                    colspan={2}
-                    gutterX={'40px'}
-                    gutterY={['40px', 0]}
-                    css={{ width: '100%' }}>
-                    <Box
-                        cols={[2, 1]}
-                        css={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                        }}>
-                        <ProjectTitle>{projects[1].Title}</ProjectTitle>
-                        <ProjectText>{projects[1].Text}</ProjectText>
-                        <StackContainer>
-                            {projects[1].StackList.map((stack) => {
-                                return <StackItem key={stack.id}> {stack.Stack}</StackItem>;
-                            })}
-                        </StackContainer>
-                    </Box>
-                    <Box className='HomeBanner-image' cols={[2, 1]}></Box>
-                </Grid>
-            </Project>
-            <GhostContainer className='Animation-ghostContainer' />
+                    </AnimationBackground>
+                </Box>
+            </CustomGrid>
+
+            <HeadingOne forwardRef={headingOneRef} title='Projects' />
+            {projects.map((project, index) => {
+                if (index % 2 === 0) {
+                    return (
+                        <Fragment key={index}>
+                            <Project className='Animation-project'>
+                                <Grid
+                                    breakpoints={[0, 767]}
+                                    colspan={2}
+                                    gutterX={'40px'}
+                                    gutterY={['40px', 0]}
+                                    css={{ width: '100%' }}>
+                                    <Box className='HomeBanner-image' cols={[2, 1]}></Box>
+                                    <Box
+                                        cols={[2, 1]}
+                                        css={{
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                        }}>
+                                        <ProjectTitle>{project.Title}</ProjectTitle>
+                                        <ProjectText>{project.Text}</ProjectText>
+                                        <StackContainer>
+                                            {project.StackList.map((stack) => {
+                                                return (
+                                                    <StackItem key={stack.id}>
+                                                        {' '}
+                                                        {stack.Stack}
+                                                    </StackItem>
+                                                );
+                                            })}
+                                        </StackContainer>
+                                    </Box>
+                                </Grid>
+                            </Project>
+                            <GhostContainer
+                                ref={addGhostContainerRefsRefs}
+                                className='Animation-ghostContainer'
+                            />
+                        </Fragment>
+                    );
+                } else {
+                    return (
+                        <Fragment key={index}>
+                            <Project className='Animation-project'>
+                                <Grid
+                                    breakpoints={[0, 767]}
+                                    colspan={2}
+                                    gutterX={'40px'}
+                                    gutterY={['40px', 0]}
+                                    css={{ width: '100%' }}>
+                                    <Box
+                                        cols={[2, 1]}
+                                        css={{
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                        }}>
+                                        <ProjectTitle>{project.Title}</ProjectTitle>
+                                        <ProjectText>{project.Text}</ProjectText>
+                                        <StackContainer>
+                                            {project.StackList.map((stack) => {
+                                                return (
+                                                    <StackItem key={stack.id}>
+                                                        {' '}
+                                                        {stack.Stack}
+                                                    </StackItem>
+                                                );
+                                            })}
+                                        </StackContainer>
+                                    </Box>
+                                    <Box className='HomeBanner-image' cols={[2, 1]}></Box>
+                                </Grid>
+                            </Project>
+                            <GhostContainer
+                                ref={addGhostContainerRefsRefs}
+                                className='Animation-ghostContainer'
+                            />
+                        </Fragment>
+                    );
+                }
+            })}
         </ProjectsContainer>
     );
 };

@@ -3,7 +3,7 @@ import { gsap } from 'gsap';
 import styled from 'styled-components';
 
 const CircleAnimationsContainer = styled.div`
-    position: fixed;
+    position: absolute;
     height: 100vh;
     width: 100%;
     left: 0;

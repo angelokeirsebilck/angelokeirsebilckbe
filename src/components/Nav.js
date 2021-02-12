@@ -6,7 +6,8 @@ import { Grid, Box } from 'react-raster';
 // import { Link as GatsbyLink } from 'gatsby';
 import NavLinks from '../constants/main-nav';
 import Sizes from '../constants/breakpoints';
-import { toggleMenu } from '../../actions/globalActions';
+import { toggleMenu, changePage } from '../../actions/globalActions';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import { ListTLink, animatePageTransition, onEntryAnimation } from '../components/layout/Layout';
 
@@ -101,7 +102,7 @@ const LinkWrapper = styled.div``;
 
 let boxHeight = (window.innerHeight / 6) * 2;
 
-const Nav = ({ global, toggleMenu }) => {
+const Nav = ({ global, toggleMenu, changePage }) => {
     const [navTimeline, setNavTimeLine] = useState(gsap.timeline());
     const [lineTimelines, setBtnTimelines] = useState([]);
 
@@ -245,13 +246,25 @@ const Nav = ({ global, toggleMenu }) => {
                                     <ListTLink
                                         exit={{
                                             length: 5.5,
-                                            trigger: ({ exit, e, node }) =>
-                                                animatePageTransition(exit, node),
+                                            trigger: ({ exit, e, node }) => {
+                                                const scrollTriggerArray = ScrollTrigger.getAll();
+                                                scrollTriggerArray.forEach((scrollTrigger) => {
+                                                    scrollTrigger.kill();
+                                                });
+                                                changePage(link.name);
+                                                animatePageTransition(exit, node);
+                                            },
                                         }}
                                         entry={{
                                             delay: 2,
-                                            trigger: ({ entry, node }) =>
-                                                onEntryAnimation(link.name, node),
+                                            trigger: ({ entry, node }) => {
+                                                const scrollTriggerArray = ScrollTrigger.getAll();
+                                                scrollTriggerArray.forEach((scrollTrigger) => {
+                                                    scrollTrigger.enable();
+                                                });
+
+                                                onEntryAnimation(link.name, node);
+                                            },
                                         }}
                                         to={link.url}>
                                         {link.name}
@@ -272,4 +285,4 @@ const mapStateToProps = (state) => ({
     global: state.global,
 });
 
-export default connect(mapStateToProps, { toggleMenu })(Nav);
+export default connect(mapStateToProps, { toggleMenu, changePage })(Nav);

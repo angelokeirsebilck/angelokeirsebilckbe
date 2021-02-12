@@ -3,7 +3,7 @@ import { graphql } from 'gatsby';
 import Image from 'gatsby-image';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { gsap } from 'gsap';
 // import { Grid, Box } from 'react-raster';
 
@@ -13,6 +13,7 @@ import HomeBanner from '../components/home/HomeBanner';
 import NavBar from '../components/layout/NavBar';
 import Nav from '../components/Nav';
 import CircleAnimation from '../components/home/CircleAnimation';
+import HeadingOne from '../components/HeadingOne';
 import Projects from '../components/Projects';
 
 const PurpleCircelContainer = styled.div`
@@ -24,8 +25,16 @@ const PurpleCircelContainer = styled.div`
     overflow: hidden;
 `;
 
-const index = ({ global, location }) => {
-    console.log('index page loaded');
+const index = ({ global, location, transitionStatus }) => {
+    ScrollTrigger.addEventListener('refreshInit', function () {
+        let ghostDOMS = document.querySelectorAll('.Animation-ghosts');
+        if (ghostDOMS) {
+            let projectsContainer = document.querySelector('.ProjectsContainer');
+            ghostDOMS.forEach((ghost) => {
+                ghost.style.height = `${projectsContainer.offsetWidth / 2}px`;
+            });
+        }
+    });
 
     return (
         <Layout pathName={location.pathname}>
@@ -89,7 +98,8 @@ const index = ({ global, location }) => {
             <CircleAnimation />
             <NavBar />
             <HomeBanner />
-            <Projects />
+            <HeadingOne title='Projects' />
+            {/* <Projects /> */}
         </Layout>
     );
 };

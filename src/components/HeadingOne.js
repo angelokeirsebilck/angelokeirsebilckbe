@@ -50,7 +50,7 @@ const BottomLine = styled.div`
     background: rgba(30, 174, 152, 1);
 `;
 
-const HeadingOne = ({ title }) => {
+const HeadingOne = ({ title, forwardRef }) => {
     useEffect(() => {
         const headingTimeline = gsap.timeline({
             scrollTrigger: {
@@ -82,7 +82,7 @@ const HeadingOne = ({ title }) => {
     }, []);
 
     return (
-        <HeadingContainer className='Animation-headingContainer'>
+        <HeadingContainer ref={forwardRef} className='Animation-headingContainer'>
             <Heading>
                 <TopLine className='Animation-topLine' />
                 {title}
