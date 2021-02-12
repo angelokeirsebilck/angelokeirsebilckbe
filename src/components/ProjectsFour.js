@@ -35,6 +35,7 @@ const ImageContainer = styled.div`
 const CustomGrid = styled(Grid)`
     width: 100%;
     position: absolute;
+    display: none;
 
     &:before {
         content: '';
@@ -43,8 +44,36 @@ const CustomGrid = styled(Grid)`
         grid-row: 1 / 1;
         grid-column: 2;
     }
+
+    @media ${Sizes.sm} {
+        display: grid;
+    }
 `;
 const GatsbyImageContainer = styled.div``;
+
+const MobileImage = styled.div`
+    display: block;
+
+    @media ${Sizes.sm} {
+        display: none;
+    }
+`;
+
+const ImageBoxOdd = styled(Box)`
+    order: 1;
+
+    @media ${Sizes.sm} {
+        order: 2;
+    }
+`;
+
+const TextBoxOdd = styled(Box)`
+    order: 2;
+
+    @media ${Sizes.sm} {
+        order: 1;
+    }
+`;
 
 const Project = styled.div`
     /* margin-top: 30px;
@@ -60,6 +89,7 @@ const ProjectTitle = styled.h2`
     color: ${(props) => props.theme.textColor};
     font-size: 20px;
     margin-bottom: 20px;
+    font-family: 'Space Mono', monospace;
 
     @media ${Sizes.md} {
         font-size: 26px;
@@ -74,11 +104,13 @@ const StackContainer = styled.div`
 `;
 
 const StackItem = styled.div`
+    font-family: 'Space Mono', monospace;
     display: inline-block;
     background: rgba(207, 181, 250, 1);
     color: ${(props) => props.theme.textColor};
     padding: 3px 10px;
     margin-right: 10px;
+    margin-bottom: 10px;
 `;
 
 const ProjectText = styled.div`
@@ -109,7 +141,13 @@ const ProjectsContainer = styled.section`
     }
 `;
 
-const GhostContainer = styled.div``;
+const GhostContainer = styled.div`
+    display: none;
+
+    @media ${Sizes.sm} {
+        display: block;
+    }
+`;
 
 const query = graphql`
     {
@@ -276,9 +314,7 @@ const ProjectsNew = () => {
                         start: 'bottom center',
                         endTrigger: ghostDOMRefs.current[index],
                         end: `bottom center`,
-
                         scrub: true,
-                        markers: true,
                         toggleActions: 'play none none reverse',
                         onEnterBack: () => goLeft(index),
                     },
@@ -297,8 +333,6 @@ const ProjectsNew = () => {
                         trigger: ghostDOMRefs.current[index - 1],
                         start: 'center center',
                         end: `bottom center`,
-
-                        markers: true,
                         toggleActions: 'play none none reverse',
                     },
                 });
@@ -315,9 +349,7 @@ const ProjectsNew = () => {
                         start: 'top center',
                         endTrigger: ghostDOMRefs.current[index],
                         end: `${index !== array.length - 2 ? 'bottom' : 'center'} center`,
-
                         scrub: true,
-                        markers: true,
                         toggleActions: 'play none none reverse',
                         onEnterBack: () => goLeft(index, boxRefs.current[0].offsetLeft),
                     },
@@ -333,9 +365,7 @@ const ProjectsNew = () => {
                         start: 'top center',
                         endTrigger: ghostDOMRefs.current[index],
                         end: `${index !== array.length - 2 ? 'bottom' : 'center'} center`,
-
                         scrub: true,
-                        markers: true,
                         toggleActions: 'play none none reverse',
                         onEnterBack: () => goRight(index, boxRefs.current[0].offsetLeft),
                     },
@@ -385,7 +415,11 @@ const ProjectsNew = () => {
                                     gutterX={'40px'}
                                     gutterY={['40px', 0]}
                                     css={{ width: '100%' }}>
-                                    <Box className='HomeBanner-image' cols={[2, 1]}></Box>
+                                    <Box className='HomeBanner-image' cols={[2, 1]}>
+                                        <MobileImage>
+                                            <Image fluid={project.Image.childImageSharp.fluid} />
+                                        </MobileImage>
+                                    </Box>
                                     <Box
                                         ref={addboxRefs}
                                         cols={[2, 1]}
@@ -425,7 +459,7 @@ const ProjectsNew = () => {
                                     gutterX={'40px'}
                                     gutterY={['40px', 0]}
                                     css={{ width: '100%' }}>
-                                    <Box
+                                    <TextBoxOdd
                                         ref={addboxRefs}
                                         cols={[2, 1]}
                                         css={{
@@ -444,8 +478,12 @@ const ProjectsNew = () => {
                                                 );
                                             })}
                                         </StackContainer>
-                                    </Box>
-                                    <Box className='HomeBanner-image' cols={[2, 1]}></Box>
+                                    </TextBoxOdd>
+                                    <ImageBoxOdd className='HomeBanner-image' cols={[2, 1]}>
+                                        <MobileImage>
+                                            <Image fluid={project.Image.childImageSharp.fluid} />
+                                        </MobileImage>
+                                    </ImageBoxOdd>
                                 </Grid>
                             </Project>
                             {array.length - 1 === index ? null : (

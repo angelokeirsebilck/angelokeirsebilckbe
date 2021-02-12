@@ -43,9 +43,10 @@ const Body = styled.div`
     min-height: 200vh;
     position: relative;
     overflow-x: hidden;
-    font-family: 'Space Mono', monospace;
-    line-height: 1.2;
-    letter-spacing: 1px;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.5 !important;
+    letter-spacing: 2px;
+    font-weight: 300;
 `;
 
 const Wrapper = styled.div`

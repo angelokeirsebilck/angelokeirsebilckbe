@@ -60,6 +60,7 @@ const ParagraphLine = styled.p`
     margin-bottom: 10px;
     position: absolute;
     line-height: 1.1;
+    letter-spacing: 1px;
     &:last-of-type {
         margin-bottom: 0;
     }

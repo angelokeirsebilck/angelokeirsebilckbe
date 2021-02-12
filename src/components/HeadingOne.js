@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Sizes from '../constants/breakpoints';
 import styled from 'styled-components';
 
-const Heading = styled.div`
+const Heading = styled.h1`
     font-size: 24px;
 
     font-weight: bold;
@@ -27,6 +27,7 @@ const HeadingContainer = styled.div`
     display: flex;
     justify-content: center;
     padding-bottom: 20px;
+    font-family: 'Space Mono', monospace;
 
     @media ${Sizes.md} {
         padding-bottom: 40px;

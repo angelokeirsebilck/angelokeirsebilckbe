@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Layout from '../components/layout/Layout';
 import HomeBanner from '../components/home/HomeBanner';
 import NavBar from '../components/layout/NavBar';
+import Footer from '../components/layout/Footer';
 
 import CircleAnimation from '../components/home/CircleAnimation';
 import HeadingOne from '../components/HeadingOne';
@@ -29,6 +30,7 @@ const index = ({ location }) => {
             <HomeBanner />
             <HeadingOne title='Featured Projects' />
             <Projects />
+            <Footer />
         </Layout>
     );
 };
