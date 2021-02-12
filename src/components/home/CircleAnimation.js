@@ -33,7 +33,7 @@ for (let index = 0; index < amount; index++) {
     let delay;
     do {
         delay = gsap.utils.random(0, 5);
-    } while (delay == delayStart);
+    } while (delay === delayStart);
 
     delayStart = delay;
     circleArray.push({
@@ -50,7 +50,7 @@ for (let index = 0; index < amount; index++) {
     let delay;
     do {
         delay = gsap.utils.random(0, 10);
-    } while (delay == delayStart);
+    } while (delay === delayStart);
 
     delayStart = delay;
     circleArray.push({
@@ -67,7 +67,7 @@ for (let index = 0; index < amount; index++) {
     let delay;
     do {
         delay = gsap.utils.random(0, 10);
-    } while (delay == delayStart);
+    } while (delay === delayStart);
 
     delayStart = delay;
     circleArray.push({
@@ -84,7 +84,7 @@ for (let index = 0; index < amount; index++) {
     let delay;
     do {
         delay = gsap.utils.random(0, 10);
-    } while (delay == delayStart);
+    } while (delay === delayStart);
 
     delayStart = delay;
     circleArray.push({

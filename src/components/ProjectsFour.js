@@ -1,10 +1,8 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react';
+import React, { Fragment, useEffect, useRef } from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 import styled from 'styled-components';
-import HeadingOne from './HeadingOne';
 import Sizes from '../constants/breakpoints';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Grid, Box } from 'react-raster';
 import Image from 'gatsby-image';
 
@@ -140,14 +138,6 @@ const ProjectsNew = () => {
         allStrapiProject: { projects },
     } = useStaticQuery(query);
 
-    const [loading, setLoading] = useState(true);
-    const [timelines, setTimelines] = useState([]);
-    // let yValues = [];
-    // const [ghostsDOMArray, setGhostsDOMArray] = useState([]);
-    // const [projectsDOMArray, setProjectsDOMArray] = useState([]);
-
-    // const ghostContainerRefs = useRef([]);
-
     const projectsContainerRef = useRef();
     const animationBackgroundRef = useRef();
     const projectImagesRef = useRef([]);
@@ -178,12 +168,6 @@ const ProjectsNew = () => {
     };
 
     useEffect(() => {
-        if (loading) {
-            // setGhostsDOMArray(document.querySelectorAll('.Animation-ghosts'));
-            // setProjectsDOMArray(document.querySelectorAll('.Animation-project'));
-        }
-
-        // console.log(projectsContainerRef.current.offsetWidth);
         ghostDOMRefs.current.forEach((ghost) => {
             ghost.style.height = `${projectsContainerRef.current.offsetWidth / 2}px`;
         });
@@ -195,7 +179,7 @@ const ProjectsNew = () => {
 
     const goRight = (index, xValue) => {
         projectImagesRef.current.forEach((projectImage, index2) => {
-            if (index != index2) {
+            if (index !== index2) {
                 projectImagesRef.current[index2].style.opacity = 0;
                 projectImagesRef.current[index2].style.visibility = 'hidden';
                 projectImagesRef.current[index2].style.display = 'none';
@@ -215,7 +199,7 @@ const ProjectsNew = () => {
 
     const goLeft = (index) => {
         projectImagesRef.current.forEach((projectImage, index2) => {
-            if (index != index2) {
+            if (index !== index2) {
                 projectImagesRef.current[index2].style.opacity = 0;
                 projectImagesRef.current[index2].style.visibility = 'hidden';
                 projectImagesRef.current[index2].style.display = 'none';
@@ -236,13 +220,9 @@ const ProjectsNew = () => {
         let y;
         switch (position) {
             case 'first':
-                console.log('index :' + index + '  ' + ghostDOMRefs.current[index].offsetTop);
                 y = ghostDOMRefs.current[index].offsetTop;
                 break;
             case 'last':
-                console.log('index :' + index + '  ' + projectDOMRefs.current[index].offsetTop);
-                // y =
-                //     projectDOMRefs.current[index].offsetTop - projectDOMRefs.current[index].offsetHeight;
                 if (window.innerWidth > 1140) {
                     y =
                         projectsContainerRef.current.offsetHeight -
@@ -271,13 +251,15 @@ const ProjectsNew = () => {
 
                 break;
             case 'even':
-                console.log('index :' + index + '  ' + ghostDOMRefs.current[index].offsetTop);
                 y = ghostDOMRefs.current[index].offsetTop;
                 break;
             case 'odd':
-                console.log('index :' + index + '  ' + ghostDOMRefs.current[index].offsetTop);
                 y = ghostDOMRefs.current[index].offsetTop;
                 break;
+            default:
+                y =
+                    projectsContainerRef.current.offsetHeight -
+                    ghostDOMRefs.current[0].offsetHeight;
         }
 
         return y;
@@ -286,16 +268,15 @@ const ProjectsNew = () => {
     const timeline = () => {
         const newTimeline = gsap.timeline();
         projectDOMRefs.current.forEach((project, index, array) => {
-            if (index == 0) {
+            if (index === 0) {
                 newTimeline.to(animationBackgroundRef.current, {
                     y: () => newY(index, 'first'),
                     scrollTrigger: {
-                        // invalidateOnRefresh: true,
                         trigger: project,
                         start: 'bottom center',
                         endTrigger: ghostDOMRefs.current[index],
                         end: `bottom center`,
-                        // end: `bottom+=400 center`,
+
                         scrub: true,
                         markers: true,
                         toggleActions: 'play none none reverse',
@@ -308,7 +289,7 @@ const ProjectsNew = () => {
                 return;
             }
 
-            if (index == array.length - 1) {
+            if (index === array.length - 1) {
                 newTimeline.to(animationBackgroundRef.current, {
                     y: () => newY(index, 'last'),
                     scrollTrigger: {
@@ -316,7 +297,7 @@ const ProjectsNew = () => {
                         trigger: ghostDOMRefs.current[index - 1],
                         start: 'center center',
                         end: `bottom center`,
-                        // end: `bottom+=400 center`,
+
                         markers: true,
                         toggleActions: 'play none none reverse',
                     },
@@ -325,7 +306,7 @@ const ProjectsNew = () => {
                 return;
             }
 
-            if (index % 2 == 0) {
+            if (index % 2 === 0) {
                 newTimeline.to(animationBackgroundRef.current, {
                     y: () => newY(index, 'even'),
                     scrollTrigger: {
@@ -333,8 +314,8 @@ const ProjectsNew = () => {
                         trigger: project,
                         start: 'top center',
                         endTrigger: ghostDOMRefs.current[index],
-                        end: `${index != array.length - 2 ? 'bottom' : 'center'} center`,
-                        // end: `bottom+=400 center`,
+                        end: `${index !== array.length - 2 ? 'bottom' : 'center'} center`,
+
                         scrub: true,
                         markers: true,
                         toggleActions: 'play none none reverse',
@@ -351,8 +332,8 @@ const ProjectsNew = () => {
                         trigger: project,
                         start: 'top center',
                         endTrigger: ghostDOMRefs.current[index],
-                        end: `${index != array.length - 2 ? 'bottom' : 'center'} center`,
-                        // end: `bottom+=400 center`,
+                        end: `${index !== array.length - 2 ? 'bottom' : 'center'} center`,
+
                         scrub: true,
                         markers: true,
                         toggleActions: 'play none none reverse',
@@ -371,10 +352,6 @@ const ProjectsNew = () => {
                 <Box cols={1}>
                     <AnimationBackground
                         ref={animationBackgroundRef}
-                        // css={{
-                        //     width: `${animationBackgroundWidth}px`,
-                        //     height: `${animationBackgroundWidth}px`,
-                        // }}
                         className='Animation-background'>
                         <ImageContainer className='Animation-projectImage'>
                             {projects.map((project, index) => {
@@ -388,13 +365,6 @@ const ProjectsNew = () => {
                                 );
                             })}
                         </ImageContainer>
-                        {/* <ImageContainer>
-                    <Image
-                        ref={projectImageRef}
-                        className='Animation-projectImage'
-                        fluid={projects[0].Image.childImageSharp.fluid}
-                    />
-                </ImageContainer> */}
                     </AnimationBackground>
                 </Box>
             </CustomGrid>
@@ -405,7 +375,7 @@ const ProjectsNew = () => {
                             <Project
                                 ref={addProjectDOMRefs}
                                 className={
-                                    index == 0
+                                    index === 0
                                         ? 'Animation-project Animation-project--first'
                                         : 'Animation-project'
                                 }>
@@ -437,7 +407,7 @@ const ProjectsNew = () => {
                                     </Box>
                                 </Grid>
                             </Project>
-                            {array.length - 1 == index ? null : (
+                            {array.length - 1 === index ? null : (
                                 <GhostContainer
                                     ref={addGhostDOMRefs}
                                     className='Animation-ghosts'
@@ -478,7 +448,7 @@ const ProjectsNew = () => {
                                     <Box className='HomeBanner-image' cols={[2, 1]}></Box>
                                 </Grid>
                             </Project>
-                            {array.length - 1 == index ? null : (
+                            {array.length - 1 === index ? null : (
                                 <GhostContainer
                                     ref={addGhostDOMRefs}
                                     className='Animation-ghosts'

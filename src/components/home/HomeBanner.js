@@ -86,14 +86,6 @@ const ChevronContainer = styled.div`
     left: 50%;
 `;
 
-const Line = styled.div`
-    position: absolute;
-    height: 1px;
-    width: 100px;
-    background: rgba(30, 174, 152, 1);
-    transform: rotate(45deg);
-`;
-
 const HomeBanner = ({ addParagraphLine }) => {
     const data = useStaticQuery(query);
     const {
@@ -104,57 +96,6 @@ const HomeBanner = ({ addParagraphLine }) => {
             },
         },
     } = data;
-
-    // Gsap Refs
-    const headingRef = useRef();
-    // const lineRef = useRef([]);
-
-    // let randomYNumber = Math.floor(Math.random() * 200) + 100;
-    // let randomXNumber = Math.floor(Math.random() * 200) + 100;
-
-    // const windowHeight = window.innerHeight;
-    // const windowWidth = window.innerWidth;
-
-    // console.log(windowHeight, windowWidth);
-
-    // const R = (min, max) => {
-    //     return Math.floor(Math.random() * (max - min + 1)) + min;
-    // };
-
-    // const lineArray = [];
-
-    // for (let index = 0; index < 5; index++) {
-    //     lineArray.push({
-    //         width: R(20, 150),
-    //         topStart: R(0, windowHeight / 2),
-    //         leftStart: R(0, windowWidth / 2),
-    //         duration: R(4, 10),
-    //     });
-    // }
-    // for (let index = 0; index < 5; index++) {
-    //     lineArray.push({
-    //         width: R(20, 150),
-    //         topStart: R(0, windowHeight / 2),
-    //         leftStart: R(windowWidth / 2, windowWidth),
-    //         duration: R(4, 10),
-    //     });
-    // }
-    // for (let index = 0; index < 5; index++) {
-    //     lineArray.push({
-    //         width: R(20, 150),
-    //         topStart: R(windowHeight / 2, windowHeight),
-    //         leftStart: R(0, windowWidth / 2),
-    //         duration: R(4, 10),
-    //     });
-    // }
-    // for (let index = 0; index < 5; index++) {
-    //     lineArray.push({
-    //         width: R(20, 150),
-    //         topStart: R(windowHeight / 2, windowHeight),
-    //         leftStart: R(windowWidth / 2, windowWidth),
-    //         duration: R(4, 10),
-    //     });
-    // }
 
     const containerParagaphRefs = useRef([]);
     const paragraphRef = useRef([]);
@@ -172,9 +113,6 @@ const HomeBanner = ({ addParagraphLine }) => {
     };
 
     useEffect(() => {
-        // paragraphRef.current = paragraphRef.current.slice(0, Tekst.length);
-        // lineRef.current = lineRef.current.slice(0, lineArray.length);
-
         const text = gsap.timeline();
 
         text.from(paragraphRef.current[0], { y: '100%', duration: 0.4 });
@@ -187,15 +125,6 @@ const HomeBanner = ({ addParagraphLine }) => {
             duration: 1,
         });
 
-        // lineArray.forEach((line, index) => {
-        //     gsap.to(lineRef.current[index], {
-        //         ease: 'Power4.easeOut',
-        //         y: 500,
-        //         x: 500,
-        //         opacity: 0,
-        //         duration: line.duration,
-        //     }).repeat(-1);
-        // });
         Tekst.forEach((container, index) => {
             containerParagaphRefs.current[
                 index
@@ -212,29 +141,8 @@ const HomeBanner = ({ addParagraphLine }) => {
     };
     window.addEventListener('resize', checkContainerParagrapghsHeight);
 
-    // if (containerParagaphRefs.length > 1) {
-    //     Tekst.forEach((container, index) => {
-    //         containerParagaphRefs.current[index].style.height =
-    //             paragraphRef.current[index].offsetHeight;
-    //     });
-    // }
-
     return (
         <Container>
-            {/* {lineArray.map((line, index) => {
-                return (
-                    <Line
-                        key={line.index}
-                        ref={(el) => (lineRef.current[index] = el)}
-                        style={{
-                            width: `${line.width}px`,
-                            left: `${line.leftStart}px`,
-                            top: `${line.topStart}px`,
-                        }}
-                    />
-                );
-            })} */}
-            {/* <Line ref={lineRef} width='100px' leftStart='30px' topStart='50px' /> */}
             <Grid breakpoints={[0, 767]} colspan={2} gutterY={['40px', 0]} css={{ width: '100%' }}>
                 <Box
                     cols={[2, 1]}
@@ -254,9 +162,6 @@ const HomeBanner = ({ addParagraphLine }) => {
 
                         return (
                             <AnimateContainer key={p.id} ref={addContainerParagrapgRefs}>
-                                {/* <ParagraphLine ref={(el) => (paragraphRef.current[index] = el)}>
-                                    {p.Tekst}
-                                </ParagraphLine> */}
                                 <ParagraphLine ref={addParagrapgRefs}>{p.Tekst}</ParagraphLine>
                             </AnimateContainer>
                         );

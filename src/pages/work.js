@@ -5,7 +5,6 @@ import Layout from '../components/layout/Layout';
 import NavBar from '../components/layout/NavBar';
 import HeadingOne from '../components/HeadingOne';
 
-import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 const work = () => {
@@ -21,7 +20,6 @@ const work = () => {
     return (
         <Layout>
             <NavBar />
-            <div className='height' style={{ height: '1000px' }}></div>
             <HeadingOne title='Scroller Test' />
         </Layout>
     );

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 import reset from 'styled-reset';
 import { connect } from 'react-redux';
@@ -60,24 +60,6 @@ const Wrapper = styled.div`
         padding-right: 40px;
     }
 `;
-
-const Line = styled.div`
-    position: absolute;
-    opacity: 0;
-    height: 1px;
-    background: rgba(30, 174, 152, 1);
-    transform: rotate(45deg);
-`;
-
-const LineAnimations = styled.div`
-    min-height: 100vh;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    overflow: hidden;
-`;
-
 const PageAnimationLi = styled.li`
     font-family: 'Space Mono', monospace;
     transform: translateX(100%);
@@ -103,10 +85,7 @@ const LiSpaReverse = styled.span`
     opacity: 0;
 `;
 
-const Layout = ({ children, global, pathName }) => {
-    const lineRef = useRef([]);
-    const lineAnimationsRef = useRef();
-
+const Layout = ({ children, global }) => {
     const windowHeight = window.innerHeight;
     const windowWidth = window.innerWidth;
 
@@ -153,95 +132,16 @@ const Layout = ({ children, global, pathName }) => {
         });
     }
 
-    useEffect(() => {
-        // if (pathName == '/') {
-        //     lineRef.current = lineRef.current.slice(0, lineArray.length);
-        //     const lines = [];
-        //     // const lines2 = [];
-        //     const linesContainerTimeline = gsap.timeline({
-        //         scrollTrigger: {
-        //             trigger: lineAnimationsRef.current,
-        //             start: 'top top',
-        //             end: 'bottom center',
-        //             scrub: true,
-        //             markers: true,
-        //         },
-        //     });
-        //     linesContainerTimeline.fromTo(
-        //         lineAnimationsRef.current,
-        //         {
-        //             rotate: 0,
-        //         },
-        //         {
-        //             duration: 10,
-        //             rotate: 90,
-        //             y: -150,
-        //         }
-        //     );
-        //     // const linesTimeline = gsap.timeline();
-        //     // linesTimeline.addLabel('start', 0);
-        //     lineArray.forEach((line, index) => {
-        //         console.log(
-        //             `line delay:   ${line.delay}   line duration: ${
-        //                 line.duration
-        //             }   line delay line duration /2:   ${line.delay + line.duration / 2}`
-        //         );
-        //         lines.push(gsap.timeline());
-        //         lines[index].addLabel('start', 0);
-        //         lines[index]
-        //             .fromTo(
-        //                 lineRef.current[index],
-        //                 {
-        //                     opacity: 0,
-        //                 },
-        //                 {
-        //                     y: 500,
-        //                     x: 500,
-        //                     opacity: 1,
-        //                     delay: line.delay,
-        //                     duration: line.duration / 2,
-        //                 },
-        //                 `start`
-        //             )
-        //             .to(
-        //                 lineRef.current[index],
-        //                 {
-        //                     opacity: 0,
-        //                     duration: line.duration / 2,
-        //                 },
-        //                 `-=${(line.delay + line.duration / 2) / 2}`
-        //             )
-        //             .repeat(-1);
-        //     });
-        // }
-    }, []);
+    useEffect(() => {}, []);
 
     return (
         <ThemeProvider theme={themes[global.colorMode]}>
             <Body
                 style={
-                    global.colorMode == 'dark'
+                    global.colorMode === 'dark'
                         ? { background: '#1E2030' }
                         : { background: '#f7f5f2' }
                 }>
-                {/* {pathName == '/' && (
-                    <LineAnimations ref={lineAnimationsRef}>
-                        {lineArray.map((line, index) => {
-                            return (
-                                <Line
-                                    key={index}
-                                    ref={(el) => (lineRef.current[index] = el)}
-                                    style={{
-                                        width: `${line.width}px`,
-                                        left: `${line.leftStart}px`,
-                                        top: `${line.topStart}px`,
-                                    }}
-                                />
-                            );
-                        })}
-                    </LineAnimations>
-                )} */}
-
                 <Wrapper>
                     <GlobalStyle />
                     {children}
@@ -318,16 +218,7 @@ export const ListTLink = (props) => {
     );
 };
 
-export const onEntryAnimation = (name, node) => {
-    console.log(name);
-    // if (name == 'home') {
-    //     return gsap.from(node.querySelectorAll('.HomeBanner-image'), {
-    //         opacity: 0,
-    //         delay: 1.5,
-    //         duration: 1,
-    //     });
-    // }
-};
+export const onEntryAnimation = (name, node) => {};
 
 // hidden object animation
 export function animatePageTransition() {

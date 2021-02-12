@@ -50,12 +50,11 @@ const NavMain = styled.div`
 
 const Nav = ({ global, changeColorMode, toggleMenu }) => {
     const [checked, setChecked] = useState(false);
-    const [isOpen, setOpen] = useState(false);
 
     const handleChange = () => {
         setChecked(!checked);
-        if (global.colorMode == 'dark') return changeColorMode('light');
-        if (global.colorMode == 'light') return changeColorMode('dark');
+        if (global.colorMode === 'dark') return changeColorMode('light');
+        if (global.colorMode === 'light') return changeColorMode('dark');
     };
 
     return (
@@ -69,7 +68,6 @@ const Nav = ({ global, changeColorMode, toggleMenu }) => {
                     onHandleColor='#1EAE98'
                     offHandleColor='#1EAE98'
                     handleDiameter={25}
-                    uncheckedIcon={false}
                     checkedIcon={
                         <IconContainer>
                             <HiSun style={{ color: 'yellow' }} />

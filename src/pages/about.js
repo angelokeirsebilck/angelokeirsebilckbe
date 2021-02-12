@@ -5,8 +5,6 @@ import { connect } from 'react-redux';
 // Components
 import Layout from '../components/layout/Layout';
 import NavBar from '../components/layout/NavBar';
-import ProjectsNew from '../components/ProjectsNew';
-import ProjectsThree from '../components/ProjectsThree';
 
 const about = ({ transitionStatus, location }) => {
     ScrollTrigger.addEventListener('refreshInit', function () {
@@ -30,8 +28,6 @@ const about = ({ transitionStatus, location }) => {
                 }}>
                 ABOUT PAGEEEE
             </h1>
-
-            <ProjectsThree />
         </Layout>
     );
 };

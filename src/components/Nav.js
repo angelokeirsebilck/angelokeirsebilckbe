@@ -3,9 +3,7 @@ import styled from 'styled-components';
 import { gsap } from 'gsap';
 import { connect } from 'react-redux';
 import { Grid, Box } from 'react-raster';
-// import { Link as GatsbyLink } from 'gatsby';
 import NavLinks from '../constants/main-nav';
-import Sizes from '../constants/breakpoints';
 import { toggleMenu, changePage } from '../../actions/globalActions';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -63,23 +61,6 @@ const GridContainer = styled.div`
     align-items: center;
 `;
 
-// const NavButton = styled(GatsbyLink)`
-//     font-family: 'Space Mono', monospace;
-//     font-size: 26px;
-//     color: rgba(30, 174, 152, 1);
-//     text-transform: lowercase;
-//     position: relative;
-//     text-decoration: none;
-
-//     @media ${Sizes.sm} {
-//         font-size: 36px;
-//     }
-
-//     &.is-active .Line {
-//         background: linear-gradient(to left, rgba(207, 181, 250, 1), rgba(30, 174, 152, 1));
-//     }
-// `;
-
 const NavButtonLine = styled.div`
     position: absolute;
     width: 100%;
@@ -103,8 +84,8 @@ const LinkWrapper = styled.div``;
 let boxHeight = (window.innerHeight / 6) * 2;
 
 const Nav = ({ global, toggleMenu, changePage }) => {
-    const [navTimeline, setNavTimeLine] = useState(gsap.timeline());
-    const [lineTimelines, setBtnTimelines] = useState([]);
+    const [navTimeline] = useState(gsap.timeline());
+    const [lineTimelines] = useState([]);
 
     const navRef = useRef();
 
@@ -192,7 +173,7 @@ const Nav = ({ global, toggleMenu, changePage }) => {
         timeline.pause(0);
     };
 
-    if (navTimeline != undefined) {
+    if (navTimeline !== undefined) {
         if (global.isMenuOpen) {
             navTimeline.timeScale(1).play();
         } else {

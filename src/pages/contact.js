@@ -6,8 +6,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Layout from '../components/layout/Layout';
 import NavBar from '../components/layout/NavBar';
 
-import Projects from '../components/ProjectsFour';
-
 const contact = () => {
     ScrollTrigger.addEventListener('refreshInit', function () {
         let ghostDOMS = document.querySelectorAll('.Animation-ghosts');
@@ -21,9 +19,6 @@ const contact = () => {
     return (
         <Layout>
             <NavBar />
-            <div className='test' style={{ marginTop: '500px' }}>
-                <Projects />
-            </div>
             <Footer />
         </Layout>
     );
