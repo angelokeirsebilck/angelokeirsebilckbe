@@ -81,8 +81,7 @@ const NavButtonLineInner = styled.div`
 
 const LinkWrapper = styled.div``;
 
-let boxHeight = (window.innerHeight / 6) * 2;
-
+let boxHeight;
 const Nav = ({ global, toggleMenu, changePage }) => {
     const [navTimeline] = useState(gsap.timeline());
     const [lineTimelines] = useState([]);
@@ -113,11 +112,10 @@ const Nav = ({ global, toggleMenu, changePage }) => {
         boxHeight = (window.innerHeight / 6) * 2;
     };
 
-    window.addEventListener('resize', resizeBoxHeight);
-
     useEffect(() => {
         navTimeline.paused(true);
-
+        boxHeight = (window.innerHeight / 6) * 2;
+        window.addEventListener('resize', resizeBoxHeight);
         navTimeline
             .to(navRef.current, { x: 0, duration: 1 }, 'background')
             .to(lineOneRef.current, { width: '100%' }, 'background -=.5')

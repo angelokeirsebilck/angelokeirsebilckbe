@@ -87,51 +87,51 @@ const LiSpaReverse = styled.span`
 `;
 
 const Layout = ({ children, global }) => {
-    const windowHeight = window.innerHeight;
-    const windowWidth = window.innerWidth;
+    // const windowHeight = window.innerHeight;
+    // const windowWidth = window.innerWidth;
 
-    const R = (min, max) => {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    };
+    // const R = (min, max) => {
+    //     return Math.floor(Math.random() * (max - min + 1)) + min;
+    // };
 
-    const lineArray = [];
+    // const lineArray = [];
 
-    for (let index = 0; index < 8; index++) {
-        lineArray.push({
-            width: R(20, 150),
-            topStart: R(0, windowHeight / 4),
-            leftStart: R(0, windowWidth / 4),
-            duration: R(4, 10),
-            delay: R(0, 10),
-        });
-    }
-    for (let index = 0; index < 8; index++) {
-        lineArray.push({
-            width: R(20, 150),
-            topStart: R(0, windowHeight / 4),
-            leftStart: R(windowWidth / 2, (windowWidth / 4) * 3),
-            duration: R(4, 10),
-            delay: R(0, 10),
-        });
-    }
-    for (let index = 0; index < 8; index++) {
-        lineArray.push({
-            width: R(20, 150),
-            topStart: R(windowHeight / 2, (windowHeight / 4) * 3),
-            leftStart: R(windowWidth / 2, (windowWidth / 4) * 3),
-            duration: R(4, 10),
-            delay: R(0, 10),
-        });
-    }
-    for (let index = 0; index < 8; index++) {
-        lineArray.push({
-            width: R(20, 150),
-            topStart: R(windowHeight / 2, (windowHeight / 4) * 3),
-            leftStart: R(0, windowWidth / 4),
-            duration: R(4, 10),
-            delay: R(0, 10),
-        });
-    }
+    // for (let index = 0; index < 8; index++) {
+    //     lineArray.push({
+    //         width: R(20, 150),
+    //         topStart: R(0, windowHeight / 4),
+    //         leftStart: R(0, windowWidth / 4),
+    //         duration: R(4, 10),
+    //         delay: R(0, 10),
+    //     });
+    // }
+    // for (let index = 0; index < 8; index++) {
+    //     lineArray.push({
+    //         width: R(20, 150),
+    //         topStart: R(0, windowHeight / 4),
+    //         leftStart: R(windowWidth / 2, (windowWidth / 4) * 3),
+    //         duration: R(4, 10),
+    //         delay: R(0, 10),
+    //     });
+    // }
+    // for (let index = 0; index < 8; index++) {
+    //     lineArray.push({
+    //         width: R(20, 150),
+    //         topStart: R(windowHeight / 2, (windowHeight / 4) * 3),
+    //         leftStart: R(windowWidth / 2, (windowWidth / 4) * 3),
+    //         duration: R(4, 10),
+    //         delay: R(0, 10),
+    //     });
+    // }
+    // for (let index = 0; index < 8; index++) {
+    //     lineArray.push({
+    //         width: R(20, 150),
+    //         topStart: R(windowHeight / 2, (windowHeight / 4) * 3),
+    //         leftStart: R(0, windowWidth / 4),
+    //         duration: R(4, 10),
+    //         delay: R(0, 10),
+    //     });
+    // }
 
     useEffect(() => {}, []);
 

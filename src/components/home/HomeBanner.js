@@ -115,7 +115,7 @@ const HomeBanner = ({ addParagraphLine }) => {
 
     useEffect(() => {
         const text = gsap.timeline();
-
+        window.addEventListener('resize', checkContainerParagrapghsHeight);
         text.from(paragraphRef.current[0], { y: '100%', duration: 0.4 });
         text.from(paragraphRef.current[1], { y: '100%', duration: 0.4 });
         text.from(paragraphRef.current[3], { y: '100%', duration: 0.4 });
@@ -140,7 +140,6 @@ const HomeBanner = ({ addParagraphLine }) => {
             ].style.height = `${paragraphRef.current[index].offsetHeight}px`;
         });
     };
-    window.addEventListener('resize', checkContainerParagrapghsHeight);
 
     return (
         <Container>
