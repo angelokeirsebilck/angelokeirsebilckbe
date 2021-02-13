@@ -24,11 +24,8 @@ const CircleAnimation = () => {
     const [loading, setLoading] = useState(true);
 
     const loadAnimations = () => {
-        console.log('load');
-
         let circles = document.querySelectorAll('.circle');
         let circleTimelineArray = [];
-        console.log(circles);
         const circleAnimationContainer = gsap.timeline({
             scrollTrigger: {
                 trigger: '.Animation-circleContainer',

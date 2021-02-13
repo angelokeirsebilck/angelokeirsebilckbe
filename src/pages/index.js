@@ -8,7 +8,6 @@ import HomeBanner from '../components/home/HomeBanner';
 import NavBar from '../components/layout/NavBar';
 import Footer from '../components/layout/Footer';
 
-import CircleAnimation from '../components/home/CircleAnimation';
 import HeadingOne from '../components/HeadingOne';
 import Projects from '../components/ProjectsFour';
 
@@ -25,7 +24,6 @@ const index = ({ location }) => {
 
     return (
         <Layout pathName={location.pathname}>
-            <CircleAnimation />
             <NavBar />
             <HomeBanner />
             <HeadingOne title='Featured Projects' />
