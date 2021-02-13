@@ -76,13 +76,10 @@ const TextBoxOdd = styled(Box)`
 `;
 
 const Project = styled.div`
-    /* margin-top: 30px;
-    margin-bottom: 30px; */
-    /* padding-bottom: 400px; */
+    margin-bottom: 40px;
 
-    @media ${Sizes.md} {
-        /* margin-top: 60px;
-        margin-bottom: 60px; */
+    @media ${Sizes.sm} {
+        margin-bottom: 0;
     }
 `;
 const ProjectTitle = styled.h2`
@@ -159,6 +156,13 @@ const query = graphql`
                     Stack
                     id
                 }
+                mobileImage {
+                    childImageSharp {
+                        fluid {
+                            ...GatsbyImageSharpFluid
+                        }
+                    }
+                }
                 Image {
                     childImageSharp {
                         fluid {
@@ -182,10 +186,32 @@ const ProjectsNew = () => {
     const ghostDOMRefs = useRef([]);
     const projectDOMRefs = useRef([]);
     const boxRefs = useRef([]);
+    const fadeInRefs = useRef([]);
+    const textRefs = useRef([]);
+    const stackContainerRefs = useRef([]);
+    const fadeInMobileImageRefs = useRef([]);
 
     const addboxRefs = (el) => {
         if (el && !boxRefs.current.includes(el)) {
             boxRefs.current.push(el);
+        }
+    };
+
+    const addMobileImageFadeInRefs = (el) => {
+        if (el && !fadeInMobileImageRefs.current.includes(el)) {
+            fadeInMobileImageRefs.current.push(el);
+        }
+    };
+
+    const addTextRefs = (el) => {
+        if (el && !textRefs.current.includes(el)) {
+            textRefs.current.push(el);
+        }
+    };
+
+    const addStackContainerRefs = (el) => {
+        if (el && !stackContainerRefs.current.includes(el)) {
+            stackContainerRefs.current.push(el);
         }
     };
 
@@ -205,14 +231,85 @@ const ProjectsNew = () => {
         }
     };
 
+    const addFadeInRefs = (el) => {
+        if (el && !fadeInRefs.current.includes(el)) {
+            fadeInRefs.current.push(el);
+        }
+    };
+
     useEffect(() => {
         ghostDOMRefs.current.forEach((ghost) => {
             ghost.style.height = `${projectsContainerRef.current.offsetWidth / 2}px`;
         });
+
         projectImagesRef.current[0].style.opacity = 1;
         projectImagesRef.current[0].style.visibility = 'visible';
         projectImagesRef.current[0].style.display = 'block';
         timeline();
+
+        const fadeInTimelineArray = [];
+        const fadeInTimelineMobileImageArray = [];
+
+        fadeInMobileImageRefs.current.forEach((image, index) => {
+            fadeInTimelineMobileImageArray.push(
+                gsap.timeline({
+                    scrollTrigger: {
+                        trigger: image,
+                        start: 'top 80%',
+                        end: 'bottom bottom',
+                        toggleActions: 'play none none reverse',
+                    },
+                })
+            );
+
+            fadeInTimelineMobileImageArray[index].from(image, {
+                opacity: 0,
+                duration: 1,
+            });
+        });
+
+        fadeInRefs.current.forEach((content, index) => {
+            fadeInTimelineArray.push(
+                gsap.timeline({
+                    scrollTrigger: {
+                        trigger: content,
+                        start: 'top 80%',
+                        end: 'bottom bottom',
+                        toggleActions: 'play none none reverse',
+                    },
+                })
+            );
+
+            fadeInTimelineArray[index].from(
+                content,
+                {
+                    opacity: 0,
+                    duration: 1,
+                },
+                'title'
+            );
+
+            fadeInTimelineArray[index].from(
+                textRefs.current[index],
+                {
+                    opacity: 0,
+                    duration: 1,
+                },
+                'title+=0.2'
+            );
+
+            const stackItemArray = stackContainerRefs.current[index].querySelectorAll(
+                '.Animation-StackItem'
+            );
+
+            stackItemArray.forEach((stack) => {
+                fadeInTimelineArray[index].from(stack, {
+                    opacity: 0,
+                    duration: 0.1,
+                    stagger: 0.1,
+                });
+            });
+        });
     }, []);
 
     const goRight = (index, xValue) => {
@@ -416,8 +513,10 @@ const ProjectsNew = () => {
                                     gutterY={['40px', 0]}
                                     css={{ width: '100%' }}>
                                     <Box className='HomeBanner-image' cols={[2, 1]}>
-                                        <MobileImage>
-                                            <Image fluid={project.Image.childImageSharp.fluid} />
+                                        <MobileImage ref={addMobileImageFadeInRefs}>
+                                            <Image
+                                                fluid={project.mobileImage.childImageSharp.fluid}
+                                            />
                                         </MobileImage>
                                     </Box>
                                     <Box
@@ -427,12 +526,16 @@ const ProjectsNew = () => {
                                             display: 'flex',
                                             flexDirection: 'column',
                                         }}>
-                                        <ProjectTitle>{project.Title}</ProjectTitle>
-                                        <ProjectText>{project.Text}</ProjectText>
-                                        <StackContainer>
+                                        <ProjectTitle ref={addFadeInRefs}>
+                                            {project.Title}
+                                        </ProjectTitle>
+                                        <ProjectText ref={addTextRefs}>{project.Text}</ProjectText>
+                                        <StackContainer ref={addStackContainerRefs}>
                                             {project.StackList.map((stack) => {
                                                 return (
-                                                    <StackItem key={stack.id}>
+                                                    <StackItem
+                                                        className='Animation-StackItem'
+                                                        key={stack.id}>
                                                         {stack.Stack}
                                                     </StackItem>
                                                 );
@@ -466,13 +569,16 @@ const ProjectsNew = () => {
                                             display: 'flex',
                                             flexDirection: 'column',
                                         }}>
-                                        <ProjectTitle>{project.Title}</ProjectTitle>
-                                        <ProjectText>{project.Text}</ProjectText>
-                                        <StackContainer>
+                                        <ProjectTitle ref={addFadeInRefs}>
+                                            {project.Title}
+                                        </ProjectTitle>
+                                        <ProjectText ref={addTextRefs}>{project.Text}</ProjectText>
+                                        <StackContainer ref={addStackContainerRefs}>
                                             {project.StackList.map((stack) => {
                                                 return (
-                                                    <StackItem key={stack.id}>
-                                                        {' '}
+                                                    <StackItem
+                                                        className='Animation-StackItem'
+                                                        key={stack.id}>
                                                         {stack.Stack}
                                                     </StackItem>
                                                 );
@@ -480,8 +586,10 @@ const ProjectsNew = () => {
                                         </StackContainer>
                                     </TextBoxOdd>
                                     <ImageBoxOdd className='HomeBanner-image' cols={[2, 1]}>
-                                        <MobileImage>
-                                            <Image fluid={project.Image.childImageSharp.fluid} />
+                                        <MobileImage ref={addMobileImageFadeInRefs}>
+                                            <Image
+                                                fluid={project.mobileImage.childImageSharp.fluid}
+                                            />
                                         </MobileImage>
                                     </ImageBoxOdd>
                                 </Grid>
