@@ -181,7 +181,7 @@ const ProjectsNew = () => {
         allStrapiProject: { projects },
     } = useStaticQuery(query);
 
-    const [stackTimelineArray, setStackTimelineArray] = useState([]);
+    // const [stackTimelineArray, setStackTimelineArray] = useState([]);
 
     const projectsContainerRef = useRef();
     const animationBackgroundRef = useRef();
@@ -193,6 +193,7 @@ const ProjectsNew = () => {
     const textRefs = useRef([]);
     const stackContainerRefs = useRef([]);
     const fadeInMobileImageRefs = useRef([]);
+    const stackTimelineArray = [];
 
     const addboxRefs = (el) => {
         if (el && !boxRefs.current.includes(el)) {
@@ -288,8 +289,6 @@ const ProjectsNew = () => {
                 {
                     opacity: 0,
                     duration: 1,
-                    // onComplete: stackFadeInAnimation,
-                    // onCompleteParams: [index],
                 },
                 'title'
             );
@@ -307,44 +306,27 @@ const ProjectsNew = () => {
                 '.Animation-StackItem'
             );
 
+            stackTimelineArray.push(
+                gsap.timeline({
+                    scrollTrigger: {
+                        trigger: content,
+                        start: 'top 80%',
+                        end: 'bottom bottom',
+                        toggleActions: 'play none none reverse',
+                    },
+                })
+            );
+
             stackItemArray.forEach((stack, index2) => {
-                fadeInTimelineArray[index].from(stack, {
+                stackTimelineArray[index].from(stack, {
                     opacity: 0,
                     duration: 0.1,
                     stagger: 0.1,
+                    delay: 0.1,
                 });
             });
-
-            // const stackItemArray = stackContainerRefs.current[index].querySelectorAll(
-            //     '.Animation-StackItem'
-            // );
-
-            // stackTimelineArray.push(gsap.timeline());
-
-            // setStackTimelineArray((stackTimelineArray) => [...stackTimelineArray, gsap.timeline()]);
-
-            // console.log(stackTimelineArray);
-            // stackItemArray.forEach((stack, index2) => {
-            //     stackTimelineArray[index].paused(true);
-            //     stackTimelineArray[index].fromTo(
-            //         stack,
-            //         {
-            //             opacity: 0,
-            //         },
-            //         {
-            //             opacity: 1,
-            //             duration: 0.1,
-            //             stagger: 0.1,
-            //         }
-            //     );
-            // });
         });
     }, []);
-
-    // const stackFadeInAnimation = (index) => {
-    //     console.log(stackTimelineArray[index]);
-    //     stackTimelineArray[index].play();
-    // };
 
     const goRight = (index, xValue) => {
         projectImagesRef.current.forEach((projectImage, index2) => {
