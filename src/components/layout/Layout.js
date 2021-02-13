@@ -29,11 +29,16 @@ const GlobalStyle = createGlobalStyle`
 const DarkTheme = {
     pageBackground: '#1E2030',
     textColor: '#FFF',
+    animationBackground:
+        'linear-gradient(to bottom, rgba(30, 174, 152, 0.5), rgba(30, 174, 152, 0.01))',
+    baxShadowAnimationBackground: '0px 1px 0px 1px rgba(0, 0, 0, 0.2)',
 };
 
 const LightTheme = {
     pageBackground: '#f7f5f2',
     textColor: '#1E2030',
+    animationBackground: 'linear-gradient(to bottom, rgba(30, 174, 152, 0.5), rgba(30, 32, 45, 1))',
+    baxShadowAnimationBackground: '1px 1px 2px 0px rgba(30, 32, 45, 0.2)',
 };
 
 const themes = {

@@ -1,18 +1,19 @@
-import React, { Fragment, useEffect, useRef } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 import styled from 'styled-components';
 import Sizes from '../constants/breakpoints';
 import { gsap } from 'gsap';
 import { Grid, Box } from 'react-raster';
 import Image from 'gatsby-image';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 const AnimationBackground = styled.div`
-    background: linear-gradient(to bottom, rgba(30, 174, 152, 0.5), rgba(30, 174, 152, 0.01));
+    background: ${(props) => props.theme.animationBackground};
     border-radius: 50px;
     transform: rotate(-3deg);
     position: absolute;
     left: 0;
-    box-shadow: 0px 1px 0px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: ${(props) => props.theme.baxShadowAnimationBackground};
     display: flex;
     justify-content: center;
     align-items: center;
@@ -180,6 +181,8 @@ const ProjectsNew = () => {
         allStrapiProject: { projects },
     } = useStaticQuery(query);
 
+    const [stackTimelineArray, setStackTimelineArray] = useState([]);
+
     const projectsContainerRef = useRef();
     const animationBackgroundRef = useRef();
     const projectImagesRef = useRef([]);
@@ -285,6 +288,8 @@ const ProjectsNew = () => {
                 {
                     opacity: 0,
                     duration: 1,
+                    // onComplete: stackFadeInAnimation,
+                    // onCompleteParams: [index],
                 },
                 'title'
             );
@@ -293,7 +298,7 @@ const ProjectsNew = () => {
                 textRefs.current[index],
                 {
                     opacity: 0,
-                    duration: 1,
+                    duration: 0.2,
                 },
                 'title+=0.2'
             );
@@ -302,15 +307,44 @@ const ProjectsNew = () => {
                 '.Animation-StackItem'
             );
 
-            stackItemArray.forEach((stack) => {
+            stackItemArray.forEach((stack, index2) => {
                 fadeInTimelineArray[index].from(stack, {
                     opacity: 0,
                     duration: 0.1,
                     stagger: 0.1,
                 });
             });
+
+            // const stackItemArray = stackContainerRefs.current[index].querySelectorAll(
+            //     '.Animation-StackItem'
+            // );
+
+            // stackTimelineArray.push(gsap.timeline());
+
+            // setStackTimelineArray((stackTimelineArray) => [...stackTimelineArray, gsap.timeline()]);
+
+            // console.log(stackTimelineArray);
+            // stackItemArray.forEach((stack, index2) => {
+            //     stackTimelineArray[index].paused(true);
+            //     stackTimelineArray[index].fromTo(
+            //         stack,
+            //         {
+            //             opacity: 0,
+            //         },
+            //         {
+            //             opacity: 1,
+            //             duration: 0.1,
+            //             stagger: 0.1,
+            //         }
+            //     );
+            // });
         });
     }, []);
+
+    // const stackFadeInAnimation = (index) => {
+    //     console.log(stackTimelineArray[index]);
+    //     stackTimelineArray[index].play();
+    // };
 
     const goRight = (index, xValue) => {
         projectImagesRef.current.forEach((projectImage, index2) => {
