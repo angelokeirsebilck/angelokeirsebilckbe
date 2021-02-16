@@ -32,6 +32,7 @@ const DarkTheme = {
     animationBackground:
         'linear-gradient(to bottom, rgba(30, 174, 152, 0.5), rgba(30, 174, 152, 0.01))',
     baxShadowAnimationBackground: '0px 1px 0px 1px rgba(0, 0, 0, 0.2)',
+    dateSvgOpacity: '0.2',
 };
 
 const LightTheme = {
@@ -39,6 +40,7 @@ const LightTheme = {
     textColor: '#1E2030',
     animationBackground: 'linear-gradient(to bottom, rgba(30, 174, 152, 0.5), rgba(30, 32, 45, 1))',
     baxShadowAnimationBackground: '1px 1px 2px 0px rgba(30, 32, 45, 0.2)',
+    dateSvgOpacity: '0.5',
 };
 
 const themes = {
@@ -47,7 +49,7 @@ const themes = {
 };
 
 const Body = styled.div`
-    min-height: 200vh;
+    min-height: 400vh;
     position: relative;
     overflow-x: hidden;
     font-family: 'Montserrat', sans-serif;

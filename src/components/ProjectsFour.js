@@ -10,6 +10,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SectionContainer from './layout/SectionContainer';
 
 import HeadingOne from '../components/HeadingOne';
+import Colors from '../constants/colors';
 
 const AnimationBackground = styled.div`
     background: ${(props) => props.theme.animationBackground};
@@ -108,7 +109,7 @@ const StackContainer = styled.div`
 const StackItem = styled.div`
     font-family: 'Space Mono', monospace;
     display: inline-block;
-    background: rgba(207, 181, 250, 1);
+    background: rgba(${Colors.purleDarkRGB}, 1);
     color: ${(props) => props.theme.textColor};
     padding: 3px 10px;
     margin-right: 10px;

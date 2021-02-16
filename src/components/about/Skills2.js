@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
+import { connect } from 'react-redux';
 import { graphql, useStaticQuery } from 'gatsby';
 import styled from 'styled-components';
 import Sizes from '../../constants/breakpoints';
@@ -14,17 +15,19 @@ const Background = styled.div`
     border-radius: 50px;
     box-shadow: ${(props) => props.theme.baxShadowAnimationBackground};
     width: 100%;
-    min-height: 300px;
+    padding: 30px;
+    margin-bottom: 40px;
 
-    @media ${Sizes.md} {
-        /* width: 50%; */
+    @media ${Sizes.sm} {
+        width: 50%;
+        position: absolute;
+        top: 50px;
+        margin-bottom: 0;
     }
-    /* position: absolute;
-    top: 0; */
 `;
 
 const SkillTitle = styled.h2`
-    color: ${(props) => props.theme.textColor};
+    color: white;
     font-size: 20px;
     margin-bottom: 20px;
     font-family: 'Space Mono', monospace;
@@ -45,26 +48,14 @@ const StackItem = styled.div`
     font-family: 'Space Mono', monospace;
     display: inline-block;
     background: rgba(207, 181, 250, 1);
-    color: ${(props) => props.theme.textColor};
+    color: white;
     padding: 3px 10px;
     margin-right: 10px;
     margin-bottom: 10px;
 `;
 
-const PinContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-`;
-
-const Pin = styled.div`
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-`;
-
-const Rectangle = styled.div`
-    width: 50%;
-    min-height: 300px;
+const PinSection = styled.div`
+    position: relative;
 `;
 
 const query = graphql`
@@ -86,7 +77,7 @@ const Skills = () => {
     } = useStaticQuery(query);
 
     const backgroundRefs = useRef([]);
-    const sectionRefs = useRef([]);
+    const sectionRef = useRef();
 
     const addBackgroundsRefs = (el) => {
         if (el && !backgroundRefs.current.includes(el)) {
@@ -94,31 +85,87 @@ const Skills = () => {
         }
     };
 
-    const addSectionsRefs = (el) => {
-        if (el && !sectionRefs.current.includes(el)) {
-            sectionRefs.current.push(el);
-        }
+    // const addSectionsRefs = (el) => {
+    //     if (el && !sectionRefs.current.includes(el)) {
+    //         sectionRefs.current.push(el);
+    //     }
+    // };
+
+    const calcX = () => {
+        const sectionWidth = document.querySelector('.SectionSkills').offsetWidth;
+        const windowWidth = window.innerWidth;
+        const extraWidth = (windowWidth - sectionWidth) / 2;
+        const result = sectionWidth + extraWidth;
+        return result;
     };
 
+    const getEndPosition = () => {
+        console.log(
+            'End pos Secion Skills: ',
+            document.querySelector('.PinSectionSkills').offsetWidth
+        );
+        return '+=' + document.querySelector('.PinSectionSkills').offsetWidth;
+    };
     const initPinBackgroundAnimation = () => {
-        const pinBackgroundAnimation = gsap.timeline({
-            scrollTrigger: {
-                trigger: '.AboutSection',
-                start: 'top top',
-                endTrigger: '.AboutSection',
-                end: `bottom botom`,
-                markers: true,
-                scrub: true,
-                pin: '.AboutSection',
-                pinSpacing: false,
-                toggleActions: 'play none none reverse',
-            },
+        const sectionHeight = document.querySelector('.SectionSkills');
+
+        backgroundRefs.current.forEach((bg) => {
+            ScrollTrigger.saveStyles(bg, '.PinSectionSkills');
         });
 
-        backgroundRefs.current.forEach((pinBackground, index) => {
-            pinBackgroundAnimation.from(pinBackground, {
-                // x: '200%',
-            });
+        ScrollTrigger.matchMedia({
+            // desktop
+            '(min-width: 767px)': function () {
+                let pinSectionHeightInit = 0;
+                backgroundRefs.current.forEach((bg) => {
+                    if (bg.offsetHeight > pinSectionHeightInit)
+                        pinSectionHeightInit = bg.offsetHeight;
+                });
+                gsap.set('.PinSectionSkills', { height: pinSectionHeightInit });
+
+                const pinBackgroundAnimation = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: sectionHeight,
+                        invalidateOnRefresh: true,
+                        start: 'top top',
+                        end: () => getEndPosition(),
+                        markers: true,
+                        scrub: true,
+                        pin: '.PinWrapper',
+                        pinSpacing: false,
+                        snap: 0.5,
+                    },
+                });
+
+                backgroundRefs.current.forEach((pinBackground, index) => {
+                    // gsap.set(pinBackground, { position: 'absolute' });
+                    if (index !== 0) {
+                        pinBackgroundAnimation.fromTo(
+                            pinBackground,
+                            {
+                                x: () => calcX(),
+                            },
+                            {
+                                x: 0,
+                            }
+                        );
+                    }
+                    if (index !== 2) {
+                        pinBackgroundAnimation.fromTo(
+                            pinBackground,
+                            {
+                                opacity: 1,
+                            },
+                            {
+                                opacity: 0,
+                            }
+                        );
+                    }
+                });
+            },
+            '(max-width: 766px)': function () {
+                gsap.set('.PinSectionSkills', { height: 'auto' });
+            },
         });
     };
 
@@ -127,22 +174,35 @@ const Skills = () => {
     }, []);
 
     return (
-        <SectionContainer>
+        <SectionContainer styleClass='SectionSkills'>
             <HeadingOne title='Skills' />
-            <PinContainer>
+            <PinSection className='PinSectionSkills'>
                 {skills.map((skills, index) => {
                     return (
-                        <Pin>
-                            <Rectangle>
-                                <Background ref={addBackgroundsRefs}></Background>
-                            </Rectangle>
-                            <Rectangle> {skills.name}</Rectangle>
-                        </Pin>
+                        <Background
+                            key={index}
+                            className='BackgroundSkills'
+                            ref={addBackgroundsRefs}>
+                            <SkillTitle>{skills.name}</SkillTitle>
+                            <StackContainer>
+                                {skills.item.map((stack, index) => {
+                                    return (
+                                        <StackItem className='Animation-StackItem' key={index}>
+                                            {stack.item}
+                                        </StackItem>
+                                    );
+                                })}
+                            </StackContainer>
+                        </Background>
                     );
                 })}
-            </PinContainer>
+            </PinSection>
         </SectionContainer>
     );
 };
 
-export default Skills;
+const mapStateToProps = (state) => ({
+    global: state.global,
+});
+
+export default connect(mapStateToProps, {})(Skills);

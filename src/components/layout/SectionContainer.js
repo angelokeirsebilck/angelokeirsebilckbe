@@ -7,8 +7,8 @@ const Section = styled.section`
     padding-bottom: 40px;
 
     @media ${Sizes.sm} {
-        padding-top: 120px;
-        padding-bottom: 120px;
+        padding-top: 80px;
+        padding-bottom: 80px;
     }
 `;
 
