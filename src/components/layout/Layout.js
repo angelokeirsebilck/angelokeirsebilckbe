@@ -99,13 +99,14 @@ const Layout = ({ children, global, pathName }) => {
     return (
         <ThemeProvider theme={themes[global.colorMode]}>
             <Body
+                className='Body'
                 style={
                     global.colorMode === 'dark'
                         ? { background: '#1E2030' }
                         : { background: '#f7f5f2' }
                 }>
                 {pathName == '/' ? <CircleAnimation /> : null}
-                <Wrapper>
+                <Wrapper className='Wrapper'>
                     <GlobalStyle />
                     {children}
                     <TransitionPortal>

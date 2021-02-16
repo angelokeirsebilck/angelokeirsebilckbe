@@ -26,11 +26,11 @@ const Heading = styled.h1`
 const HeadingContainer = styled.div`
     display: flex;
     justify-content: center;
-    padding-bottom: 40px;
+    padding-bottom: 30px;
     font-family: 'Space Mono', monospace;
 
     @media ${Sizes.md} {
-        padding-bottom: 80px;
+        padding-bottom: 60px;
     }
 `;
 

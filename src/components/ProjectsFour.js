@@ -7,6 +7,10 @@ import { Grid, Box } from 'react-raster';
 import Image from 'gatsby-image';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
+import SectionContainer from './layout/SectionContainer';
+
+import HeadingOne from '../components/HeadingOne';
+
 const AnimationBackground = styled.div`
     background: ${(props) => props.theme.animationBackground};
     border-radius: 50px;
@@ -116,14 +120,14 @@ const ProjectText = styled.div`
 `;
 
 const ProjectsContainer = styled.section`
-    margin-top: 30px;
-    margin-bottom: 30px;
+    /* margin-top: 30px;
+    margin-bottom: 30px; */
     position: relative;
 
-    @media ${Sizes.md} {
+    /* @media ${Sizes.md} {
         margin-top: 60px;
         margin-bottom: 60px;
-    }
+    } */
     .Animation-project--first {
         @media ${Sizes.sm} {
             padding-top: 20px;
@@ -297,7 +301,7 @@ const ProjectsNew = () => {
                 textRefs.current[index],
                 {
                     opacity: 0,
-                    duration: 0.2,
+                    duration: 1,
                 },
                 'title+=0.2'
             );
@@ -322,7 +326,6 @@ const ProjectsNew = () => {
                     opacity: 0,
                     duration: 0.1,
                     stagger: 0.1,
-                    delay: 0.1,
                 });
             });
         });
@@ -490,137 +493,148 @@ const ProjectsNew = () => {
     };
 
     return (
-        <ProjectsContainer ref={projectsContainerRef} className='ProjectsContainer'>
-            <CustomGrid colspan={2}>
-                <Box cols={1}>
-                    <AnimationBackground
-                        ref={animationBackgroundRef}
-                        className='Animation-background'>
-                        <ImageContainer className='Animation-projectImage'>
-                            {projects.map((project, index) => {
-                                return (
-                                    <GatsbyImageContainer
-                                        className='Animation-projectImage'
-                                        key={index}
-                                        ref={addProjectImagesRefs}>
-                                        <Image fluid={project.Image.childImageSharp.fluid} />
-                                    </GatsbyImageContainer>
-                                );
-                            })}
-                        </ImageContainer>
-                    </AnimationBackground>
-                </Box>
-            </CustomGrid>
-            {projects.map((project, index, array) => {
-                if (index % 2 === 0) {
-                    return (
-                        <Fragment key={index}>
-                            <Project
-                                ref={addProjectDOMRefs}
-                                className={
-                                    index === 0
-                                        ? 'Animation-project Animation-project--first'
-                                        : 'Animation-project'
-                                }>
-                                <Grid
-                                    breakpoints={[0, 768]}
-                                    colspan={2}
-                                    gutterX={'40px'}
-                                    gutterY={['40px', 0]}
-                                    css={{ width: '100%' }}>
-                                    <Box className='HomeBanner-image' cols={[2, 1]}>
-                                        <MobileImage ref={addMobileImageFadeInRefs}>
-                                            <Image
-                                                fluid={project.mobileImage.childImageSharp.fluid}
-                                            />
-                                        </MobileImage>
-                                    </Box>
-                                    <Box
-                                        ref={addboxRefs}
-                                        cols={[2, 1]}
-                                        css={{
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                        }}>
-                                        <ProjectTitle ref={addFadeInRefs}>
-                                            {project.Title}
-                                        </ProjectTitle>
-                                        <ProjectText ref={addTextRefs}>{project.Text}</ProjectText>
-                                        <StackContainer ref={addStackContainerRefs}>
-                                            {project.StackList.map((stack) => {
-                                                return (
-                                                    <StackItem
-                                                        className='Animation-StackItem'
-                                                        key={stack.id}>
-                                                        {stack.Stack}
-                                                    </StackItem>
-                                                );
-                                            })}
-                                        </StackContainer>
-                                    </Box>
-                                </Grid>
-                            </Project>
-                            {array.length - 1 === index ? null : (
-                                <GhostContainer
-                                    ref={addGhostDOMRefs}
-                                    className='Animation-ghosts'
-                                />
-                            )}
-                        </Fragment>
-                    );
-                } else {
-                    return (
-                        <Fragment key={index}>
-                            <Project ref={addProjectDOMRefs} className='Animation-project'>
-                                <Grid
-                                    breakpoints={[0, 768]}
-                                    colspan={2}
-                                    gutterX={'40px'}
-                                    gutterY={['40px', 0]}
-                                    css={{ width: '100%' }}>
-                                    <TextBoxOdd
-                                        ref={addboxRefs}
-                                        cols={[2, 1]}
-                                        css={{
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                        }}>
-                                        <ProjectTitle ref={addFadeInRefs}>
-                                            {project.Title}
-                                        </ProjectTitle>
-                                        <ProjectText ref={addTextRefs}>{project.Text}</ProjectText>
-                                        <StackContainer ref={addStackContainerRefs}>
-                                            {project.StackList.map((stack) => {
-                                                return (
-                                                    <StackItem
-                                                        className='Animation-StackItem'
-                                                        key={stack.id}>
-                                                        {stack.Stack}
-                                                    </StackItem>
-                                                );
-                                            })}
-                                        </StackContainer>
-                                    </TextBoxOdd>
-                                    <ImageBoxOdd className='HomeBanner-image' cols={[2, 1]}>
-                                        <MobileImage ref={addMobileImageFadeInRefs}>
-                                            <Image
-                                                fluid={project.mobileImage.childImageSharp.fluid}
-                                            />
-                                        </MobileImage>
-                                    </ImageBoxOdd>
-                                </Grid>
-                            </Project>
-                            {array.length - 1 === index ? null : (
-                                <GhostContainer
-                                    ref={addGhostDOMRefs}
-                                    className='Animation-ghosts'
-                                />
-                            )}
-                        </Fragment>
-                    );
-                }
-            })}
-        </ProjectsContainer>
+        <SectionContainer>
+            <HeadingOne title='Featured Projects' />
+            <ProjectsContainer ref={projectsContainerRef} className='ProjectsContainer'>
+                <CustomGrid colspan={2}>
+                    <Box cols={1}>
+                        <AnimationBackground
+                            ref={animationBackgroundRef}
+                            className='Animation-background'>
+                            <ImageContainer className='Animation-projectImage'>
+                                {projects.map((project, index) => {
+                                    return (
+                                        <GatsbyImageContainer
+                                            className='Animation-projectImage'
+                                            key={index}
+                                            ref={addProjectImagesRefs}>
+                                            <Image fluid={project.Image.childImageSharp.fluid} />
+                                        </GatsbyImageContainer>
+                                    );
+                                })}
+                            </ImageContainer>
+                        </AnimationBackground>
+                    </Box>
+                </CustomGrid>
+                {projects.map((project, index, array) => {
+                    if (index % 2 === 0) {
+                        return (
+                            <Fragment key={index}>
+                                <Project
+                                    ref={addProjectDOMRefs}
+                                    className={
+                                        index === 0
+                                            ? 'Animation-project Animation-project--first'
+                                            : 'Animation-project'
+                                    }>
+                                    <Grid
+                                        breakpoints={[0, 768]}
+                                        colspan={2}
+                                        gutterX={'40px'}
+                                        gutterY={['40px', 0]}
+                                        css={{ width: '100%' }}>
+                                        <Box className='HomeBanner-image' cols={[2, 1]}>
+                                            <MobileImage ref={addMobileImageFadeInRefs}>
+                                                <Image
+                                                    fluid={
+                                                        project.mobileImage.childImageSharp.fluid
+                                                    }
+                                                />
+                                            </MobileImage>
+                                        </Box>
+                                        <Box
+                                            ref={addboxRefs}
+                                            cols={[2, 1]}
+                                            css={{
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                            }}>
+                                            <ProjectTitle ref={addFadeInRefs}>
+                                                {project.Title}
+                                            </ProjectTitle>
+                                            <ProjectText ref={addTextRefs}>
+                                                {project.Text}
+                                            </ProjectText>
+                                            <StackContainer ref={addStackContainerRefs}>
+                                                {project.StackList.map((stack) => {
+                                                    return (
+                                                        <StackItem
+                                                            className='Animation-StackItem'
+                                                            key={stack.id}>
+                                                            {stack.Stack}
+                                                        </StackItem>
+                                                    );
+                                                })}
+                                            </StackContainer>
+                                        </Box>
+                                    </Grid>
+                                </Project>
+                                {array.length - 1 === index ? null : (
+                                    <GhostContainer
+                                        ref={addGhostDOMRefs}
+                                        className='Animation-ghosts'
+                                    />
+                                )}
+                            </Fragment>
+                        );
+                    } else {
+                        return (
+                            <Fragment key={index}>
+                                <Project ref={addProjectDOMRefs} className='Animation-project'>
+                                    <Grid
+                                        breakpoints={[0, 768]}
+                                        colspan={2}
+                                        gutterX={'40px'}
+                                        gutterY={['40px', 0]}
+                                        css={{ width: '100%' }}>
+                                        <TextBoxOdd
+                                            ref={addboxRefs}
+                                            cols={[2, 1]}
+                                            css={{
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                            }}>
+                                            <ProjectTitle ref={addFadeInRefs}>
+                                                {project.Title}
+                                            </ProjectTitle>
+                                            <ProjectText ref={addTextRefs}>
+                                                {project.Text}
+                                            </ProjectText>
+                                            <StackContainer ref={addStackContainerRefs}>
+                                                {project.StackList.map((stack) => {
+                                                    return (
+                                                        <StackItem
+                                                            className='Animation-StackItem'
+                                                            key={stack.id}>
+                                                            {stack.Stack}
+                                                        </StackItem>
+                                                    );
+                                                })}
+                                            </StackContainer>
+                                        </TextBoxOdd>
+                                        <ImageBoxOdd className='HomeBanner-image' cols={[2, 1]}>
+                                            <MobileImage ref={addMobileImageFadeInRefs}>
+                                                <Image
+                                                    fluid={
+                                                        project.mobileImage.childImageSharp.fluid
+                                                    }
+                                                />
+                                            </MobileImage>
+                                        </ImageBoxOdd>
+                                    </Grid>
+                                </Project>
+                                {array.length - 1 === index ? null : (
+                                    <GhostContainer
+                                        ref={addGhostDOMRefs}
+                                        className='Animation-ghosts'
+                                    />
+                                )}
+                            </Fragment>
+                        );
+                    }
+                })}
+            </ProjectsContainer>
+        </SectionContainer>
     );
 };
 

@@ -1,0 +1,19 @@
+import React from 'react';
+import styled from 'styled-components';
+import Sizes from '../../constants/breakpoints';
+
+const Section = styled.section`
+    padding-top: 40px;
+    padding-bottom: 40px;
+
+    @media ${Sizes.sm} {
+        padding-top: 120px;
+        padding-bottom: 120px;
+    }
+`;
+
+const SectionContainer = ({ children, styleClass }) => {
+    return <Section className={styleClass}> {children}</Section>;
+};
+
+export default SectionContainer;

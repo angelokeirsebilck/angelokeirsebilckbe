@@ -4,6 +4,7 @@ const initialState = {
     colorMode: 'dark',
     isMenuOpen: false,
     page: '',
+    xValueSkills: 0,
 };
 
 export default (state = initialState, action) => {

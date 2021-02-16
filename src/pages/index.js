@@ -8,7 +8,6 @@ import HomeBanner from '../components/home/HomeBanner';
 import NavBar from '../components/layout/NavBar';
 import Footer from '../components/layout/Footer';
 
-import HeadingOne from '../components/HeadingOne';
 import Projects from '../components/ProjectsFour';
 
 const index = ({ location }) => {
@@ -26,7 +25,6 @@ const index = ({ location }) => {
         <Layout pathName={location.pathname}>
             <NavBar />
             <HomeBanner />
-            <HeadingOne title='Featured Projects' />
             <Projects />
             <Footer />
         </Layout>

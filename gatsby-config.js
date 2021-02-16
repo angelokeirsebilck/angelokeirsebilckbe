@@ -45,7 +45,7 @@ module.exports = {
                 queryLimit: 1000, // Default to 100
                 contentTypes: ['project'],
                 //If using single types place them in this array.
-                singleTypes: ['homebanner'],
+                singleTypes: ['homebanner', 'skills', 'education'],
             },
         },
         {
