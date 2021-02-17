@@ -2,7 +2,6 @@ import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 import styled from 'styled-components';
 import Sizes from '../../constants/breakpoints';
-import { gsap } from 'gsap';
 import { Grid, Box } from 'react-raster';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -17,20 +16,7 @@ const Background = styled.div`
     border-radius: 50px;
     box-shadow: ${(props) => props.theme.baxShadowAnimationBackground};
     width: 100%;
-    /* min-height: 300px; */
     padding: 25px;
-
-    @media ${Sizes.md} {
-        /* width: 50%; */
-    }
-    /* position: absolute;
-    top: 0; */
-`;
-
-const EducationContainer = styled.div`
-    position: relative;
-    overflow-y: hidden;
-    height: 250px;
 `;
 
 const PinSection = styled.div`
@@ -120,7 +106,7 @@ const Education = () => {
     const {
         strapiEducation: { education },
     } = useStaticQuery(query);
-    const [educationGridHeight, setEducationGridHeight] = useState(0);
+    const [educationGridHeight] = useState(0);
 
     const educationContainerRef = useRef();
     const educationGridRefs = useRef([]);
@@ -132,125 +118,20 @@ const Education = () => {
     };
 
     useEffect(() => {
-        // educationGridRefs.current.forEach((grid) => {
-        //     let height = grid.offsetHeight;
-
-        //     if (educationGridHeight < height) {
-        //         setEducationGridHeight(height);
-        //     }
-        // });
-
         educationAnimation();
-        // addToEducationGridRefs.current.forEach((grid, index) => {});
     }, [educationGridHeight]);
-
-    const getCalcY = (offsetHeight) => {
-        return `${offsetHeight}px`;
-    };
-
-    const getEndPosition = () => {
-        console.log(
-            'End pos Secion Skills: ',
-            document.querySelector('.PinSectionEducation').offsetWidth
-        );
-        return '+=' + document.querySelector('.PinSectionEducation').offsetWidth;
-    };
-
-    const getY = () => {
-        let pinSectionHeightInit = 0;
-        educationGridRefs.current.forEach((bg) => {
-            if (bg.offsetHeight > pinSectionHeightInit) {
-                pinSectionHeightInit = bg.offsetHeight + 3;
-            }
-        });
-        return pinSectionHeightInit;
-    };
 
     const educationAnimation = () => {
         educationGridRefs.current.forEach((grid) => {
             ScrollTrigger.saveStyles(grid);
         });
         ScrollTrigger.saveStyles('.PinSectionEducation');
-        ScrollTrigger.matchMedia({
-            '(min-width: 767px)': function () {
-                educationGridRefs.current.forEach((grid) => {
-                    gsap.set(grid, { position: 'absolute' });
-                });
-                let pinSectionHeightInit = 0;
-                educationGridRefs.current.forEach((bg) => {
-                    if (bg.offsetHeight > pinSectionHeightInit) {
-                        pinSectionHeightInit = bg.offsetHeight + 3;
-                    }
-                });
-                gsap.set('.PinSectionEducation', { height: pinSectionHeightInit });
-
-                const timeline = gsap.timeline({
-                    scrollTrigger: {
-                        trigger: '.SectionEducation',
-                        start:
-                            'top+=' +
-                            (document.querySelector('.PinSectionSkills').offsetWidth - 240) +
-                            'top',
-                        end: () => getEndPosition(),
-                        onEnter: () => console.log('enter'),
-                        scrub: true,
-                        markers: {
-                            startColor: 'white',
-                            endColor: 'white',
-                            fontSize: '18px',
-                            fontWeight: 'bold',
-                            indent: 20,
-                        },
-                        pin: '.PinWrapper',
-                        pinSpacing: false,
-                        invalidateOnRefresh: true,
-                        snap: 0.5,
-                    },
-                });
-
-                educationGridRefs.current.forEach((grid, index) => {
-                    if (index !== 0) {
-                        timeline.fromTo(
-                            grid,
-                            {
-                                y: () => getY(),
-                            },
-                            {
-                                y: 0,
-                            }
-                        );
-                    }
-                    if (index !== 2) {
-                        timeline.fromTo(
-                            grid,
-                            {
-                                opacity: 1,
-                            },
-                            {
-                                opacity: 0,
-                            }
-                        );
-                    }
-                });
-            },
-            '(max-width: 766px)': function () {
-                educationGridRefs.current.forEach((grid) => {
-                    gsap.set(grid, { position: 'relative' });
-                });
-                gsap.set('.PinSectionEducation', { height: 'auto' });
-            },
-        });
     };
 
     return (
         <SectionContainer styleClass='SectionEducation'>
             <HeadingOne title='Education' />
-            <PinSection
-                className='PinSectionEducation'
-                // css={{
-                //     height: educationGridHeight,
-                // }}
-                ref={educationContainerRef}>
+            <PinSection className='PinSectionEducation' ref={educationContainerRef}>
                 {education.map((education, index) => {
                     return (
                         <EducationGrid

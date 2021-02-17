@@ -6,8 +6,9 @@ import { Grid, Box } from 'react-raster';
 import NavLinks from '../constants/main-nav';
 import { toggleMenu, changePage } from '../../actions/globalActions';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Link as GatsbyLink } from 'gatsby';
 
-import { ListTLink, animatePageTransition, onEntryAnimation } from '../components/layout/Layout';
+import Sizes from '../constants/breakpoints';
 
 const NavContainer = styled.div`
     background: ${(props) => props.theme.pageBackground};
@@ -66,7 +67,7 @@ const NavButtonLine = styled.div`
     width: 100%;
     height: 2px;
     overflow: hidden;
-    bottom: 10px;
+    bottom: -8px;
 `;
 
 const NavButtonLineInner = styled.div`
@@ -79,7 +80,22 @@ const NavButtonLineInner = styled.div`
     background-color: rgba(30, 174, 152, 1);
 `;
 
-const LinkWrapper = styled.div``;
+const NavButton = styled(GatsbyLink)`
+    font-family: 'Space Mono', monospace;
+    font-size: 26px;
+    color: rgba(30, 174, 152, 1);
+    text-transform: lowercase;
+    position: relative;
+    text-decoration: none;
+
+    @media ${Sizes.sm} {
+        font-size: 36px;
+    }
+
+    &.is-active .Line {
+        background: linear-gradient(to left, rgba(207, 181, 250, 1), rgba(30, 174, 152, 1));
+    }
+`;
 
 let boxHeight;
 const Nav = ({ global, toggleMenu, changePage }) => {
@@ -179,6 +195,14 @@ const Nav = ({ global, toggleMenu, changePage }) => {
         }
     }
 
+    const killScrollTriggers = () => {
+        const scrollTriggerArray = ScrollTrigger.getAll();
+        scrollTriggerArray.forEach((scrollTrigger) => {
+            scrollTrigger.kill();
+        });
+        console.log('done');
+    };
+
     return (
         <NavContainer ref={navRef}>
             <LineOne ref={lineOneRef} />
@@ -207,7 +231,8 @@ const Nav = ({ global, toggleMenu, changePage }) => {
                                     alignItems: 'center',
                                 }}
                                 cols={1}>
-                                <LinkWrapper
+                                <NavButton
+                                    to={link.url}
                                     onMouseEnter={() => {
                                         lineTimelines[index].play();
                                     }}
@@ -219,39 +244,23 @@ const Nav = ({ global, toggleMenu, changePage }) => {
                                         }
                                     }}
                                     onClick={() => {
+                                        killScrollTriggers();
                                         toggleMenu();
                                     }}
-                                    ref={addToBtnRefs}>
-                                    <ListTLink
-                                        exit={{
-                                            length: 5.5,
-                                            trigger: ({ exit, e, node }) => {
-                                                const scrollTriggerArray = ScrollTrigger.getAll();
-                                                scrollTriggerArray.forEach((scrollTrigger) => {
-                                                    scrollTrigger.kill();
-                                                });
-                                                changePage(link.name);
-                                                animatePageTransition(exit, node);
-                                            },
-                                        }}
-                                        entry={{
-                                            delay: 2,
-                                            trigger: ({ entry, node }) => {
-                                                const scrollTriggerArray = ScrollTrigger.getAll();
-                                                scrollTriggerArray.forEach((scrollTrigger) => {
-                                                    scrollTrigger.enable();
-                                                });
-
-                                                onEntryAnimation(link.name, node);
-                                            },
-                                        }}
-                                        to={link.url}>
-                                        {link.name}
-                                        <NavButtonLine>
-                                            <NavButtonLineInner ref={addToLineRefs} />
-                                        </NavButtonLine>
-                                    </ListTLink>
-                                </LinkWrapper>
+                                    ref={addToBtnRefs}
+                                    activeClassName='is-active'
+                                    activeStyle={{
+                                        background:
+                                            'linear-gradient(to right, rgba(207, 181, 250, 1), rgba(30, 174, 152, 1))',
+                                        WebkitBackgroundClip: 'text',
+                                        backgroundClip: 'text',
+                                        color: 'transparent',
+                                    }}>
+                                    {link.name}
+                                    <NavButtonLine>
+                                        <NavButtonLineInner className='Line' ref={addToLineRefs} />
+                                    </NavButtonLine>
+                                </NavButton>
                             </Box>
                         );
                     })}

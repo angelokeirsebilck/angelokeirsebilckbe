@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { gsap } from 'gsap';
+import React from 'react';
+// import { gsap } from 'gsap';
 import PropTypes from 'prop-types';
 
 import Sizes from '../constants/breakpoints';
@@ -37,7 +37,7 @@ const HeadingContainer = styled.div`
 const TopLine = styled.div`
     position: absolute;
     top: -10px;
-    width: 0;
+    width: 30%;
     height: 1px;
     background: rgba(207, 181, 250, 1);
 `;
@@ -46,41 +46,42 @@ const BottomLine = styled.div`
     position: absolute;
     bottom: -10px;
     right: 0;
-    width: 0;
+    width: 30%;
     height: 1px;
     background: rgba(30, 174, 152, 1);
 `;
 
 const HeadingOne = ({ title, forwardRef }) => {
-    useEffect(() => {
-        const headingTimeline = gsap.timeline({
-            scrollTrigger: {
-                trigger: '.Animation-headingContainer',
-                start: '-10% 80%',
-                end: 'bottom 70%',
-                toggleActions: 'play none none reverse',
-            },
-        });
-        headingTimeline.addLabel('start', 0);
+    // useEffect(() => {
+    //     const headingTimeline = gsap.timeline({
+    //         scrollTrigger: {
+    //             trigger: '.Animation-headingContainer',
+    //             start: '-10% 80%',
+    //             end: 'bottom 70%',
+    //             toggleActions: 'play none none reverse',
+    //             markers: true,
+    //         },
+    //     });
+    //     headingTimeline.addLabel('start', 0);
 
-        headingTimeline
-            .to(
-                '.Animation-topLine',
-                {
-                    width: '30%',
-                    duration: 0.4,
-                },
-                'start'
-            )
-            .to(
-                '.Animation-bottomLine',
-                {
-                    width: '30%',
-                    duration: 0.4,
-                },
-                'start'
-            );
-    }, []);
+    //     headingTimeline
+    //         .to(
+    //             '.Animation-topLine',
+    //             {
+    //                 width: '30%',
+    //                 duration: 0.4,
+    //             },
+    //             'start'
+    //         )
+    //         .to(
+    //             '.Animation-bottomLine',
+    //             {
+    //                 width: '30%',
+    //                 duration: 0.4,
+    //             },
+    //             'start'
+    //         );
+    // }, []);
 
     return (
         <HeadingContainer ref={forwardRef} className='Animation-headingContainer'>

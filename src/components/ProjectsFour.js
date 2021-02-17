@@ -1,11 +1,10 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react';
+import React, { Fragment, useEffect, useRef } from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 import styled from 'styled-components';
 import Sizes from '../constants/breakpoints';
 import { gsap } from 'gsap';
 import { Grid, Box } from 'react-raster';
 import Image from 'gatsby-image';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import SectionContainer from './layout/SectionContainer';
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 // Components
 import Layout from '../components/layout/Layout';
@@ -11,16 +10,6 @@ import Footer from '../components/layout/Footer';
 import Projects from '../components/ProjectsFour';
 
 const index = ({ location }) => {
-    ScrollTrigger.addEventListener('refreshInit', function () {
-        let ghostDOMS = document.querySelectorAll('.Animation-ghosts');
-        if (ghostDOMS) {
-            let projectsContainer = document.querySelector('.ProjectsContainer');
-            ghostDOMS.forEach((ghost) => {
-                ghost.style.height = `${projectsContainer.offsetWidth / 2}px`;
-            });
-        }
-    });
-
     return (
         <Layout pathName={location.pathname}>
             <NavBar />

@@ -4,8 +4,6 @@ import reset from 'styled-reset';
 import { connect } from 'react-redux';
 
 import { gsap } from 'gsap';
-import { TransitionPortal } from 'gatsby-plugin-transition-link';
-import TransitionLink from 'gatsby-plugin-transition-link';
 
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Nav from '../Nav';
@@ -70,30 +68,30 @@ const Wrapper = styled.div`
         padding-right: 40px;
     }
 `;
-const PageAnimationLi = styled.li`
-    font-family: 'Space Mono', monospace;
-    transform: translateX(100%);
-    height: 25%;
-    width: 100%;
-    list-style-type: none;
-    position: absolute;
-    font-size: 50px;
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    text-transform: lowercase;
-    align-items: center;
-`;
+// const PageAnimationLi = styled.li`
+//     font-family: 'Space Mono', monospace;
+//     transform: translateX(100%);
+//     height: 25%;
+//     width: 100%;
+//     list-style-type: none;
+//     position: absolute;
+//     font-size: 50px;
+//     color: #fff;
+//     display: flex;
+//     justify-content: center;
+//     text-transform: lowercase;
+//     align-items: center;
+// `;
 
-const LiSpan = styled.span`
-    transform: skewX(5deg);
-    opacity: 0;
-`;
+// const LiSpan = styled.span`
+//     transform: skewX(5deg);
+//     opacity: 0;
+// `;
 
-const LiSpaReverse = styled.span`
-    transform: skewX(-5deg);
-    opacity: 0;
-`;
+// const LiSpaReverse = styled.span`
+//     transform: skewX(-5deg);
+//     opacity: 0;
+// `;
 
 const Layout = ({ children, global, pathName }) => {
     useEffect(() => {}, []);
@@ -107,113 +105,16 @@ const Layout = ({ children, global, pathName }) => {
                         ? { background: '#1E2030' }
                         : { background: '#f7f5f2' }
                 }>
-                {pathName == '/' ? <CircleAnimation /> : null}
+                {pathName === '/' ? <CircleAnimation /> : null}
                 <Wrapper className='Wrapper'>
                     <GlobalStyle />
                     {children}
-                    <TransitionPortal>
-                        <ul
-                            className='Transition-ul'
-                            style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                position: 'fixed',
-                                height: '100vh',
-                                width: '100%',
-                                top: 0,
-                                left: 0,
-                                margin: 0,
-                                pointerEvents: 'none',
-                                background: 'transparent',
-                            }}>
-                            <PageAnimationLi
-                                className='Transition-li'
-                                css={{ top: 0, background: '#C0D6DF' }}>
-                                <LiSpan className='spanTimeline'>Eat</LiSpan>
-                            </PageAnimationLi>
-                            <PageAnimationLi
-                                className='Transition-li'
-                                css={{ top: '25vh', background: 'rgba(47,50,75,1)' }}>
-                                <LiSpaReverse className='spanTimeline'>Sleep</LiSpaReverse>
-                            </PageAnimationLi>
-                            <PageAnimationLi
-                                className='Transition-li'
-                                css={{ top: '50vh', background: '#C0D6DF' }}>
-                                <LiSpan className='spanTimeline'>Javascript</LiSpan>
-                            </PageAnimationLi>
-                            <PageAnimationLi
-                                className='Transition-li'
-                                css={{ top: '75vh', background: 'rgba(47,50,75,1)' }}>
-                                <LiSpaReverse className='spanTimeline'>Repeat</LiSpaReverse>
-                            </PageAnimationLi>
-                        </ul>
-                    </TransitionPortal>
                 </Wrapper>
             </Body>
             <Nav />
         </ThemeProvider>
     );
 };
-
-export const ListTLink = (props) => {
-    return (
-        <TransitionLink
-            style={{
-                fontFamily: 'Space Mono, monospace',
-                fontSize: '26px',
-                color: 'rgba(30, 174, 152, 1)',
-                textTransform: 'lowercase',
-                position: 'relative',
-                textDecoration: 'none',
-                paddingBottom: '10px',
-            }}
-            activeClassName='is-active'
-            activeStyle={{
-                background:
-                    'linear-gradient(to right, rgba(207, 181, 250, 1), rgba(30, 174, 152, 1))',
-                WebkitBackgroundClip: 'text',
-                backgroundClip: 'text',
-                color: 'transparent',
-            }}
-            to={props.to}
-            entry={props.entry}
-            exit={props.exit}
-            trigger={props.trigger}>
-            {props.children}
-        </TransitionLink>
-    );
-};
-
-export const onEntryAnimation = (name, node) => {};
-
-// hidden object animation
-export function animatePageTransition() {
-    var tl = gsap.timeline();
-    var spanTimeline = gsap.timeline();
-
-    spanTimeline
-        .to('.spanTimeline', {
-            duration: 0.5,
-            opacity: 1,
-            delay: 0.5,
-        })
-        .to('.spanTimeline', {
-            duration: 0.5,
-            opacity: 0,
-            delay: 0.9,
-        });
-
-    tl.to('.Transition-li', {
-        duration: 1,
-        x: 0,
-        stagger: 0.2,
-    }).to('.Transition-li', {
-        x: '100%',
-        duration: 1,
-        stagger: 0.1,
-        delay: 0.5,
-    });
-}
 
 const mapStateToProps = (state) => ({
     global: state.global,

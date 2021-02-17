@@ -1,10 +1,9 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import { graphql, useStaticQuery } from 'gatsby';
 import styled from 'styled-components';
 import Sizes from '../../constants/breakpoints';
-import { gsap } from 'gsap';
-import { Grid, Box } from 'react-raster';
+
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import SectionContainer from '../layout/SectionContainer';
@@ -92,7 +91,6 @@ const Skills = () => {
     } = useStaticQuery(query);
 
     const backgroundRefs = useRef([]);
-    const sectionRef = useRef();
 
     const addBackgroundsRefs = (el) => {
         if (el && !backgroundRefs.current.includes(el)) {
@@ -100,87 +98,9 @@ const Skills = () => {
         }
     };
 
-    // const addSectionsRefs = (el) => {
-    //     if (el && !sectionRefs.current.includes(el)) {
-    //         sectionRefs.current.push(el);
-    //     }
-    // };
-
-    const calcX = () => {
-        const sectionWidth = document.querySelector('.SectionSkills').offsetWidth;
-        const windowWidth = window.innerWidth;
-        const extraWidth = (windowWidth - sectionWidth) / 2;
-        const result = sectionWidth + extraWidth;
-        return result;
-    };
-
-    const getEndPosition = () => {
-        console.log(
-            'End pos Secion Skills: ',
-            document.querySelector('.PinSectionSkills').offsetWidth
-        );
-        return '+=' + document.querySelector('.PinSectionSkills').offsetWidth;
-    };
     const initPinBackgroundAnimation = () => {
-        const sectionHeight = document.querySelector('.SectionSkills');
-
         backgroundRefs.current.forEach((bg) => {
             ScrollTrigger.saveStyles(bg, '.PinSectionSkills');
-        });
-
-        ScrollTrigger.matchMedia({
-            // desktop
-            '(min-width: 767px)': function () {
-                let pinSectionHeightInit = 0;
-                backgroundRefs.current.forEach((bg) => {
-                    if (bg.offsetHeight > pinSectionHeightInit)
-                        pinSectionHeightInit = bg.offsetHeight + 10;
-                });
-                gsap.set('.PinSectionSkills', { height: pinSectionHeightInit });
-
-                const pinBackgroundAnimation = gsap.timeline({
-                    scrollTrigger: {
-                        trigger: sectionHeight,
-                        invalidateOnRefresh: true,
-                        start: 'top top',
-                        end: () => getEndPosition(),
-                        markers: true,
-                        scrub: true,
-                        pin: '.PinWrapper',
-                        pinSpacing: false,
-                        snap: 0.5,
-                    },
-                });
-
-                backgroundRefs.current.forEach((pinBackground, index) => {
-                    // gsap.set(pinBackground, { position: 'absolute' });
-                    if (index !== 0) {
-                        pinBackgroundAnimation.fromTo(
-                            pinBackground,
-                            {
-                                x: () => calcX(),
-                            },
-                            {
-                                x: 0,
-                            }
-                        );
-                    }
-                    if (index !== 2) {
-                        pinBackgroundAnimation.fromTo(
-                            pinBackground,
-                            {
-                                opacity: 1,
-                            },
-                            {
-                                opacity: 0,
-                            }
-                        );
-                    }
-                });
-            },
-            '(max-width: 766px)': function () {
-                gsap.set('.PinSectionSkills', { height: 'auto' });
-            },
         });
     };
 
