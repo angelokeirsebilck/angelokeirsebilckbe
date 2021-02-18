@@ -13,7 +13,7 @@ import Colors from '../constants/colors';
 
 const AnimationBackground = styled.div`
     background: ${(props) => props.theme.animationBackground};
-    border-radius: 50px;
+    border-radius: 20px;
     transform: rotate(-3deg);
     position: absolute;
     left: 0;

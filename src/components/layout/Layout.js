@@ -47,7 +47,7 @@ const themes = {
 };
 
 const Body = styled.div`
-    min-height: 400vh;
+    min-height: 100vh;
     position: relative;
     overflow-x: hidden;
     font-family: 'Montserrat', sans-serif;

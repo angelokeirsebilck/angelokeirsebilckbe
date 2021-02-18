@@ -13,10 +13,10 @@ import Colors from '../../constants/colors';
 const Background = styled.div`
     background: ${(props) => props.theme.animationBackground};
     color: white;
-    border-radius: 50px;
+    border-radius: 20px;
     box-shadow: ${(props) => props.theme.baxShadowAnimationBackground};
     width: 100%;
-    padding: 25px;
+    padding: 30px;
 `;
 
 const PinSection = styled.div`

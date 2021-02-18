@@ -9,6 +9,7 @@ import Education from '../components/about/Education';
 import Experience from '../components/about/Experience';
 
 import { changeXValueSkills } from '../../actions/globalActions';
+import PinSpacerOverlapper from '../components/about/PinSpacerOverlapper';
 
 const about = ({}) => {
     return (
@@ -19,9 +20,13 @@ const about = ({}) => {
                 <Education />
                 <Experience />
             </div>
+            <PinSpacerOverlapper />
+
+            <div className='footer' css={{ height: '200px' }}></div>
         </Layout>
     );
 };
+
 const mapStateToProps = (state) => ({
     global: state.global,
 });

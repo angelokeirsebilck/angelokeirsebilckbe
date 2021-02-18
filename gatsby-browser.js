@@ -21,6 +21,10 @@ export const onRouteUpdate = ({ location, prevLocation }) => {
     if (pathName === '/about') {
         setScrollTriggerMediaQueries();
         ScrollTrigger.addEventListener('refresh', aboutWindowRefreshed);
+        const pinSpacerOverlapper = document.querySelector('.PinSpacerOverlapper');
+        gsap.set(pinSpacerOverlapper, {
+            height: 4500,
+        });
     }
 };
 
@@ -128,12 +132,13 @@ const setScrollTriggerMediaQueries = () => {
                     trigger: sectionSkills,
                     invalidateOnRefresh: true,
                     start: 'top top',
-                    end: () => getEndPosition(),
+                    // end: () => getEndPosition(),
+                    end: '+=1500',
                     scrub: true,
                     pin: '.PinWrapper',
                     pinSpacing: false,
                     snap: 0.5,
-                    // markers: true,
+                    markers: true,
                 },
             });
 
@@ -179,15 +184,17 @@ const setScrollTriggerMediaQueries = () => {
             const timeline = gsap.timeline({
                 scrollTrigger: {
                     trigger: '.SectionEducation',
-                    start: () => getStartPositionEducation(),
-                    end: () => getEndPositionEducation(),
+                    // start: () => getStartPositionEducation(),
+                    start: '+=1500 top',
+                    // end: () => getEndPositionEducation(),
+                    end: '+=3000',
                     scrub: true,
-                    // markers: {
-                    //     startColor: 'white',
-                    //     endColor: 'white',
-                    //     fontSize: '18px',
-                    //     indent: 20,
-                    // },
+                    markers: {
+                        startColor: 'white',
+                        endColor: 'white',
+                        fontSize: '18px',
+                        indent: 20,
+                    },
                     pin: '.PinWrapper',
                     pinSpacing: false,
                     invalidateOnRefresh: true,

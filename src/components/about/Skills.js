@@ -14,7 +14,7 @@ import ScrollMouse from '../ScrollMouse';
 
 const Background = styled.div`
     background: ${(props) => props.theme.animationBackground};
-    border-radius: 50px;
+    border-radius: 20px;
     box-shadow: ${(props) => props.theme.baxShadowAnimationBackground};
     width: 100%;
     padding: 30px;
