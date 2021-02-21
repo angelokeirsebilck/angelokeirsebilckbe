@@ -14,10 +14,10 @@ import Colors from '../../constants/colors';
 const Background = styled.div`
     background: ${(props) => props.theme.animationBackground};
     border-radius: 20px;
-    box-shadow: ${(props) => props.theme.baxShadowAnimationBackground};
+    /* box-shadow: ${(props) => props.theme.baxShadowAnimationBackground}; */
     width: 100%;
     padding: 30px;
-    /* margin-bottom: 40px; */
+    opacity: 1;
     color: white;
 
     @media ${Sizes.sm} {
@@ -32,7 +32,8 @@ const DateContainer = styled.div`
 const HR = styled.div`
     width: 100%;
     height: 1px;
-    background: rgba(${Colors.purleDarkRGB}, 1);
+    /* background: rgba(${Colors.primaryDark}, 1); */
+    background: white;
     margin-bottom: 15px;
     margin-top: 15px;
 `;
@@ -59,7 +60,8 @@ const RefEmail = styled.a`
     transition: 0.4s all;
 
     &:hover {
-        color: rgba(${Colors.purleDarkRGB}, 1);
+        color: rgba(${Colors.secondary}, 1);
+        /* color: #1e2030; */
     }
 `;
 
@@ -90,7 +92,7 @@ const Experience = () => {
 
             {experience.map((exp) => {
                 return (
-                    <Background key={exp.id}>
+                    <Background className='Experience' key={exp.id}>
                         <DateContainer>
                             {exp.startDate} - {exp.endDate}
                         </DateContainer>

@@ -14,9 +14,10 @@ const Background = styled.div`
     background: ${(props) => props.theme.animationBackground};
     color: white;
     border-radius: 20px;
-    box-shadow: ${(props) => props.theme.baxShadowAnimationBackground};
+    /* box-shadow: ${(props) => props.theme.baxShadowAnimationBackground}; */
     width: 100%;
     padding: 30px;
+    /* transform: translateX(-3px); */
 `;
 
 const PinSection = styled.div`
@@ -69,17 +70,15 @@ const DateBox = styled(Box)`
 const HR = styled.div`
     width: 100%;
     height: 1px;
-    background: rgba(${Colors.purleDarkRGB}, 1);
+    /* background: rgba(${Colors.primaryDark}, 1); */
+    background: white;
     margin-bottom: 15px;
 `;
 
 const Date = styled.div`
     font-size: 90px;
-    color: rgba(216, 118, 255, 0.1);
     opacity: ${(props) => props.theme.dateSvgOpacity};
-    /* transform: translateX(0) rotate(-90deg); */
     position: absolute;
-    /* top: 40px; */
     left: 0;
     top: 0;
     line-height: 90px;
@@ -122,10 +121,10 @@ const Education = () => {
     }, [educationGridHeight]);
 
     const educationAnimation = () => {
-        educationGridRefs.current.forEach((grid) => {
-            ScrollTrigger.saveStyles(grid);
-        });
-        ScrollTrigger.saveStyles('.PinSectionEducation');
+        // educationGridRefs.current.forEach((grid) => {
+        //     ScrollTrigger.saveStyles(grid);
+        // });
+        // ScrollTrigger.saveStyles('.PinSectionEducation');
     };
 
     return (

@@ -7,6 +7,10 @@ const Container = styled.div`
 
     @media ${Sizes.sm} {
         display: block;
+        position: relative;
+        top: 0;
+        left: 0;
+        pointer-events: none;
     }
 `;
 

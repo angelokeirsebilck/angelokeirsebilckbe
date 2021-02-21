@@ -1,6 +1,8 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 
+import Colors from '../../constants/colors';
+
 const move = keyframes`
     25% {
         opacity: 1;
@@ -41,7 +43,7 @@ const ChevronArrow = styled.div`
         top: 0;
         height: 100%;
         width: 51%;
-        background: #1eae98;
+        background: rgba(${Colors.secondary}, 1);
     }
 
     &:before {

@@ -15,7 +15,7 @@ const ScrollAnimation = keyframes`
 const ScrollMouseContainer = styled.div`
     width: 30px;
     height: 50px;
-    border: 2px solid rgba(${Colors.purleDarkRGB}, 1);
+    border: 2px solid rgba(${Colors.primaryDark}, 1);
     border-radius: 25px;
     position: relative;
 
@@ -24,7 +24,7 @@ const ScrollMouseContainer = styled.div`
         position: absolute;
         width: 8px;
         height: 8px;
-        background: rgba(${Colors.purleDarkRGB}, 1);
+        background: rgba(${Colors.primaryDark}, 1);
         top: 5px;
         left: 9px;
         border-radius: 4px;

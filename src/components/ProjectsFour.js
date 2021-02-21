@@ -5,6 +5,7 @@ import Sizes from '../constants/breakpoints';
 import { gsap } from 'gsap';
 import { Grid, Box } from 'react-raster';
 import Image from 'gatsby-image';
+import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
 
 import SectionContainer from './layout/SectionContainer';
 
@@ -108,8 +109,9 @@ const StackContainer = styled.div`
 const StackItem = styled.div`
     font-family: 'Space Mono', monospace;
     display: inline-block;
-    background: rgba(${Colors.purleDarkRGB}, 1);
-    color: ${(props) => props.theme.textColor};
+    background: rgba(${Colors.primaryDark}, 1);
+    /* color: ${(props) => props.theme.textColor}; */
+    color: white;
     padding: 3px 10px;
     margin-right: 10px;
     margin-bottom: 10px;
@@ -151,6 +153,22 @@ const GhostContainer = styled.div`
     }
 `;
 
+const IconContainer = styled.div``;
+
+const Icon = styled.a`
+    color: rgba(${Colors.secondary}, 1);
+    border: 1px solid rgba(${Colors.secondary}, 1);
+    display: inline-flex;
+    padding: 6px;
+    margin-right: 10px;
+    transition: 0.4s all;
+
+    &:hover {
+        color: ${(props) => props.theme.textColor};
+        border: 1px solid ${(props) => props.theme.textColor};
+    }
+`;
+
 const query = graphql`
     {
         allStrapiProject {
@@ -161,6 +179,8 @@ const query = graphql`
                     Stack
                     id
                 }
+                url
+                github
                 mobileImage {
                     childImageSharp {
                         fluid {
@@ -491,7 +511,7 @@ const ProjectsNew = () => {
             }
         });
     };
-
+    console.log(projects);
     return (
         <SectionContainer>
             <HeadingOne title='Featured Projects' />
@@ -566,6 +586,18 @@ const ProjectsNew = () => {
                                                     );
                                                 })}
                                             </StackContainer>
+                                            <IconContainer>
+                                                {project.url !== null ? (
+                                                    <Icon href={project.url} target='_blank'>
+                                                        <FaExternalLinkAlt />
+                                                    </Icon>
+                                                ) : null}
+                                                {project.github !== null ? (
+                                                    <Icon href={project.github} target='_blank'>
+                                                        <FaGithub />
+                                                    </Icon>
+                                                ) : null}
+                                            </IconContainer>
                                         </Box>
                                     </Grid>
                                 </Project>
@@ -611,6 +643,18 @@ const ProjectsNew = () => {
                                                     );
                                                 })}
                                             </StackContainer>
+                                            <IconContainer>
+                                                {project.url !== null ? (
+                                                    <Icon href={project.url} target='_blank'>
+                                                        <FaExternalLinkAlt />
+                                                    </Icon>
+                                                ) : null}
+                                                {project.github !== null ? (
+                                                    <Icon href={project.github} target='_blank'>
+                                                        <FaGithub />
+                                                    </Icon>
+                                                ) : null}
+                                            </IconContainer>
                                         </TextBoxOdd>
                                         <ImageBoxOdd className='HomeBanner-image' cols={[2, 1]}>
                                             <MobileImage ref={addMobileImageFadeInRefs}>

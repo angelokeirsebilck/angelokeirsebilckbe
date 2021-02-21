@@ -7,6 +7,7 @@ import { gsap } from 'gsap';
 import { connect } from 'react-redux';
 
 import Sizes from '../../constants/breakpoints';
+import Colors from '../../constants/colors';
 
 // Components
 import Chevron from './Chevron';
@@ -46,7 +47,7 @@ const Heading1 = styled.h1`
     font-weight: bold;
     line-height: 1.1;
 
-    background: linear-gradient(to right, rgba(207, 181, 250, 1), rgba(30, 174, 152, 1));
+    background: linear-gradient(to right, rgba(${Colors.primary}, 1), rgba(${Colors.secondary}, 1));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 

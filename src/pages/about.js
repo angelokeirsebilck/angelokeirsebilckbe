@@ -21,8 +21,6 @@ const about = ({}) => {
                 <Experience />
             </div>
             <PinSpacerOverlapper />
-
-            <div className='footer' css={{ height: '200px' }}></div>
         </Layout>
     );
 };

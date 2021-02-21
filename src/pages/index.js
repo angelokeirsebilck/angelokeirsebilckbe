@@ -8,14 +8,16 @@ import NavBar from '../components/layout/NavBar';
 import Footer from '../components/layout/Footer';
 
 import Projects from '../components/ProjectsFour';
+import SectionContainer from '../components/layout/SectionContainer';
 
 const index = ({ location }) => {
     return (
         <Layout pathName={location.pathname}>
             <NavBar />
             <HomeBanner />
-            <Projects />
-            <Footer />
+            <SectionContainer>
+                <Projects />
+            </SectionContainer>
         </Layout>
     );
 };

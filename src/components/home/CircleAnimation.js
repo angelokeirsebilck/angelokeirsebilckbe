@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { gsap } from 'gsap';
 import styled from 'styled-components';
 
+import Colors from '../../constants/colors';
+
 const CircleAnimationsContainer = styled.div`
     position: absolute;
     height: 100vh;
@@ -86,7 +88,7 @@ const CircleAnimation = () => {
                 topStart: R(0, windowHeight / 4),
                 leftStart: R(0, windowWidth / 4),
                 delay: delay,
-                color: gsap.utils.random(['30,174,152,', '216,181,255,']),
+                color: gsap.utils.random([Colors.primary, Colors.secondary]),
                 opacity: gsap.utils.random([0.2, 0.3, 0.1]),
                 radius: gsap.utils.random(20, 200),
             });
@@ -103,7 +105,7 @@ const CircleAnimation = () => {
                 topStart: R(0, windowHeight / 2),
                 leftStart: R(windowWidth / 2, windowWidth),
                 delay: delay,
-                color: gsap.utils.random(['30,174,152,', '216,181,255,']),
+                color: gsap.utils.random([Colors.primary, Colors.secondary]),
                 opacity: gsap.utils.random([0.2, 0.3, 0.1]),
                 radius: gsap.utils.random(20, 250),
             });
@@ -120,7 +122,7 @@ const CircleAnimation = () => {
                 topStart: R(windowHeight / 2, windowHeight),
                 leftStart: R(0, windowWidth / 2),
                 delay: delay,
-                color: gsap.utils.random(['30,174,152,', '216,181,255,']),
+                color: gsap.utils.random([Colors.primary, Colors.secondary]),
                 opacity: gsap.utils.random([0.2, 0.3, 0.1]),
                 radius: gsap.utils.random(20, 200),
             });
@@ -137,7 +139,7 @@ const CircleAnimation = () => {
                 topStart: R(windowHeight / 2, windowHeight),
                 leftStart: R(windowWidth / 2, windowWidth),
                 delay: delay,
-                color: gsap.utils.random(['30,174,152,', '216,181,255,']),
+                color: gsap.utils.random([Colors.primary, Colors.secondary]),
                 opacity: gsap.utils.random([0.2, 0.3, 0.1]),
                 radius: gsap.utils.random(20, 250),
             });
@@ -176,7 +178,7 @@ const CircleAnimation = () => {
                                 position: 'absolute',
                                 top: circle.topStart,
                                 left: circle.leftStart,
-                                background: `rgba(${circle.color}${circle.opacity})`,
+                                background: `rgba(${circle.color},${circle.opacity})`,
                                 width: `${circle.radius}px`,
                                 height: `${circle.radius}px`,
                                 borderRadius: '100%',

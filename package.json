@@ -31,6 +31,7 @@
     "gatsby-transformer-sharp": "^2.12.0",
     "gsap": "npm:@gsap/member@^3.6.0",
     "hamburger-react": "^2.4.0",
+    "moment": "^2.29.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet": "^6.1.0",

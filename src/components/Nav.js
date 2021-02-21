@@ -9,6 +9,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Link as GatsbyLink } from 'gatsby';
 
 import Sizes from '../constants/breakpoints';
+import Colors from '../constants/colors';
 
 const NavContainer = styled.div`
     background: ${(props) => props.theme.pageBackground};
@@ -24,7 +25,7 @@ const NavContainer = styled.div`
 const LineOne = styled.div`
     width: 0px;
     height: 1px;
-    background: linear-gradient(to right, rgba(207, 181, 250, 1), rgba(30, 174, 152, 1));
+    background: linear-gradient(to right, rgba(${Colors.primary}, 1), rgba(${Colors.secondary}, 1));
     position: absolute;
     top: calc(100vh / 6);
 `;
@@ -32,7 +33,7 @@ const LineOne = styled.div`
 const LineTwo = styled.div`
     width: 0;
     height: 1px;
-    background: linear-gradient(to right, rgba(30, 174, 152, 1), rgba(207, 181, 250, 1));
+    background: linear-gradient(to right, rgba(${Colors.secondary}, 1), rgba(${Colors.primary}, 1));
     position: absolute;
     top: calc(100vh / 2);
     right: -100%;
@@ -41,7 +42,7 @@ const LineTwo = styled.div`
 const LineThree = styled.div`
     width: 0px;
     height: 1px;
-    background: linear-gradient(to right, rgba(207, 181, 250, 1), rgba(30, 174, 152, 1));
+    background: linear-gradient(to right, rgba(${Colors.primary}, 1), rgba(${Colors.secondary}, 1));
     position: absolute;
     top: calc((100vh / 6) * 5);
 `;
@@ -49,7 +50,11 @@ const LineThree = styled.div`
 const LineFour = styled.div`
     width: 1px;
     height: 0;
-    background: linear-gradient(to bottom, rgba(207, 181, 250, 1), rgba(30, 174, 152, 1));
+    background: linear-gradient(
+        to bottom,
+        rgba(${Colors.secondary}, 1),
+        rgba(${Colors.primary}, 1)
+    );
     position: absolute;
     left: 50%;
 `;
@@ -77,13 +82,13 @@ const NavButtonLineInner = styled.div`
     width: 100%;
     height: 100%;
     opacity: 1;
-    background-color: rgba(30, 174, 152, 1);
+    background-color: rgba(${Colors.secondary}, 1);
 `;
 
 const NavButton = styled(GatsbyLink)`
     font-family: 'Space Mono', monospace;
     font-size: 26px;
-    color: rgba(30, 174, 152, 1);
+    color: rgba(${Colors.secondary}, 1);
     text-transform: lowercase;
     position: relative;
     text-decoration: none;
@@ -93,8 +98,8 @@ const NavButton = styled(GatsbyLink)`
     }
 
     &.is-active .Line {
-        background: linear-gradient(to left, rgba(207, 181, 250, 1), rgba(30, 174, 152, 1));
-    }
+        background: linear-gradient(to left,  rgba(${Colors.primary}, 1), rgba(${Colors.secondary}, 1));
+        left:0;
 `;
 
 let boxHeight;
@@ -250,11 +255,11 @@ const Nav = ({ global, toggleMenu, changePage }) => {
                                     ref={addToBtnRefs}
                                     activeClassName='is-active'
                                     activeStyle={{
-                                        background:
-                                            'linear-gradient(to right, rgba(207, 181, 250, 1), rgba(30, 174, 152, 1))',
+                                        background: `linear-gradient(to right, rgba(${Colors.primary}, 1), rgba(${Colors.secondary}, 1))`,
                                         WebkitBackgroundClip: 'text',
                                         backgroundClip: 'text',
                                         color: 'transparent',
+                                        pointerEvents: 'none',
                                     }}>
                                     {link.name}
                                     <NavButtonLine>

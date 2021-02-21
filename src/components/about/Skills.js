@@ -15,7 +15,7 @@ import ScrollMouse from '../ScrollMouse';
 const Background = styled.div`
     background: ${(props) => props.theme.animationBackground};
     border-radius: 20px;
-    box-shadow: ${(props) => props.theme.baxShadowAnimationBackground};
+    /* box-shadow: ${(props) => props.theme.baxShadowAnimationBackground}; */
     width: 100%;
     padding: 30px;
     margin-bottom: 40px;
@@ -49,9 +49,9 @@ const StackContainer = styled.div`
 const StackItem = styled.div`
     font-family: 'Space Mono', monospace;
     display: inline-block;
-    /* background: rgba(207, 181, 250, 1); */
-    background: rgba(${Colors.purleDarkRGB}, 1);
-    color: white;
+    /* background: rgba(${Colors.primaryDark}, 1); */
+    background: white;
+    color: #1e2030;
     padding: 3px 10px;
     margin-right: 10px;
     margin-bottom: 10px;

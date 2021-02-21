@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Sizes from '../constants/breakpoints';
+import Colors from '../constants/colors';
 import styled from 'styled-components';
 
 const Heading = styled.h1`
@@ -14,7 +15,7 @@ const Heading = styled.h1`
     display: inline-block;
     font-weight: 700;
 
-    background: linear-gradient(to left, rgba(207, 181, 250, 1), rgba(30, 174, 152, 1));
+    background: linear-gradient(to left, rgba(${Colors.primary}, 1), rgba(${Colors.secondary}, 1));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 
@@ -32,6 +33,11 @@ const HeadingContainer = styled.div`
     @media ${Sizes.md} {
         padding-bottom: 80px;
     }
+
+    &.HeadingContact {
+        padding-top: 50px;
+        padding-bottom: 0;
+    }
 `;
 
 const TopLine = styled.div`
@@ -39,7 +45,7 @@ const TopLine = styled.div`
     top: -10px;
     width: 30%;
     height: 1px;
-    background: rgba(207, 181, 250, 1);
+    background: rgba(${Colors.primary}, 1);
 `;
 
 const BottomLine = styled.div`
@@ -48,10 +54,10 @@ const BottomLine = styled.div`
     right: 0;
     width: 30%;
     height: 1px;
-    background: rgba(30, 174, 152, 1);
+    background: rgba(${Colors.secondary}, 1);
 `;
 
-const HeadingOne = ({ title, forwardRef }) => {
+const HeadingOne = ({ title, forwardRef, contact }) => {
     // useEffect(() => {
     //     const headingTimeline = gsap.timeline({
     //         scrollTrigger: {
@@ -84,7 +90,7 @@ const HeadingOne = ({ title, forwardRef }) => {
     // }, []);
 
     return (
-        <HeadingContainer ref={forwardRef} className='Animation-headingContainer'>
+        <HeadingContainer ref={forwardRef} className={contact ? 'HeadingContact' : ''}>
             <Heading>
                 <TopLine className='Animation-topLine' />
                 {title}

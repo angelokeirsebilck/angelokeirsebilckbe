@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { Divide as Hamburger } from 'hamburger-react';
 
 import Sizes from '../../constants/breakpoints';
+import Colors from '../../constants/colors';
 
 const IconContainer = styled.div`
     padding-left: 5px;
@@ -16,7 +17,11 @@ const IconContainer = styled.div`
 const RadientDiv = styled.div`
     width: 25px;
     height: 25px;
-    background-image: linear-gradient(to bottom, rgba(216, 181, 255, 1), rgba(30, 174, 152, 1));
+    background-image: linear-gradient(
+        to bottom,
+        rgba(${Colors.primary}, 1),
+        rgba(${Colors.secondary}, 1)
+    );
     border-radius: 100%;
 `;
 
@@ -88,7 +93,11 @@ const Nav = ({ global, changeColorMode, toggleMenu }) => {
                     aria-label='super secret label that is not visible'
                 />
                 <HamburgerContainer>
-                    <Hamburger color='#4FD1C5' toggled={global.isMenuOpen} toggle={toggleMenu} />
+                    <Hamburger
+                        color={Colors.secondaryHex}
+                        toggled={global.isMenuOpen}
+                        toggle={toggleMenu}
+                    />
                 </HamburgerContainer>
             </NavMain>
         </NavFixedWrapper>

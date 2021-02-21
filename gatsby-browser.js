@@ -22,10 +22,23 @@ export const onRouteUpdate = ({ location, prevLocation }) => {
         setScrollTriggerMediaQueries();
         ScrollTrigger.addEventListener('refresh', aboutWindowRefreshed);
         const pinSpacerOverlapper = document.querySelector('.PinSpacerOverlapper');
+
         gsap.set(pinSpacerOverlapper, {
             height: 4500,
         });
     }
+};
+
+const aboutPageRefrishInit = () => {
+    ScrollTrigger.matchMedia({
+        '(max-width: 768px)': function () {
+            gsap.set('.EducationGrid', {
+                position: 'relative',
+                y: 0,
+                opacity: 0,
+            });
+        },
+    });
 };
 
 const homeWindowInitRefresh = () => {
@@ -48,6 +61,12 @@ const aboutWindowRefreshed = () => {
         '(min-width: 768px)': function () {
             const backgroundSkills = document.querySelectorAll('.BackgroundSkills');
             const educationGridItems = document.querySelectorAll('.EducationGrid');
+            const pinSpacerOverlapper = document.querySelector('.PinSpacerOverlapper');
+            const experiences = document.querySelectorAll('.Experience');
+
+            gsap.set(pinSpacerOverlapper, {
+                height: 4500,
+            });
 
             if (backgroundSkills.length > 0) {
                 let pinSectionHeight = 0;
@@ -77,11 +96,19 @@ const aboutWindowRefreshed = () => {
                     height: pinSectionEducationHeight,
                 });
             }
+
+            if (experiences.length > 0) {
+                experiences.forEach((exp) => {
+                    gsap.set(exp, {
+                        opacity: 1,
+                    });
+                });
+            }
         },
         '(max-width: 768px)': function () {
             const backgroundSkills = document.querySelectorAll('.BackgroundSkills');
             const educationGridItems = document.querySelectorAll('.EducationGrid');
-
+            const experiences = document.querySelectorAll('.Experience');
             if (backgroundSkills.length > 0) {
                 backgroundSkills.forEach((bg) => {
                     gsap.set(bg, {
@@ -92,25 +119,45 @@ const aboutWindowRefreshed = () => {
             }
 
             if (educationGridItems.length !== 0) {
-                // console.log('browser api');
+                console.log('browser api');
                 educationGridItems.forEach((grid) => {
                     gsap.set(grid, {
                         position: 'relative',
                         y: 0,
+                        opacity: 0,
                     });
                 });
                 gsap.set('.PinSectionEducation', { height: 'auto' });
+            }
+
+            if (experiences.length > 0) {
+                experiences.forEach((exp) => {
+                    gsap.set(exp, {
+                        opacity: 0,
+                    });
+                });
             }
         },
     });
 };
 
 const setScrollTriggerMediaQueries = () => {
-    const educationGridItems = document.querySelectorAll('.EducationGrid');
-    educationGridItems.forEach((grid) => {
-        ScrollTrigger.saveStyles(grid);
-    });
-    ScrollTrigger.saveStyles('.PinSectionEducation');
+    // const educationGridItems = document.querySelectorAll('.EducationGrid');
+    // educationGridItems.forEach((grid) => {
+    //     ScrollTrigger.saveStyles(grid);
+    // });
+
+    // const experiences = document.querySelectorAll('.Experience');
+    // experiences.forEach((exp) => {
+    //     ScrollTrigger.saveStyles(exp);
+    // });
+
+    // const backgroundSkills = document.querySelectorAll('.BackgroundSkills');
+    // backgroundSkills.forEach((bg) => {
+    //     ScrollTrigger.saveStyles(bg);
+    // });
+
+    // ScrollTrigger.saveStyles('.PinSectionEducation');
 
     ScrollTrigger.matchMedia({
         // desktop
@@ -137,12 +184,16 @@ const setScrollTriggerMediaQueries = () => {
                     scrub: true,
                     pin: '.PinWrapper',
                     pinSpacing: false,
-                    snap: 0.5,
+                    snap: {
+                        snapTo: [0, 0.5, 1],
+                        duration: 0.5,
+                    },
                     markers: true,
                 },
             });
 
             backgroundSkills.forEach((pinBackground, index) => {
+                gsap.set(pinBackground, { opacity: 1 });
                 // gsap.set(pinBackground, { position: 'absolute' });
                 if (index !== 0) {
                     pinBackgroundAnimation.fromTo(
@@ -154,7 +205,18 @@ const setScrollTriggerMediaQueries = () => {
                             x: 0,
                         }
                     );
+                } else {
+                    pinBackgroundAnimation.fromTo(
+                        pinBackground,
+                        {
+                            x: 0,
+                        },
+                        {
+                            x: 0,
+                        }
+                    );
                 }
+
                 if (index !== 2) {
                     pinBackgroundAnimation.fromTo(
                         pinBackground,
@@ -163,6 +225,16 @@ const setScrollTriggerMediaQueries = () => {
                         },
                         {
                             opacity: 0,
+                        }
+                    );
+                } else {
+                    pinBackgroundAnimation.fromTo(
+                        pinBackground,
+                        {
+                            opacity: 1,
+                        },
+                        {
+                            opacity: 1,
                         }
                     );
                 }
@@ -198,7 +270,10 @@ const setScrollTriggerMediaQueries = () => {
                     pin: '.PinWrapper',
                     pinSpacing: false,
                     invalidateOnRefresh: true,
-                    snap: 0.5,
+                    snap: {
+                        snapTo: [0, 0.5, 1],
+                        duration: 0.5,
+                    },
                 },
             });
 
@@ -208,6 +283,16 @@ const setScrollTriggerMediaQueries = () => {
                         grid,
                         {
                             y: () => getYEducation(),
+                        },
+                        {
+                            y: 0,
+                        }
+                    );
+                } else {
+                    timeline.fromTo(
+                        grid,
+                        {
+                            y: 0,
                         },
                         {
                             y: 0,
@@ -224,18 +309,92 @@ const setScrollTriggerMediaQueries = () => {
                             opacity: 0,
                         }
                     );
+                } else {
+                    timeline.fromTo(
+                        grid,
+                        {
+                            opacity: 1,
+                        },
+                        {
+                            opacity: 1,
+                        }
+                    );
                 }
             });
         },
         '(max-width: 768px)': function () {
             const educationGridItems = document.querySelectorAll('.EducationGrid');
+            const backgroundSkills = document.querySelectorAll('.BackgroundSkills');
+            const experiences = document.querySelectorAll('.Experience');
+
+            backgroundSkills.forEach((bg) => {
+                gsap.fromTo(
+                    bg,
+                    {
+                        opacity: 0,
+                        duration: 0,
+                    },
+                    {
+                        opacity: 1,
+                        scrollTrigger: {
+                            trigger: bg,
+                            start: 'top 80%',
+                            end: 'bottom bottom',
+                            toggleActions: 'play none none reverse',
+                        },
+                        duration: 1,
+                    }
+                );
+            });
+
+            educationGridItems.forEach((edu) => {
+                gsap.fromTo(
+                    edu,
+                    {
+                        opacity: 0,
+                        y: 0,
+                    },
+                    {
+                        scrollTrigger: {
+                            trigger: edu,
+                            start: 'top 80%',
+                            end: 'bottom bottom',
+                            toggleActions: 'play none none reverse',
+                            markers: true,
+                        },
+                        opacity: 1,
+                        y: 0,
+                        duration: 1,
+                    }
+                );
+            });
 
             educationGridItems.forEach((grid) => {
                 gsap.set(grid, { position: 'relative' });
             });
+
             gsap.set('.PinSectionEducation', { height: 'auto' });
 
             gsap.set('.PinSectionSkills', { height: 'auto' });
+
+            experiences.forEach((exp) => {
+                gsap.from(exp, {
+                    opacity: 0,
+                    duration: 1,
+                    scrollTrigger: {
+                        trigger: exp,
+                        start: 'top 80%',
+                        end: 'bottom bottom',
+                        toggleActions: 'play none none reverse',
+                        markers: {
+                            startColor: 'white',
+                            endColor: 'white',
+                            fontSize: '18px',
+                            indent: 20,
+                        },
+                    },
+                });
+            });
         },
     });
 };

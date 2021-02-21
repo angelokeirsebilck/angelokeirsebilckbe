@@ -10,6 +10,8 @@ import Nav from '../Nav';
 import Sizes from '../../constants/breakpoints';
 
 import CircleAnimation from '../home/CircleAnimation';
+import Footer from './Footer';
+import Colors from '../../constants/colors';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -25,19 +27,20 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const DarkTheme = {
-    pageBackground: '#1E2030',
+    pageBackground: Colors.darkPageBackground,
+    footerTopBackgroundColor: '#666666',
     textColor: '#FFF',
-    animationBackground:
-        'linear-gradient(to bottom, rgba(30, 174, 152, 0.5), rgba(30, 174, 152, 0.01))',
-    baxShadowAnimationBackground: '0px 1px 0px 1px rgba(0, 0, 0, 0.2)',
+    animationBackground: `linear-gradient(to bottom, rgba(${Colors.secondary}, 0.5),rgba(${Colors.primary},1))`,
+    baxShadowAnimationBackground: '1px 1px 1px 1px rgba(247, 245, 242,.5)',
     dateSvgOpacity: '0.2',
 };
 
 const LightTheme = {
-    pageBackground: '#f7f5f2',
+    pageBackground: Colors.lightPageBackground,
+    footerTopBackgroundColor: '#666666',
     textColor: '#1E2030',
-    animationBackground: 'linear-gradient(to bottom, rgba(30, 174, 152, 0.5), rgba(30, 32, 45, 1))',
-    baxShadowAnimationBackground: '1px 1px 2px 0px rgba(30, 32, 45, 0.2)',
+    animationBackground: `linear-gradient(to bottom, rgba(${Colors.secondary}, 0.5),rgba(${Colors.primary},1))`,
+    baxShadowAnimationBackground: '1px 1px 1px 1px rgba(30,32,48,.5)',
     dateSvgOpacity: '0.5',
 };
 
@@ -102,7 +105,7 @@ const Layout = ({ children, global, pathName }) => {
                 className='Body'
                 style={
                     global.colorMode === 'dark'
-                        ? { background: '#1E2030' }
+                        ? { background: '#121212' }
                         : { background: '#f7f5f2' }
                 }>
                 {pathName === '/' ? <CircleAnimation /> : null}
@@ -110,7 +113,9 @@ const Layout = ({ children, global, pathName }) => {
                     <GlobalStyle />
                     {children}
                 </Wrapper>
+                <Footer />
             </Body>
+
             <Nav />
         </ThemeProvider>
     );
