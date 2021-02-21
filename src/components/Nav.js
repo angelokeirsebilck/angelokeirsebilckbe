@@ -7,9 +7,26 @@ import NavLinks from '../constants/main-nav';
 import { toggleMenu, changePage } from '../../actions/globalActions';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Link as GatsbyLink } from 'gatsby';
+import { FaLinkedinIn, FaGithub, FaTwitter } from 'react-icons/fa';
 
 import Sizes from '../constants/breakpoints';
 import Colors from '../constants/colors';
+
+const Icon = styled.a`
+    color: rgba(${Colors.secondary}, 1);
+    transition: 0.4s all;
+    cursor: pointer;
+    margin-right: 15px;
+    font-size: 20px;
+
+    @media ${Sizes.sm} {
+        font-size: 30px;
+    }
+
+    &:hover {
+        color: ${(props) => props.theme.textColor};
+    }
+`;
 
 const NavContainer = styled.div`
     background: ${(props) => props.theme.pageBackground};
@@ -98,8 +115,13 @@ const NavButton = styled(GatsbyLink)`
     }
 
     &.is-active .Line {
-        background: linear-gradient(to left,  rgba(${Colors.primary}, 1), rgba(${Colors.secondary}, 1));
-        left:0;
+        background: linear-gradient(
+            to left,
+            rgba(${Colors.primary}, 1),
+            rgba(${Colors.secondary}, 1)
+        );
+        left: 0;
+    }
 `;
 
 let boxHeight;
@@ -255,7 +277,7 @@ const Nav = ({ global, toggleMenu, changePage }) => {
                                     ref={addToBtnRefs}
                                     activeClassName='is-active'
                                     activeStyle={{
-                                        background: `linear-gradient(to right, rgba(${Colors.primary}, 1), rgba(${Colors.secondary}, 1))`,
+                                        background: `linear-gradient(to right,rgba(${Colors.primary}, 1), rgba(${Colors.secondary}, 1))`,
                                         WebkitBackgroundClip: 'text',
                                         backgroundClip: 'text',
                                         color: 'transparent',
@@ -269,6 +291,28 @@ const Nav = ({ global, toggleMenu, changePage }) => {
                             </Box>
                         );
                     })}
+                    <Box
+                        css={{
+                            height: boxHeight,
+                            width: '100%',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                        cols={1}
+                        ref={addToBtnRefs}>
+                        <Icon href='https://github.com/angelokeirsebilck' target='_blank'>
+                            <FaGithub />
+                        </Icon>
+                        <Icon
+                            href='https://www.linkedin.com/in/angelo-keirsebilck-a35977196/'
+                            target='_blank'>
+                            <FaLinkedinIn />
+                        </Icon>
+                        <Icon href='https://twitter.com/AngeloKbilck' target='_blank'>
+                            <FaTwitter />
+                        </Icon>
+                    </Box>
                 </Grid>
             </GridContainer>
         </NavContainer>

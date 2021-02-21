@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import Colors from '../constants/colors';
 
 const Link = styled.a`
-    color: rgba(${Colors.secondary}, 1);
-    border: 2px solid rgba(${Colors.secondary}, 1);
+    color: rgba(${(props) => props.theme.footerLinksColor}, 1);
+    border: 2px solid rgba(${(props) => props.theme.footerLinksColor}, 1);
     text-decoration: none;
     text-transform: lowercase;
     font-weight: 500;

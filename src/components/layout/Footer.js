@@ -28,6 +28,11 @@ const ContainerBottom = styled.div`
 
 const FooterContainerTop = styled.div`
     background: ${(props) => props.theme.footerTopBackgroundColor};
+    margin-top: 40px;
+
+    @media ${Sizes.sm} {
+        margin-top: 80px;
+    }
 `;
 const FooterContainerBottom = styled.div`
     background: ${(props) => props.theme.pageBackground};
@@ -77,11 +82,12 @@ const Right = styled.div`
     @media ${Sizes.sm} {
         width: 50%;
         margin-top: 0;
+        padding-left: 20px;
     }
 `;
 
 const Icon = styled.a`
-    color: rgba(${Colors.secondary}, 1);
+    color: rgba(${(props) => props.theme.footerLinksColor}, 1);
     transition: 0.4s all;
     cursor: pointer;
     margin-right: 10px;
@@ -98,7 +104,7 @@ const SubTitle = styled.h2`
     display: inline-block;
     margin-bottom: 20px;
     font-weight: 500;
-    color: white;
+    color: ${(props) => props.theme.textColor};
     /* background: linear-gradient(to right, rgba(${Colors.primary}, 1), rgba(${Colors.secondary}, 1));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent; */

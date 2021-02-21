@@ -109,7 +109,7 @@ const Skills = () => {
     }, []);
 
     return (
-        <SectionContainer styleClass='SectionSkills'>
+        <SectionContainer styleClass='SectionSkills ExtraPaddingTop'>
             <HeadingOne title='Skills' />
             <PinSection className='PinSectionSkills'>
                 <ScrollMouseContainer>

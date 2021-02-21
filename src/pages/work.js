@@ -16,7 +16,7 @@ const work = ({ data }) => {
         <Layout>
             <NavBar />
             {/* <HeadingOne title='All Projects' /> */}
-            <Projects projects={projects} title='All Projects' />
+            <Projects projects={projects} title='All Projects' allprojects />
         </Layout>
     );
 };

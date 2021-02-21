@@ -200,7 +200,7 @@ const Icon = styled.a`
 //     }
 // `;
 
-const ProjectsNew = ({ projects, title }) => {
+const ProjectsNew = ({ projects, title, allprojects }) => {
     // const {
     //     allStrapiProject: { projects },
     // } = useStaticQuery(query);
@@ -454,7 +454,7 @@ const ProjectsNew = ({ projects, title }) => {
                     y: () => newY(index, 'first'),
                     scrollTrigger: {
                         trigger: project,
-                        start: 'bottom center',
+                        start: `bottom ${allprojects ? '30%' : 'center'}`,
                         endTrigger: ghostDOMRefs.current[index],
                         end: `bottom center`,
                         scrub: true,
@@ -520,7 +520,7 @@ const ProjectsNew = ({ projects, title }) => {
     };
 
     return (
-        <SectionContainer>
+        <SectionContainer styleClass={allprojects ? 'ExtraPaddingTop' : ''}>
             <HeadingOne title={title} />
             <ProjectsContainer ref={projectsContainerRef} className='ProjectsContainer'>
                 <CustomGrid colspan={2}>

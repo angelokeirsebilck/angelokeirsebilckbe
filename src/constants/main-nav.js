@@ -5,20 +5,20 @@ const nav = [
         url: '/',
     },
     {
-        id: 1,
+        id: 2,
         name: 'about',
         url: '/about',
     },
     {
-        id: 1,
+        id: 3,
         name: 'work',
         url: '/work',
     },
-    {
-        id: 1,
-        name: 'contact',
-        url: '/contact',
-    },
+    // {
+    //     id: 1,
+    //     name: 'contact',
+    //     url: '/contact',
+    // },
 ];
 
 export default nav;

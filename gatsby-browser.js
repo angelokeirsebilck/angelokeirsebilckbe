@@ -24,7 +24,7 @@ export const onRouteUpdate = ({ location, prevLocation }) => {
         const pinSpacerOverlapper = document.querySelector('.PinSpacerOverlapper');
 
         gsap.set(pinSpacerOverlapper, {
-            height: 4500,
+            height: 6000,
         });
     }
 };
@@ -65,7 +65,7 @@ const aboutWindowRefreshed = () => {
             const experiences = document.querySelectorAll('.Experience');
 
             gsap.set(pinSpacerOverlapper, {
-                height: 4500,
+                height: 6000,
             });
 
             if (backgroundSkills.length > 0) {
@@ -180,15 +180,16 @@ const setScrollTriggerMediaQueries = () => {
                     invalidateOnRefresh: true,
                     start: 'top top',
                     // end: () => getEndPosition(),
-                    end: '+=1500',
+                    end: '+=2000',
                     scrub: true,
                     pin: '.PinWrapper',
                     pinSpacing: false,
                     snap: {
-                        snapTo: [0, 0.5, 1],
-                        duration: 0.5,
+                        // snapTo: [0, 0.5, 1],
+                        snapTo: 'labels',
+                        duration: 0.7,
                     },
-                    markers: true,
+                    // markers: true,
                 },
             });
 
@@ -225,7 +226,8 @@ const setScrollTriggerMediaQueries = () => {
                         },
                         {
                             opacity: 0,
-                        }
+                        },
+                        `visible${index}`
                     );
                 } else {
                     pinBackgroundAnimation.fromTo(
@@ -235,7 +237,8 @@ const setScrollTriggerMediaQueries = () => {
                         },
                         {
                             opacity: 1,
-                        }
+                        },
+                        `visible${index}`
                     );
                 }
             });
@@ -257,21 +260,22 @@ const setScrollTriggerMediaQueries = () => {
                 scrollTrigger: {
                     trigger: '.SectionEducation',
                     // start: () => getStartPositionEducation(),
-                    start: '+=1500 top',
+                    start: '+=2000 top',
                     // end: () => getEndPositionEducation(),
-                    end: '+=3000',
+                    end: '+=4000',
                     scrub: true,
-                    markers: {
-                        startColor: 'white',
-                        endColor: 'white',
-                        fontSize: '18px',
-                        indent: 20,
-                    },
+                    // markers: {
+                    //     startColor: 'white',
+                    //     endColor: 'white',
+                    //     fontSize: '18px',
+                    //     indent: 20,
+                    // },
                     pin: '.PinWrapper',
                     pinSpacing: false,
                     invalidateOnRefresh: true,
                     snap: {
-                        snapTo: [0, 0.5, 1],
+                        // snapTo: [0, 0.5, 1],
+                        snapTo: 'labels',
                         duration: 0.5,
                     },
                 },
@@ -307,7 +311,8 @@ const setScrollTriggerMediaQueries = () => {
                         },
                         {
                             opacity: 0,
-                        }
+                        },
+                        `visible${index}`
                     );
                 } else {
                     timeline.fromTo(
@@ -317,7 +322,8 @@ const setScrollTriggerMediaQueries = () => {
                         },
                         {
                             opacity: 1,
-                        }
+                        },
+                        `visible${index}`
                     );
                 }
             });
@@ -360,7 +366,7 @@ const setScrollTriggerMediaQueries = () => {
                             start: 'top 80%',
                             end: 'bottom bottom',
                             toggleActions: 'play none none reverse',
-                            markers: true,
+                            // markers: true,
                         },
                         opacity: 1,
                         y: 0,
@@ -386,12 +392,12 @@ const setScrollTriggerMediaQueries = () => {
                         start: 'top 80%',
                         end: 'bottom bottom',
                         toggleActions: 'play none none reverse',
-                        markers: {
-                            startColor: 'white',
-                            endColor: 'white',
-                            fontSize: '18px',
-                            indent: 20,
-                        },
+                        // markers: {
+                        //     startColor: 'white',
+                        //     endColor: 'white',
+                        //     fontSize: '18px',
+                        //     indent: 20,
+                        // },
                     },
                 });
             });
