@@ -1,23 +1,26 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { graphql } from 'gatsby';
 
 // Components
 import Layout from '../components/layout/Layout';
 import HomeBanner from '../components/home/HomeBanner';
 import NavBar from '../components/layout/NavBar';
-import Footer from '../components/layout/Footer';
 
 import Projects from '../components/ProjectsFour';
 import SectionContainer from '../components/layout/SectionContainer';
 
-const index = ({ location }) => {
+const index = ({ location, data }) => {
+    const {
+        allStrapiProject: { projects },
+    } = data;
+
     return (
         <Layout pathName={location.pathname}>
             <NavBar />
             <HomeBanner />
-            <SectionContainer>
-                <Projects />
-            </SectionContainer>
+
+            <Projects projects={projects} title='Featured Projects' />
         </Layout>
     );
 };
@@ -25,5 +28,36 @@ const index = ({ location }) => {
 const mapStateToProps = (state) => ({
     global: state.global,
 });
+
+export const query = graphql`
+    query FeaturedProjects {
+        allStrapiProject(filter: { featured: { eq: true } }) {
+            projects: nodes {
+                Text
+                Title
+                github
+                url
+                StackList {
+                    Stack
+                    id
+                }
+                mobileImage {
+                    childImageSharp {
+                        fluid {
+                            ...GatsbyImageSharpFluid
+                        }
+                    }
+                }
+                Image {
+                    childImageSharp {
+                        fluid {
+                            ...GatsbyImageSharpFluid
+                        }
+                    }
+                }
+            }
+        }
+    }
+`;
 
 export default connect(mapStateToProps)(index);

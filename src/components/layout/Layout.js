@@ -30,7 +30,7 @@ const DarkTheme = {
     pageBackground: Colors.darkPageBackground,
     footerTopBackgroundColor: '#666666',
     textColor: '#FFF',
-    animationBackground: `linear-gradient(to bottom, rgba(${Colors.secondary}, 0.5),rgba(${Colors.primary},1))`,
+    animationBackground: `linear-gradient(to bottom, rgba(${Colors.secondary}, 1),rgba(${Colors.primary},1))`,
     baxShadowAnimationBackground: '1px 1px 1px 1px rgba(247, 245, 242,.5)',
     dateSvgOpacity: '0.2',
 };
@@ -39,7 +39,7 @@ const LightTheme = {
     pageBackground: Colors.lightPageBackground,
     footerTopBackgroundColor: '#666666',
     textColor: '#1E2030',
-    animationBackground: `linear-gradient(to bottom, rgba(${Colors.secondary}, 0.5),rgba(${Colors.primary},1))`,
+    animationBackground: `linear-gradient(to bottom, rgba(${Colors.secondary}, 1),rgba(${Colors.primary},1))`,
     baxShadowAnimationBackground: '1px 1px 1px 1px rgba(30,32,48,.5)',
     dateSvgOpacity: '0.5',
 };

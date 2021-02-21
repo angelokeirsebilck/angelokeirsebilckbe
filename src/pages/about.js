@@ -28,4 +28,5 @@ const about = ({}) => {
 const mapStateToProps = (state) => ({
     global: state.global,
 });
+
 export default connect(mapStateToProps, { changeXValueSkills })(about);

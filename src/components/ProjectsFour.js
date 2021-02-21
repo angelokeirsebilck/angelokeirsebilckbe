@@ -169,41 +169,41 @@ const Icon = styled.a`
     }
 `;
 
-const query = graphql`
-    {
-        allStrapiProject {
-            projects: nodes {
-                Text
-                Title
-                StackList {
-                    Stack
-                    id
-                }
-                url
-                github
-                mobileImage {
-                    childImageSharp {
-                        fluid {
-                            ...GatsbyImageSharpFluid
-                        }
-                    }
-                }
-                Image {
-                    childImageSharp {
-                        fluid {
-                            ...GatsbyImageSharpFluid
-                        }
-                    }
-                }
-            }
-        }
-    }
-`;
+// const query = graphql`
+//     {
+//         allStrapiProject {
+//             projects: nodes {
+//                 Text
+//                 Title
+//                 StackList {
+//                     Stack
+//                     id
+//                 }
+//                 url
+//                 github
+//                 mobileImage {
+//                     childImageSharp {
+//                         fluid {
+//                             ...GatsbyImageSharpFluid
+//                         }
+//                     }
+//                 }
+//                 Image {
+//                     childImageSharp {
+//                         fluid {
+//                             ...GatsbyImageSharpFluid
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// `;
 
-const ProjectsNew = () => {
-    const {
-        allStrapiProject: { projects },
-    } = useStaticQuery(query);
+const ProjectsNew = ({ projects, title }) => {
+    // const {
+    //     allStrapiProject: { projects },
+    // } = useStaticQuery(query);
 
     // const [stackTimelineArray, setStackTimelineArray] = useState([]);
 
@@ -269,6 +269,8 @@ const ProjectsNew = () => {
         ghostDOMRefs.current.forEach((ghost) => {
             ghost.style.height = `${projectsContainerRef.current.offsetWidth / 2}px`;
         });
+
+        console.log(projectsContainerRef.current.offsetHeight);
 
         projectImagesRef.current[0].style.opacity = 1;
         projectImagesRef.current[0].style.visibility = 'visible';
@@ -397,32 +399,37 @@ const ProjectsNew = () => {
                 y = ghostDOMRefs.current[index].offsetTop;
                 break;
             case 'last':
-                if (window.innerWidth > 1140) {
-                    y =
-                        projectsContainerRef.current.offsetHeight -
-                        ghostDOMRefs.current[0].offsetHeight +
-                        projectDOMRefs.current[index].offsetHeight / 2;
-                } else if (window.innerWidth > 1024) {
-                    y =
-                        projectsContainerRef.current.offsetHeight -
-                        ghostDOMRefs.current[0].offsetHeight +
-                        projectDOMRefs.current[index].offsetHeight / 2;
-                } else if (window.innerWidth > 950) {
-                    y =
-                        projectsContainerRef.current.offsetHeight -
-                        ghostDOMRefs.current[0].offsetHeight +
-                        100;
-                } else if (window.innerWidth > 850) {
-                    y =
-                        projectsContainerRef.current.offsetHeight -
-                        ghostDOMRefs.current[0].offsetHeight +
-                        50;
-                } else {
-                    y =
-                        projectsContainerRef.current.offsetHeight -
-                        ghostDOMRefs.current[0].offsetHeight;
-                }
-
+                // if (window.innerWidth > 1140) {
+                //     y =
+                //         projectsContainerRef.current.offsetHeight -
+                //         ghostDOMRefs.current[0].offsetHeight +
+                //         projectDOMRefs.current[index].offsetHeight / 2;
+                // } else if (window.innerWidth > 1024) {
+                //     y =
+                //         projectsContainerRef.current.offsetHeight -
+                //         ghostDOMRefs.current[0].offsetHeight +
+                //         projectDOMRefs.current[index].offsetHeight / 2;
+                // } else if (window.innerWidth > 950) {
+                //     y =
+                //         projectsContainerRef.current.offsetHeight -
+                //         ghostDOMRefs.current[0].offsetHeight +
+                //         100;
+                // } else if (window.innerWidth > 850) {
+                //     y =
+                //         projectsContainerRef.current.offsetHeight -
+                //         ghostDOMRefs.current[0].offsetHeight +
+                //         50;
+                // } else {
+                //     y =
+                //         projectsContainerRef.current.offsetHeight -
+                //         ghostDOMRefs.current[0].offsetHeight;
+                // }
+                // y =
+                //     projectsContainerRef.current.offsetHeight -
+                //     ghostDOMRefs.current[0].offsetHeight;
+                y =
+                    projectsContainerRef.current.offsetHeight -
+                    animationBackgroundRef.current.offsetHeight;
                 break;
             case 'even':
                 y = ghostDOMRefs.current[index].offsetTop;
@@ -511,10 +518,10 @@ const ProjectsNew = () => {
             }
         });
     };
-    console.log(projects);
+
     return (
         <SectionContainer>
-            <HeadingOne title='Featured Projects' />
+            <HeadingOne title={title} />
             <ProjectsContainer ref={projectsContainerRef} className='ProjectsContainer'>
                 <CustomGrid colspan={2}>
                     <Box cols={1}>
