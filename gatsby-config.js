@@ -16,13 +16,13 @@ module.exports = {
         'gatsby-plugin-sharp',
         'gatsby-plugin-react-helmet',
         'gatsby-plugin-sitemap',
-        'gatsby-plugin-offline',
         {
             resolve: 'gatsby-plugin-manifest',
             options: {
                 icon: 'src/images/logo.svg',
             },
         },
+        'gatsby-plugin-offline',
         'gatsby-transformer-remark',
         'gatsby-transformer-sharp',
         {

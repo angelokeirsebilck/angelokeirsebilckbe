@@ -1,15 +1,16 @@
 const colors = {
     primary: '24, 90, 157',
     primaryDark: '24, 90, 157',
-    secondary: '67, 206, 162',
+    secondary: '93, 255, 204',
     primaryHex: '#185a9d',
-    secondaryHex: '#43cea2',
+    secondaryHex: '#5dffcc',
     darkPageBackground: '#121212',
     lightPageBackground: '#f7f5f2',
 };
 
 export default colors;
-
+//   secondary: '67, 206, 162',
+// secondaryHex: '#43cea2'
 // Peach
 // const colors = {
 //     primary: '255, 237, 188',

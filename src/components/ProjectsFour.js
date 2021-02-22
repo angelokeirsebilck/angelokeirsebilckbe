@@ -535,7 +535,10 @@ const ProjectsNew = ({ projects, title, allprojects }) => {
                                             className='Animation-projectImage'
                                             key={index}
                                             ref={addProjectImagesRefs}>
-                                            <Image fluid={project.Image.childImageSharp.fluid} />
+                                            <Image
+                                                fluid={project.Image.childImageSharp.fluid}
+                                                alt={`Image of ${project.Title}`}
+                                            />
                                         </GatsbyImageContainer>
                                     );
                                 })}
@@ -566,6 +569,7 @@ const ProjectsNew = ({ projects, title, allprojects }) => {
                                                     fluid={
                                                         project.mobileImage.childImageSharp.fluid
                                                     }
+                                                    alt={`Image of ${project.Title}`}
                                                 />
                                             </MobileImage>
                                         </Box>
@@ -595,12 +599,20 @@ const ProjectsNew = ({ projects, title, allprojects }) => {
                                             </StackContainer>
                                             <IconContainer>
                                                 {project.url !== null ? (
-                                                    <Icon href={project.url} target='_blank'>
+                                                    <Icon
+                                                        aria-label='Website Link'
+                                                        href={project.url}
+                                                        target='_blank'
+                                                        rel='nofollow noopener'>
                                                         <FaExternalLinkAlt />
                                                     </Icon>
                                                 ) : null}
                                                 {project.github !== null ? (
-                                                    <Icon href={project.github} target='_blank'>
+                                                    <Icon
+                                                        aria-label='Github Link'
+                                                        href={project.github}
+                                                        target='_blank'
+                                                        rel='nofollow noopener'>
                                                         <FaGithub />
                                                     </Icon>
                                                 ) : null}
@@ -652,12 +664,20 @@ const ProjectsNew = ({ projects, title, allprojects }) => {
                                             </StackContainer>
                                             <IconContainer>
                                                 {project.url !== null ? (
-                                                    <Icon href={project.url} target='_blank'>
+                                                    <Icon
+                                                        aria-label='Website Link'
+                                                        href={project.url}
+                                                        target='_blank'
+                                                        rel='nofollow noopener'>
                                                         <FaExternalLinkAlt />
                                                     </Icon>
                                                 ) : null}
                                                 {project.github !== null ? (
-                                                    <Icon href={project.github} target='_blank'>
+                                                    <Icon
+                                                        aria-label='Github Link'
+                                                        href={project.github}
+                                                        target='_blank'
+                                                        rel='nofollow noopener'>
                                                         <FaGithub />
                                                     </Icon>
                                                 ) : null}
@@ -669,6 +689,7 @@ const ProjectsNew = ({ projects, title, allprojects }) => {
                                                     fluid={
                                                         project.mobileImage.childImageSharp.fluid
                                                     }
+                                                    alt={`Image of ${project.Title}`}
                                                 />
                                             </MobileImage>
                                         </ImageBoxOdd>

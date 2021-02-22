@@ -301,15 +301,25 @@ const Nav = ({ global, toggleMenu, changePage }) => {
                         }}
                         cols={1}
                         ref={addToBtnRefs}>
-                        <Icon href='https://github.com/angelokeirsebilck' target='_blank'>
+                        <Icon
+                            aria-label='Github Link'
+                            href='https://github.com/angelokeirsebilck'
+                            target='_blank'
+                            rel='nofollow noopener'>
                             <FaGithub />
                         </Icon>
                         <Icon
+                            aria-label='LinkedIn Link'
                             href='https://www.linkedin.com/in/angelo-keirsebilck-a35977196/'
-                            target='_blank'>
+                            target='_blank'
+                            rel='nofollow noopener'>
                             <FaLinkedinIn />
                         </Icon>
-                        <Icon href='https://twitter.com/AngeloKbilck' target='_blank'>
+                        <Icon
+                            aria-label='Twitter Link'
+                            href='https://twitter.com/AngeloKbilck'
+                            target='_blank'
+                            rel='nofollow noopener'>
                             <FaTwitter />
                         </Icon>
                     </Box>

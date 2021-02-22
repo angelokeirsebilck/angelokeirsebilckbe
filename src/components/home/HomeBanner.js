@@ -98,7 +98,6 @@ const HomeBanner = ({ addParagraphLine }) => {
             },
         },
     } = data;
-
     const containerParagaphRefs = useRef([]);
     const paragraphRef = useRef([]);
 
@@ -169,7 +168,7 @@ const HomeBanner = ({ addParagraphLine }) => {
                     })}
                 </Box>
                 <Box className='HomeBanner-image' cols={[2, 1]}>
-                    <Image fluid={fluid} />
+                    <Image fluid={fluid} alt='Profile Picture Angelo Keirsebilck' />
                 </Box>
             </Grid>
             <ChevronContainer>

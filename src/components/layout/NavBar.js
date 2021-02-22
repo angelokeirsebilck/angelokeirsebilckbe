@@ -94,6 +94,7 @@ const Nav = ({ global, changeColorMode, toggleMenu }) => {
                 />
                 <HamburgerContainer>
                     <Hamburger
+                        label='Menu Button'
                         color={Colors.secondaryHex}
                         toggled={global.isMenuOpen}
                         toggle={toggleMenu}
