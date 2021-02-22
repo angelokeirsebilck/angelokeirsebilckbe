@@ -10,10 +10,15 @@ import Experience from '../components/about/Experience';
 
 import { changeXValueSkills } from '../../actions/globalActions';
 import PinSpacerOverlapper from '../components/about/PinSpacerOverlapper';
+import SEO from '../components/SEO';
 
 const about = ({}) => {
     return (
         <Layout>
+            <SEO
+                title='About'
+                description='This the about page of Angelo Keirsebilck his portfolio.'
+            />
             <NavBar />
             <div className='PinWrapper'>
                 <Skills />

@@ -6,9 +6,8 @@ import { graphql } from 'gatsby';
 import Layout from '../components/layout/Layout';
 import HomeBanner from '../components/home/HomeBanner';
 import NavBar from '../components/layout/NavBar';
-
+import SEO from '../components/SEO';
 import Projects from '../components/ProjectsFour';
-import SectionContainer from '../components/layout/SectionContainer';
 
 const index = ({ location, data }) => {
     const {
@@ -17,6 +16,10 @@ const index = ({ location, data }) => {
 
     return (
         <Layout pathName={location.pathname}>
+            <SEO
+                title='Home'
+                description='This the homepage for Angelo Keirsebilck his portfolio.'
+            />
             <NavBar />
             <HomeBanner />
 

@@ -3,10 +3,8 @@ import React from 'react';
 // Components
 import Layout from '../components/layout/Layout';
 import NavBar from '../components/layout/NavBar';
-import HeadingOne from '../components/HeadingOne';
-
+import SEO from '../components/SEO';
 import Projects from '../components/ProjectsFour';
-import SectionContainer from '../components/layout/SectionContainer';
 
 const work = ({ data }) => {
     const {
@@ -14,6 +12,10 @@ const work = ({ data }) => {
     } = data;
     return (
         <Layout>
+            <SEO
+                title='Work'
+                description='This the projects page of Angelo Keirsebilck his portfolio.'
+            />
             <NavBar />
             {/* <HeadingOne title='All Projects' /> */}
             <Projects projects={projects} title='All Projects' allprojects />

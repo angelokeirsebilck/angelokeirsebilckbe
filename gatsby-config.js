@@ -5,7 +5,11 @@ require('dotenv').config({
 module.exports = {
     siteMetadata: {
         title: 'Angelo Keirsebilck',
-        siteUrl: 'https://angelokeirsebilckbe.netlify.app',
+        description: 'This is the portfolio website of Angelo Keirsebilck',
+        author: '@AngeloKeirsebilck',
+        twitterUsername: '@AngeloKbilck',
+        siteUrl: 'https://angelokeirsebilck.be',
+        image: '/card_home.png',
     },
     plugins: [
         'gatsby-plugin-styled-components',
@@ -16,7 +20,7 @@ module.exports = {
         {
             resolve: 'gatsby-plugin-manifest',
             options: {
-                icon: 'src/images/icon.png',
+                icon: 'src/images/logo.svg',
             },
         },
         'gatsby-transformer-remark',
