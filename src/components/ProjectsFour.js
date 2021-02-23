@@ -125,6 +125,8 @@ const ProjectText = styled(ReactMarkdown)`
     }
 `;
 
+const ProjectTextContainer = styled.div``;
+
 const ProjectsContainer = styled.section`
     /* margin-top: 30px;
     margin-bottom: 30px; */
@@ -585,10 +587,9 @@ const ProjectsNew = ({ projects, title, allprojects }) => {
                                             <ProjectTitle ref={addFadeInRefs}>
                                                 {project.Title}
                                             </ProjectTitle>
-                                            <ProjectText
-                                                source={project.richText}
-                                                ref={addTextRefs}
-                                            />
+                                            <ProjectTextContainer ref={addTextRefs}>
+                                                <ProjectText source={project.richText} />
+                                            </ProjectTextContainer>
 
                                             {/* <ProjectText >
                                                 {project.richText}
@@ -657,10 +658,9 @@ const ProjectsNew = ({ projects, title, allprojects }) => {
                                             <ProjectTitle ref={addFadeInRefs}>
                                                 {project.Title}
                                             </ProjectTitle>
-                                            <ProjectText
-                                                source={project.richText}
-                                                ref={addTextRefs}
-                                            />
+                                            <ProjectTextContainer ref={addTextRefs}>
+                                                <ProjectText source={project.richText} />
+                                            </ProjectTextContainer>
                                             <StackContainer ref={addStackContainerRefs}>
                                                 {project.StackList.map((stack) => {
                                                     return (
