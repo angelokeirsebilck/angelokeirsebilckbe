@@ -119,24 +119,23 @@ const aboutWindowRefreshed = () => {
             }
 
             if (educationGridItems.length !== 0) {
-                console.log('browser api');
                 educationGridItems.forEach((grid) => {
                     gsap.set(grid, {
                         position: 'relative',
                         y: 0,
-                        opacity: 0,
+                        // opacity: 0,
                     });
                 });
                 gsap.set('.PinSectionEducation', { height: 'auto' });
             }
 
-            if (experiences.length > 0) {
-                experiences.forEach((exp) => {
-                    gsap.set(exp, {
-                        opacity: 0,
-                    });
-                });
-            }
+            // if (experiences.length > 0) {
+            //     experiences.forEach((exp) => {
+            //         gsap.set(exp, {
+            //             opacity: 0,
+            //         });
+            //     });
+            // }
         },
     });
 };
