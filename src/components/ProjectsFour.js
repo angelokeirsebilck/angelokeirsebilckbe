@@ -598,7 +598,8 @@ const ProjectsNew = ({ projects, title, allprojects }) => {
                                                 })}
                                             </StackContainer>
                                             <IconContainer>
-                                                {project.url !== null ? (
+                                                {project.url !== null &&
+                                                project.url.length !== 0 ? (
                                                     <Icon
                                                         aria-label='Website Link'
                                                         href={project.url}
@@ -607,7 +608,8 @@ const ProjectsNew = ({ projects, title, allprojects }) => {
                                                         <FaExternalLinkAlt />
                                                     </Icon>
                                                 ) : null}
-                                                {project.github !== null ? (
+                                                {project.github !== null &&
+                                                project.github.length !== 0 ? (
                                                     <Icon
                                                         aria-label='Github Link'
                                                         href={project.github}
@@ -663,7 +665,8 @@ const ProjectsNew = ({ projects, title, allprojects }) => {
                                                 })}
                                             </StackContainer>
                                             <IconContainer>
-                                                {project.url !== null ? (
+                                                {project.url !== null &&
+                                                project.url.length !== 0 ? (
                                                     <Icon
                                                         aria-label='Website Link'
                                                         href={project.url}
@@ -672,7 +675,8 @@ const ProjectsNew = ({ projects, title, allprojects }) => {
                                                         <FaExternalLinkAlt />
                                                     </Icon>
                                                 ) : null}
-                                                {project.github !== null ? (
+                                                {project.github !== null &&
+                                                project.github.length !== 0 ? (
                                                     <Icon
                                                         aria-label='Github Link'
                                                         href={project.github}

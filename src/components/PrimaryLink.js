@@ -33,7 +33,7 @@ const PrimaryLink = ({ text, link }) => {
 
 PrimaryLink.propTypes = {
     text: PropTypes.string.isRequired,
-    url: PropTypes.string.isRequired,
+    link: PropTypes.string.isRequired,
 };
 
 export default PrimaryLink;

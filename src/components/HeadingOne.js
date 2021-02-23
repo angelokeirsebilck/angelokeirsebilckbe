@@ -29,6 +29,7 @@ const HeadingContainer = styled.div`
     justify-content: center;
     padding-bottom: 50px;
     font-family: 'Space Mono', monospace;
+    text-align: center;
 
     @media ${Sizes.md} {
         padding-bottom: 80px;

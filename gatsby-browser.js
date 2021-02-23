@@ -366,7 +366,7 @@ const setScrollTriggerMediaQueries = () => {
                             start: 'top 80%',
                             end: 'bottom bottom',
                             toggleActions: 'play none none reverse',
-                            // markers: true,
+                            markers: true,
                         },
                         opacity: 1,
                         y: 0,
