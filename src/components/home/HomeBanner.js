@@ -42,7 +42,7 @@ const Container = styled.div`
 `;
 
 const Heading1 = styled.h1`
-    font-size: 30px;
+    font-size: 26px;
     margin-bottom: 10px;
     font-weight: bold;
     line-height: 1.1;
@@ -57,7 +57,7 @@ const Heading1 = styled.h1`
 `;
 
 const ParagraphLine = styled.p`
-    font-size: 30px;
+    font-size: 26px;
     margin-bottom: 10px;
     position: absolute;
     line-height: 1.1;
@@ -84,8 +84,12 @@ const AnimateContainer = styled.div`
 
 const ChevronContainer = styled.div`
     position: absolute;
-    bottom: 60px;
     left: 50%;
+    bottom: 30px;
+
+    @media ${Sizes.md} {
+        bottom: 60px;
+    }
 `;
 
 const HomeBanner = ({ addParagraphLine }) => {

@@ -1,6 +1,5 @@
 import React from 'react';
 import Footer from '../components/layout/Footer';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 // Components
 import Layout from '../components/layout/Layout';

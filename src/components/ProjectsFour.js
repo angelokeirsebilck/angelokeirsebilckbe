@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect, useRef } from 'react';
-import { graphql, useStaticQuery } from 'gatsby';
 import styled from 'styled-components';
 import Sizes from '../constants/breakpoints';
 import { gsap } from 'gsap';
@@ -269,8 +268,6 @@ const ProjectsNew = ({ projects, title, allprojects }) => {
         ghostDOMRefs.current.forEach((ghost) => {
             ghost.style.height = `${projectsContainerRef.current.offsetWidth / 2}px`;
         });
-
-        console.log(projectsContainerRef.current.offsetHeight);
 
         projectImagesRef.current[0].style.opacity = 1;
         projectImagesRef.current[0].style.visibility = 'visible';
