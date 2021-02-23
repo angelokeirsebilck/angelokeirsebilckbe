@@ -162,8 +162,8 @@ const GhostContainer = styled.div`
 const IconContainer = styled.div``;
 
 const Icon = styled.a`
-    color: rgba(${Colors.secondary}, 1);
-    border: 1px solid rgba(${Colors.secondary}, 1);
+    color: rgba(${(props) => props.theme.secondary}, 1);
+    border: 1px solid rgba(${(props) => props.theme.secondary}, 1);
     display: inline-flex;
     padding: 6px;
     margin-right: 10px;

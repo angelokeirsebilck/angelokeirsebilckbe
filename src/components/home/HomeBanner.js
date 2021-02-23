@@ -47,7 +47,11 @@ const Heading1 = styled.h1`
     font-weight: bold;
     line-height: 1.1;
 
-    background: linear-gradient(to right, rgba(${Colors.primary}, 1), rgba(${Colors.secondary}, 1));
+    background: linear-gradient(
+        to right,
+        rgba(${Colors.primary}, 1),
+        rgba(${(props) => props.theme.secondary}, 1)
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 

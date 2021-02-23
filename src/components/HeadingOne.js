@@ -15,7 +15,11 @@ const Heading = styled.h1`
     display: inline-block;
     font-weight: 700;
 
-    background: linear-gradient(to left, rgba(${Colors.primary}, 1), rgba(${Colors.secondary}, 1));
+    background: linear-gradient(
+        to left,
+        rgba(${Colors.primary}, 1),
+        rgba(${(props) => props.theme.secondary}, 1)
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 
@@ -55,7 +59,7 @@ const BottomLine = styled.div`
     right: 0;
     width: 30%;
     height: 1px;
-    background: rgba(${Colors.secondary}, 1);
+    background: rgba(${(props) => props.theme.secondary}, 1);
 `;
 
 const HeadingOne = ({ title, forwardRef, contact }) => {

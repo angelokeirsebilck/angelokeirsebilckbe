@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { changeColorMode, toggleMenu } from '../../../actions/globalActions';
 import Switch from 'react-switch';
 import { HiSun, HiMoon } from 'react-icons/hi';
-import styled from 'styled-components';
+import styled, { withTheme } from 'styled-components';
 import { Divide as Hamburger } from 'hamburger-react';
 
 import Sizes from '../../constants/breakpoints';
@@ -20,7 +20,7 @@ const RadientDiv = styled.div`
     background-image: linear-gradient(
         to bottom,
         rgba(${Colors.primary}, 1),
-        rgba(${Colors.secondary}, 1)
+        rgba(${(props) => props.theme.secondary}, 1)
     );
     border-radius: 100%;
 `;
@@ -53,7 +53,7 @@ const NavMain = styled.div`
     }
 `;
 
-const Nav = ({ global, changeColorMode, toggleMenu }) => {
+const Nav = ({ global, changeColorMode, toggleMenu, theme }) => {
     const [checked, setChecked] = useState(false);
 
     const handleChange = () => {
@@ -95,7 +95,7 @@ const Nav = ({ global, changeColorMode, toggleMenu }) => {
                 <HamburgerContainer>
                     <Hamburger
                         label='Menu Button'
-                        color={Colors.secondaryHex}
+                        color={theme.secondaryHex}
                         toggled={global.isMenuOpen}
                         toggle={toggleMenu}
                     />
@@ -109,4 +109,4 @@ const mapStateToProps = (state) => ({
     global: state.global,
 });
 
-export default connect(mapStateToProps, { changeColorMode, toggleMenu })(Nav);
+export default withTheme(connect(mapStateToProps, { changeColorMode, toggleMenu })(Nav));

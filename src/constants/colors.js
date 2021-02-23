@@ -4,6 +4,8 @@ const colors = {
     secondary: '93, 255, 204',
     primaryHex: '#185a9d',
     secondaryHex: '#5dffcc',
+    secondaryDark: '67, 206, 162',
+    secondaryDarkHex: '#43cea2',
     darkPageBackground: '#121212',
     lightPageBackground: '#f7f5f2',
 };

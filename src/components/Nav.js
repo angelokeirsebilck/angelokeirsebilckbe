@@ -13,7 +13,7 @@ import Sizes from '../constants/breakpoints';
 import Colors from '../constants/colors';
 
 const Icon = styled.a`
-    color: rgba(${Colors.secondary}, 1);
+    color: rgba(${(props) => props.theme.secondary}, 1);
     transition: 0.4s all;
     cursor: pointer;
     margin-right: 15px;
@@ -42,7 +42,11 @@ const NavContainer = styled.div`
 const LineOne = styled.div`
     width: 0px;
     height: 1px;
-    background: linear-gradient(to right, rgba(${Colors.primary}, 1), rgba(${Colors.secondary}, 1));
+    background: linear-gradient(
+        to right,
+        rgba(${Colors.primary}, 1),
+        rgba(${(props) => props.theme.secondary}, 1)
+    );
     position: absolute;
     top: calc(100vh / 6);
 `;
@@ -50,7 +54,11 @@ const LineOne = styled.div`
 const LineTwo = styled.div`
     width: 0;
     height: 1px;
-    background: linear-gradient(to right, rgba(${Colors.secondary}, 1), rgba(${Colors.primary}, 1));
+    background: linear-gradient(
+        to right,
+        rgba(${(props) => props.theme.secondary}, 1),
+        rgba(${Colors.primary}, 1)
+    );
     position: absolute;
     top: calc(100vh / 2);
     right: -100%;
@@ -59,7 +67,11 @@ const LineTwo = styled.div`
 const LineThree = styled.div`
     width: 0px;
     height: 1px;
-    background: linear-gradient(to right, rgba(${Colors.primary}, 1), rgba(${Colors.secondary}, 1));
+    background: linear-gradient(
+        to right,
+        rgba(${Colors.primary}, 1),
+        rgba(${(props) => props.theme.secondary}, 1)
+    );
     position: absolute;
     top: calc((100vh / 6) * 5);
 `;
@@ -69,7 +81,7 @@ const LineFour = styled.div`
     height: 0;
     background: linear-gradient(
         to bottom,
-        rgba(${Colors.secondary}, 1),
+        rgba(${(props) => props.theme.secondary}, 1),
         rgba(${Colors.primary}, 1)
     );
     position: absolute;
@@ -99,13 +111,13 @@ const NavButtonLineInner = styled.div`
     width: 100%;
     height: 100%;
     opacity: 1;
-    background-color: rgba(${Colors.secondary}, 1);
+    background-color: rgba(${(props) => props.theme.secondary}, 1);
 `;
 
 const NavButton = styled(GatsbyLink)`
     font-family: 'Space Mono', monospace;
     font-size: 26px;
-    color: rgba(${Colors.secondary}, 1);
+    color: rgba(${(props) => props.theme.secondary}, 1);
     text-transform: lowercase;
     position: relative;
     text-decoration: none;
@@ -118,7 +130,7 @@ const NavButton = styled(GatsbyLink)`
         background: linear-gradient(
             to left,
             rgba(${Colors.primary}, 1),
-            rgba(${Colors.secondary}, 1)
+            rgba${(props) => props.theme.secondary}, 1)
         );
         left: 0;
     }

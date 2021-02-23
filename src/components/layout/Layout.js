@@ -34,16 +34,20 @@ const DarkTheme = {
     baxShadowAnimationBackground: '1px 1px 1px 1px rgba(247, 245, 242,.5)',
     dateSvgOpacity: '0.5',
     footerLinksColor: Colors.secondary,
+    secondary: Colors.secondary,
+    secondaryHex: Colors.secondaryHex,
 };
 
 const LightTheme = {
     pageBackground: Colors.lightPageBackground,
     footerTopBackgroundColor: '#D6D6D6',
     textColor: '#1E2030',
-    animationBackground: `linear-gradient(to bottom, rgba(${Colors.secondary}, 1),rgba(${Colors.primary},1))`,
+    animationBackground: `linear-gradient(to bottom, rgba(${Colors.secondaryDark}, 1),rgba(${Colors.primary},1))`,
     baxShadowAnimationBackground: '1px 1px 1px 1px rgba(30,32,48,.5)',
     dateSvgOpacity: '0.5',
     footerLinksColor: Colors.primary,
+    secondary: Colors.secondaryDark,
+    secondaryHex: Colors.secondaryDarkHex,
 };
 
 const themes = {
