@@ -5,6 +5,7 @@ import { gsap } from 'gsap';
 import { Grid, Box } from 'react-raster';
 import Image from 'gatsby-image';
 import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
+import ReactMarkdown from 'react-markdown';
 
 import SectionContainer from './layout/SectionContainer';
 
@@ -116,8 +117,12 @@ const StackItem = styled.div`
     margin-bottom: 10px;
 `;
 
-const ProjectText = styled.div`
+const ProjectText = styled(ReactMarkdown)`
     color: ${(props) => props.theme.textColor};
+
+    p:not(:last-of-type) {
+        margin-bottom: 24px;
+    }
 `;
 
 const ProjectsContainer = styled.section`
@@ -580,9 +585,14 @@ const ProjectsNew = ({ projects, title, allprojects }) => {
                                             <ProjectTitle ref={addFadeInRefs}>
                                                 {project.Title}
                                             </ProjectTitle>
-                                            <ProjectText ref={addTextRefs}>
-                                                {project.Text}
-                                            </ProjectText>
+                                            <ProjectText
+                                                source={project.richText}
+                                                ref={addTextRefs}
+                                            />
+
+                                            {/* <ProjectText >
+                                                {project.richText}
+                                            </ProjectText> */}
                                             <StackContainer ref={addStackContainerRefs}>
                                                 {project.StackList.map((stack) => {
                                                     return (
@@ -647,9 +657,10 @@ const ProjectsNew = ({ projects, title, allprojects }) => {
                                             <ProjectTitle ref={addFadeInRefs}>
                                                 {project.Title}
                                             </ProjectTitle>
-                                            <ProjectText ref={addTextRefs}>
-                                                {project.Text}
-                                            </ProjectText>
+                                            <ProjectText
+                                                source={project.richText}
+                                                ref={addTextRefs}
+                                            />
                                             <StackContainer ref={addStackContainerRefs}>
                                                 {project.StackList.map((stack) => {
                                                     return (

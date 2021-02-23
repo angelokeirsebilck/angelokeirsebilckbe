@@ -36,7 +36,7 @@ export const query = graphql`
     query FeaturedProjects {
         allStrapiProject(filter: { featured: { eq: true } }) {
             projects: nodes {
-                Text
+                richText
                 Title
                 github
                 url
