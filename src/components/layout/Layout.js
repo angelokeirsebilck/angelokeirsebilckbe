@@ -30,7 +30,7 @@ const DarkTheme = {
     pageBackground: Colors.darkPageBackground,
     footerTopBackgroundColor: '#666666',
     textColor: '#FFF',
-    animationBackground: `linear-gradient(to bottom, rgba(${Colors.secondary}, 1),rgba(${Colors.primary},1))`,
+    animationBackground: `linear-gradient(to bottom, rgba(${Colors.secondaryDark}, 1),rgba(${Colors.primary},1))`,
     baxShadowAnimationBackground: '1px 1px 1px 1px rgba(247, 245, 242,.5)',
     dateSvgOpacity: '0.5',
     footerLinksColor: Colors.secondary,
